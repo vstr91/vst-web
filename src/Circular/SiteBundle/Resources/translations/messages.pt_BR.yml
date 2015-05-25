@@ -1,0 +1,59 @@
+site:
+    titulo:
+        base:
+            circular: Vostr&egrave; Circular | Itiner&aacute;rios de &Ocirc;nibus
+    mensagem:
+        index:
+            titulo: Vostr&egrave; Circular. O hor&aacute;rio de seu &ocirc;nibus onde voc&ecirc; estiver.
+            descricao: Gratuito para o passageiro, gratuito para a empresa.
+    comum:
+        botoes:
+            fechar: Fechar
+        formulario:
+            parceiro:
+                razao-social: Raz&atilde;o Social
+                cnpj: CNPJ
+                telefone: Telefone
+                email: Email
+                contato: Contato
+    botoes:
+        index:
+            saiba-mais: Saiba Mais
+            seja-parceiro: Seja Parceiro
+            quero-ajudar: Quero Ajudar
+    modal:
+        saiba-mais:
+            titulo: Saiba Mais
+            descricao:
+                introducao: O Vostr&egrave; Circular surgiu da necessidade de muitos cidad&atilde;os de todas as partes de nosso pa&iacute;s, que utilizam diariamente o transporte p&uacute;blico e, muitas das vezes, precisam ir a algum lugar e n&atilde;o sabem que linha de &ocirc;nibus utilizar ou onde h&aacute; um ponto de &ocirc;nibus nas proximidades.
+                funcionalidades:
+                    introducao: Nosso sistema conta com as seguintes funcionalidades
+                    localizacao: Localiza&ccedil;&atilde;o dos pontos de &ocirc;nibus
+                    itinerario: Itiner&aacute;rios dispon&iacute;veis em cada ponto
+                    proximo-horario: Pr&oacute;ximo hor&aacute;rio de cada itiner&aacute;rio
+                    sem-conexao: Sem necessidade de conex&atilde;o com a Internet para as consultas
+                    realidade-aumentada: Realidade Aumentada - Veja na tela de seu aparelho os pontos dispon&iacute;veis e sua localiza&ccedil;&atilde;o em rela&ccedil;&atilde;o a eles
+                    busca-itinerario: Busca de itiner&aacute;rios
+                experimente: Vostr&egrave; Circular estar&aacute; dispon&iacute;vel na primeira quinzena de junho!
+                baixar: Clique <a href="#">aqui</a> para baixar!
+        seja-parceiro:
+            titulo: Seja Parceiro
+            descricao:
+                primaria: Tenha os itiner&aacute;rios realizados por sua empresa divulgados gratuitamente!
+                secundaria: Cadastre-se hoje mesmo no Vostr&egrave; Circular e chegue ao alcance de milhares de usu&aacute;rios do transporte p&uacute;blico brasileiro!
+                endereco-email: Se preferir, envie um email para <a href="mailto:contato@vostre.com.br">contato@vostre.com.br</a> ou ligue (24) 9 9220 1141.
+        quero-ajudar:
+            titulo: Quero Ajudar
+            descricao:
+                quer-ajudar: Quer ajudar o Vostr&egrave; Circular a se tornar cada vez melhor? Voc&ecirc; pode contribuir de duas formas
+                info-sugestoes:
+                    titulo: Informa&ccedil;&otilde;es e Sugest&otilde;es
+                    descricao: Voc&ecirc; &eacute; propriet&aacute;rio de empresa de transporte coletivo ou tem informa&ccedil;&otilde;es de pontos, itiner&aacute;rios, hor&aacute;rios ou empresas? Quer compartilhar com todos n&oacute;s?<br />Ou tem alguma cr&iacute;tica, corre&ccedil;&atilde;o, sugest&atilde;o ou elogio?
+                    contato-email: Entre em contato atrav&eacute;s do email <a href="mailto:contato@vostre.com.br">contato@vostre.com.br</a> ou ligue / envie uma mensagem para (24) 9 9220 1141.
+                    agradecimento: Desde j&aacute;, agradecemos sua participa&ccedil;&atilde;o!
+                parcerias:
+                    titulo: Parcerias / Divulga&ccedil;&atilde;o
+                    descricao: Ajude-nos a divulgar o Vostr&egrave; Circular. Dessa forma, cada vez mais usu&aacute;rios ter&atilde;o acesso &agrave; informa&ccedil;&atilde;o!
+    rodape:
+        descricao:
+            produto: Um produto

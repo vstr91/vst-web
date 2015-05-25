@@ -1,0 +1,16 @@
+{# empty Twig template #}
+<script type="text/javascript">
+    
+    var paradas = [];
+    
+    {% for parada in paradas %}
+        
+        umaParada = {
+            id: {{ parada.id }},
+            referencia: "{{ parada.referencia }}"
+        };
+        
+    paradas.push(umaParada);
+    {% endfor %}
+    paradas;
+</script>

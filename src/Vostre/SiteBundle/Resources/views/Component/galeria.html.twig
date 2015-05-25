@@ -1,0 +1,49 @@
+{% for projeto in portfolio %}
+    
+    {% if loop.index0 == 0 %}
+    <div class="row text-center">
+        <div class="col-md-4">
+            <img class="v-imagem-servico" src="{{ asset(caminho~(projeto.imagem|default('sem-foto.png'))) }}">
+                <h3>{{ projeto.titulo }}</h3>
+                <p>{{ projeto.descricao|raw }}</p>
+                
+                {% if projeto.site is defined and projeto.site != '' %}
+                <p><strong>Site: </strong><a href="http://{{ projeto.site }}" target="_blank">{{ projeto.site }}</a></p>
+                {% endif %}
+                
+            </div>
+    {% else %}
+    
+        {% if loop.index % 3 == 0 and loop.last == false %}
+            <div class="col-md-4">
+                <img class="v-imagem-servico" src="{{ asset(caminho~(projeto.imagem|default('sem-foto.png'))) }}">
+                <h3>{{ projeto.titulo }}</h3>
+                <p>{{ projeto.descricao|raw }}</p>
+                
+                {% if projeto.site is defined %}
+                <p><strong>Site: </strong><a href="http://{{ projeto.site }}" target="_blank">{{ projeto.site }}</a></p>
+                {% endif %}
+                
+            </div>
+        </div> <!-- fechando div principal -->
+        <div class="row text-center"> <!-- reabrindo div principal (outra linha) -->
+        {% else %}
+            <div class="col-md-4">
+                <img class="v-imagem-servico" src="{{ asset(caminho~(projeto.imagem|default('sem-foto.png'))) }}">
+                <h3>{{ projeto.titulo }}</h3>
+                <p>{{ projeto.descricao|raw }}</p>
+                
+                {% if projeto.site is defined %}
+                <p><strong>Site: </strong><a href="http://{{ projeto.site }}" target="_blank">{{ projeto.site }}</a></p>
+                {% endif %}
+                
+            </div>
+        {% endif %}
+        
+    {% endif %}
+            
+    {% if loop.last %}
+    </div>
+    {% endif %}
+    
+{% endfor %}

@@ -1,0 +1,51 @@
+circular_site_homepage:
+    pattern:  /
+    defaults: { _controller: CircularSiteBundle:Page:cover }
+    
+circular_site_lista_itinerarios_parada:
+    pattern:  /parada/{id_parada}/itinerarios
+    defaults: { _controller: CircularSiteBundle:Parada:itinerarios, id_parada: -1 }
+    
+circular_site_lista_paradas_itinerario:
+    pattern:  /itinerario/{id_itinerario}/paradas
+    defaults: { _controller: CircularSiteBundle:Parada:paradasItinerario, id_itinerario: -1 }
+    
+circular_site_itinerario_todos_horarios:
+    pattern: /itinerario/{id_itinerario}/horarios/{hora}
+    defaults: {_controller: CircularSiteBundle:Itinerario:todosHorarios}
+    
+## ADMINISTRACAO ###
+
+circular_site_admin:
+    pattern: /admin
+    defaults: {_controller: CircularSiteBundle:Page:admin}
+    requirements:
+        _method: GET
+
+circular_site_admin_parada_cadastrar:
+    pattern: /parada/cadastrar/{id_parada}
+    defaults: {_controller: CircularSiteBundle:Parada:cadastrar, id_parada: -1}
+    requirements:
+        _method: POST
+    
+circular_site_admin_parada_form:
+    pattern: /parada/form/{id_parada}
+    defaults: {_controller: CircularSiteBundle:Parada:form, id_parada: -1}
+    
+circular_site_admin_itinerario_cadastra:
+    pattern: /itinerario/cadastra
+    defaults: {_controller: CircularSiteBundle:Itinerario:cadastrar}
+    requirements:
+        _method: POST
+        
+circular_site_admin_itinerario_horario:
+    pattern: /itinerario/horario
+    defaults: {_controller: CircularSiteBundle:Itinerario:horario}
+    
+circular_site_admin_itinerario_horario_cadastrar:
+    pattern: /itinerario/horario/cadastrar
+    defaults: {_controller: CircularSiteBundle:Itinerario:cadastrarHorario}
+    
+circular_api_get_token:
+    pattern: /api/token
+    defaults: {_controller: CircularSiteBundle:CircularRest:getToken}

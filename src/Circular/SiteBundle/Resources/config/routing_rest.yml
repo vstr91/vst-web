@@ -1,0 +1,18 @@
+#pais : 
+#  type: rest
+#  resource:     "CircularSiteBundle:PaisRest"
+#  name_prefix:  api_
+
+parada : 
+  type: rest
+  resource:     "CircularSiteBundle:ParadaRest"
+  name_prefix:  api_
+
+itinerario : 
+  type: rest
+  resource:     "CircularSiteBundle:ItinerarioRest"
+  name_prefix:  api_
+  
+circular_api_get_dados:
+    pattern: /recebe-dados/{hash}/{data}
+    defaults: {_controller: CircularSiteBundle:CircularRest:getDados}

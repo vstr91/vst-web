@@ -1,0 +1,59 @@
+site:
+    titulo:
+        base:
+            circular: Vostr&egrave; Circular | Buses' Schedules
+    mensagem:
+        index:
+            titulo: Vostr&egrave; Circular. Your buses' schedules wherever you are
+            descricao: Free to the users, free to the companies
+    comum:
+        botoes:
+            fechar: Close
+        formulario:
+            parceiro:
+                razao-social: Company Name
+                cnpj: Company ID
+                telefone: Telephone
+                email: Email
+                contato: Contact
+    botoes:
+        index:
+            saiba-mais: More
+            seja-parceiro: Be a Partner
+            quero-ajudar: I Want to Help
+    modal:
+        saiba-mais:
+            titulo: More
+            descricao:
+                introducao: Vostr&eacute; Circular came to help users to find out the bus they need to take to go where they need to go, its schedule and the bus stops around.
+                funcionalidades:
+                    introducao: Our software has the following features
+                    localizacao: Bus stops locations
+                    itinerario: Buses that stop on each bus stop / station
+                    proximo-horario: Schedules' next departure
+                    sem-conexao: No need of Internet to query the data
+                    realidade-aumentada: Augmented Reality - See the bus stops near you in your screen and your distance to them
+                    busca-itinerario: Schedules search
+                experimente: Vostr&egrave; Circular will be available on early June!
+                baixar: Click <a href="#">here</a> to download!
+        seja-parceiro:
+            titulo: Be a Partner
+            descricao:
+                primaria: Your company's schedules published for free!
+                secundaria: Register now and reach thousands of people!
+                endereco-email: If you prefer, send an email to <a href="mailto:contato@vostre.com.br">contato@vostre.com.br</a> or call +55 24 9 9220 1141.
+        quero-ajudar:
+            titulo: I Want to Help
+            descricao:
+                quer-ajudar: Do you want to help Vostr&egrave; Circular to become better and better? You can help in two ways
+                info-sugestoes:
+                    titulo: Informations and Sugestions
+                    descricao: Are you a bus company owner or have informations about bus stops, schedules or companies? Do you want to share them with us?<br />Or do you have any sugestion?
+                    contato-email: Send an email to <a href="mailto:contato@vostre.com.br">contato@vostre.com.br</a> or call / message +55 24 9 9220 1141.
+                    agradecimento: Thanks in advance for your help!
+                parcerias:
+                    titulo: Partnerships / Publicity
+                    descricao: Help us propagate Vostr&egrave; Circular, so more and more people will have access to information!
+    rodape:
+        descricao:
+            produto: Brought to you by

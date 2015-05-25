@@ -1,0 +1,333 @@
+{# empty Twig template #}
+{% extends "VostreCentralBundle::layout.html.twig" %}
+{% block css %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/bootstrap-datetimepicker.min.css') }}" />
+    <style>
+        .v-btn-horario.active{
+            background-color: #FFFFFF !important;
+            color: #c50000 !important;
+        }
+    </style>
+{% endblock %} 
+{% block javascript %}
+    {{ parent() }}
+    <script src="{{ asset('js/moment.js') }}"></script>
+    <script src="{{ asset('js/bootstrap-datetimepicker.min.js') }}"></script>
+    <script>
+        $(document).ready(function () {
+            $('.v-btn-horario').on('click', function (event) {
+
+                console.log($(this).parent().children('.dropdown-menu').children().children().children('input'));
+
+                if (!$(this).children('.v-check-horario').is(':checked')) {
+                    $(this).parent().toggleClass('open');
+                } else {
+                    $input = $(this).parent().children('.dropdown-menu').children()
+                            .children().children('input');
+                    $input.attr('checked', false);
+                    $input.parent().removeClass('active');
+                }
+
+            });
+
+            $('body').on('click', function (e) {
+
+                if (!$('.v-btn-horario').is(e.target)
+                        && $('.dropdown-menu').has(e.target).length === 0
+                        && $('.open').has(e.target).length === 0
+                        ) {
+                    $('.v-btn-horario').parent().removeClass('open');
+                }
+
+            });
+        });
+    </script>
+{% endblock %} 
+{% block body %}
+    {#{{ parent() }}#}
+    {% block menu %} 
+        {{ parent() }}
+    {% endblock %}
+    {% block conteudo %}
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <h4 class="text-center">Gerenciamento de Hor&aacute;rios Itiner&aacute;rios</h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <form name="form-horario-itinerario" id="form-horario-itinerario" method="POST" 
+                          class="form-horizontal" 
+                          action="{{ path('circular_site_admin_horarios_itinerarios_edita') }}">
+                        {{ form_widget(formHorarioItinerario) }}
+                        <div class="form-group">
+
+                            {% set processados = [] %}
+
+                            {% for horario in horarios %}
+                                {% set horarioAtual = -1 %}
+                                <div class="col-md-1">
+                                    <div class="btn-group v-btn-manha" data-toggle="buttons">
+                                        {% if horariosItinerario|length > 0 %}
+                                            {% for horarioItinerario in horariosItinerario %}
+                                        <script>
+                                            console.log("{{ horarioItinerario.horario.id }} | {{ horario.id }} | {{ horario.nome|date('H:i') }}");
+                                        </script>
+                                                {% if (horarioItinerario.horario.id not in processados) or (processados|length == horariosItinerario|length) %}
+                                                    {% if horario.id == horarioItinerario.horario.id %}
+                                                        <label class="btn btn-sm btn-primary dropdown-toggle v-btn-horario active">
+                                                            <input type="checkbox" class="v-check-horario" name="chk-horario[]" checked="checked"
+                                                                   id="chk-horario" value="{{ horario.id }}" />{{ horario.nome|date('H:i') }}
+                                                        </label>
+                                                        <button type="button" class="btn btn-sm btn-primary dropdown-toggle v-btn-horario" 
+                                                                aria-expanded="false">
+                                                            <span class="caret"></span>
+                                                        </button>
+                                                        <ul class="dropdown-menu" role="menu">
+                                                            <li class="text-center">
+                                                                Selecione os Dias
+                                                            </li>
+                                                            <li>
+                                                                <label class="btn btn-xs btn-primary v-label-horario">
+                                                                    <input type="checkbox" value="-1" 
+                                                                           {{ horarioItinerario.domingo == -1 ? "checked" : "" }}
+                                                                           name="chk-dia[{{ horario.id }}][0]" />Domingo
+                                                                </label>
+                                                            </li>
+                                                            <li>
+                                                                <label class="btn btn-xs btn-primary v-label-horario">
+                                                                    <input type="checkbox" value="-1" 
+                                                                           {{ horarioItinerario.segunda == -1 ? "checked" : "" }}
+                                                                           name="chk-dia[{{ horario.id }}][1]" />Segunda
+                                                                </label>
+                                                            </li>
+                                                            <li>
+                                                                <label class="btn btn-xs btn-primary v-label-horario">
+                                                                    <input type="checkbox" value="-1" 
+                                                                           {{ horarioItinerario.terca == -1 ? "checked" : "" }}
+                                                                           name="chk-dia[{{ horario.id }}][2]" />Ter&ccedil;a
+                                                                </label>
+                                                            </li>
+                                                            <li>
+                                                                <label class="btn btn-xs btn-primary v-label-horario">
+                                                                    <input type="checkbox" value="-1" 
+                                                                           {{ horarioItinerario.quarta == -1 ? "checked" : "" }}
+                                                                           name="chk-dia[{{ horario.id }}][3]" />Quarta
+                                                                </label>
+                                                            </li>
+                                                            <li>
+                                                                <label class="btn btn-xs btn-primary v-label-horario">
+                                                                    <input type="checkbox" value="-1" 
+                                                                           {{ horarioItinerario.quinta == -1 ? "checked" : "" }}
+                                                                           name="chk-dia[{{ horario.id }}][4]" />Quinta
+                                                                </label>
+                                                            </li>
+                                                            <li>
+                                                                <label class="btn btn-xs btn-primary v-label-horario">
+                                                                    <input type="checkbox" value="-1" 
+                                                                           {{ horarioItinerario.sexta == -1 ? "checked" : "" }}
+                                                                           name="chk-dia[{{ horario.id }}][5]" />Sexta
+                                                                </label>
+                                                            </li>
+                                                            <li>
+                                                                <label class="btn btn-xs btn-primary v-label-horario">
+                                                                    <input type="checkbox" value="-1" 
+                                                                           {{ horarioItinerario.sabado == -1 ? "checked" : "" }}
+                                                                           name="chk-dia[{{ horario.id }}][6]" />S&aacute;bado
+                                                                </label>
+                                                            </li>
+                                                            {#<li>
+                                                                <label class="btn btn-xs btn-primary v-label-horario">
+                                                                    <input type="checkbox"
+                                                                           name="chk-marcar-todos-dias" class="chk-marcar-todos-dias" />Marcar / Desmarcar Todos
+                                                                </label>
+                                                            </li>#}
+                                                        </ul>
+                                                    </div>
+{#                                                </div>#}
+                                                {% set horarioAtual = horario.id %}
+                                                {% set processados = processados|merge({(horario.id) : horario.id}) %}
+                                            {% elseif horarioAtual != horario.id %}
+                                                <label class="btn btn-sm btn-primary dropdown-toggle v-btn-horario">
+                                                    <input type="checkbox" class="v-check-horario" name="chk-horario[]" 
+                                                           id="chk-horario" value="{{ horario.id }}" />{{ horario.nome|date('H:i') }} {#{{ ultimoProcessado }}#}
+                                                </label>
+                                                <button type="button" class="btn btn-sm btn-primary dropdown-toggle v-btn-horario" 
+                                                        aria-expanded="false">
+                                                    <span class="caret"></span>
+                                                </button>
+                                                <ul class="dropdown-menu" role="menu">
+                                                    <li class="text-center">
+                                                        Selecione os Dias
+                                                    </li>
+                                                    <li>
+                                                        <label class="btn btn-xs btn-primary v-label-horario">
+                                                            <input type="checkbox" value="-1"
+                                                                   name="chk-dia[{{ horario.id }}][0]" />Domingo
+                                                        </label>
+                                                    </li>
+                                                    <li>
+                                                        <label class="btn btn-xs btn-primary v-label-horario">
+                                                            <input type="checkbox" value="-1"
+                                                                   name="chk-dia[{{ horario.id }}][1]" />Segunda
+                                                        </label>
+                                                    </li>
+                                                    <li>
+                                                        <label class="btn btn-xs btn-primary v-label-horario">
+                                                            <input type="checkbox" value="-1"
+                                                                   name="chk-dia[{{ horario.id }}][2]" />Ter&ccedil;a
+                                                        </label>
+                                                    </li>
+                                                    <li>
+                                                        <label class="btn btn-xs btn-primary v-label-horario">
+                                                            <input type="checkbox" value="-1"
+                                                                   name="chk-dia[{{ horario.id }}][3]" />Quarta
+                                                        </label>
+                                                    </li>
+                                                    <li>
+                                                        <label class="btn btn-xs btn-primary v-label-horario">
+                                                            <input type="checkbox" value="-1"
+                                                                   name="chk-dia[{{ horario.id }}][4]" />Quinta
+                                                        </label>
+                                                    </li>
+                                                    <li>
+                                                        <label class="btn btn-xs btn-primary v-label-horario">
+                                                            <input type="checkbox" value="-1"
+                                                                   name="chk-dia[{{ horario.id }}][5]" />Sexta
+                                                        </label>
+                                                    </li>
+                                                    <li>
+                                                        <label class="btn btn-xs btn-primary v-label-horario">
+                                                            <input type="checkbox" value="-1"
+                                                                   name="chk-dia[{{ horario.id }}][6]" />S&aacute;bado
+                                                        </label>
+                                                    </li>
+                                                </ul>
+                                            </div>
+{#                                    </div>#}
+                                    {% set horarioAtual = horario.id %}
+                                {% endif %}
+                            {% endif %}
+
+
+                        {% endfor %}
+                        {% else %}
+                            <label class="btn btn-sm btn-primary dropdown-toggle v-btn-horario">
+                                                            <input type="checkbox" class="v-check-horario" name="chk-horario[]" 
+                                                                   id="chk-horario" value="{{ horario.id }}" />{{ horario.nome|date('H:i') }}
+                                                        </label>
+                                                        <button type="button" class="btn btn-sm btn-primary dropdown-toggle v-btn-horario" 
+                                                                aria-expanded="false">
+                                                            <span class="caret"></span>
+                                                        </button>
+                                                        <ul class="dropdown-menu" role="menu">
+                                                            <li class="text-center">
+                                                                Selecione os Dias
+                                                            </li>
+                                                            <li>
+                                                                <label class="btn btn-xs btn-primary v-label-horario">
+                                                                    <input type="checkbox" value="-1" 
+                                                                           name="chk-dia[{{ horario.id }}][0]" />Domingo
+                                                                </label>
+                                                            </li>
+                                                            <li>
+                                                                <label class="btn btn-xs btn-primary v-label-horario">
+                                                                    <input type="checkbox" value="-1"
+                                                                           name="chk-dia[{{ horario.id }}][1]" />Segunda
+                                                                </label>
+                                                            </li>
+                                                            <li>
+                                                                <label class="btn btn-xs btn-primary v-label-horario">
+                                                                    <input type="checkbox" value="-1"
+                                                                           name="chk-dia[{{ horario.id }}][2]" />Ter&ccedil;a
+                                                                </label>
+                                                            </li>
+                                                            <li>
+                                                                <label class="btn btn-xs btn-primary v-label-horario">
+                                                                    <input type="checkbox" value="-1"
+                                                                           name="chk-dia[{{ horario.id }}][3]" />Quarta
+                                                                </label>
+                                                            </li>
+                                                            <li>
+                                                                <label class="btn btn-xs btn-primary v-label-horario">
+                                                                    <input type="checkbox" value="-1"
+                                                                           name="chk-dia[{{ horario.id }}][4]" />Quinta
+                                                                </label>
+                                                            </li>
+                                                            <li>
+                                                                <label class="btn btn-xs btn-primary v-label-horario">
+                                                                    <input type="checkbox" value="-1"
+                                                                           name="chk-dia[{{ horario.id }}][5]" />Sexta
+                                                                </label>
+                                                            </li>
+                                                            <li>
+                                                                <label class="btn btn-xs btn-primary v-label-horario">
+                                                                    <input type="checkbox" value="-1"
+                                                                           name="chk-dia[{{ horario.id }}][6]" />S&aacute;bado
+                                                                </label>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+{#                                                </div>#}
+                    {% endif %}
+                </div>
+                    {% if loop.index % 12 == 0 %}
+                    </div>
+                    <div class="form-group">
+                    {% endif %}
+                    {%if loop.index == loop.length and loop.index % 12 != 0 %}
+                    </div>
+                {% endif %}
+            {% endfor %}
+            <br />
+            <input type="submit" value="Cadastrar" class="btn btn-primary" />
+        </form>
+                    <a href="{{ path('circular_site_admin_horarios_itinerarios') }}" class="btn btn-primary pull-right">Voltar</a>
+    </div>
+</div>
+</div>
+{#<div class="row">
+    <div class="col-md-12">
+        <table class="table table-hover table-striped table-responsive text-center">
+            <thead>
+                <tr>
+                    <td>ID</td>
+                    <td>Nome</td>
+                    <td>Status</td>
+                    <td>A&ccedil;&otilde;es</td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for horario in horarios %}
+                    <tr>
+                        <td>{{ horario.id }}</td>
+                        <td>{{ horario.nome|date('H:i') }}</td>
+                        <td>
+                            {% if horario.status == 0 %}
+                            Ativo
+                            {% else %}
+                            Inativo
+                            {% endif %}
+                        </td>
+                        <td>
+                            <a href="#">Editar</a> | 
+                            <a href="#">{% if horario.status == 0 %}
+                            Inativar
+                            {% else %}
+                            Ativar
+                            {% endif %}</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>#}
+</div>
+
+{% endblock %}
+{% block rodape %} {{ parent() }} {% endblock %}   
+{% endblock %}

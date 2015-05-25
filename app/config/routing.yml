@@ -1,0 +1,56 @@
+fos_user_security:
+    resource: "@FOSUserBundle/Resources/config/routing/security.xml"
+
+fos_user_profile:
+    resource: "@FOSUserBundle/Resources/config/routing/profile.xml"
+    prefix: central-do-cliente/profile
+
+fos_user_register:
+    resource: "@FOSUserBundle/Resources/config/routing/registration.xml"
+    prefix: central-do-cliente/register
+
+fos_user_resetting:
+    resource: "@FOSUserBundle/Resources/config/routing/resetting.xml"
+    prefix: central-do-cliente/resetting
+
+fos_user_change_password:
+    resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
+    prefix: central-do-cliente/profile
+
+#fos_user_security_login:
+#    pattern: central-do-cliente
+#    defaults: { _controller: FOSUserBundle:Security:login }
+    
+fos_user_security_check:
+    pattern: central-do-cliente/login_check
+    defaults: { _controller: FOSUserBundle:Security:check }
+
+fos_user_security_logout:
+    pattern: central-do-cliente/logout
+    defaults: { _controller: FOSUserBundle:Security:logout }
+
+circular_site:
+    path:     /
+    host:     circular.vostre.dev.br
+    defaults: { _controller: CircularSiteBundle:Page:cover }
+
+vostre_crm:
+    resource: "@VostreCRMBundle/Resources/config/routing.yml"
+    prefix:   /
+
+vostre_local:
+    resource: "@VostreLocalBundle/Resources/config/routing.yml"
+    prefix:   /
+
+vostre_central:
+    resource: "@VostreCentralBundle/Resources/config/routing.yml"
+    prefix:   /
+
+vostre_site:
+    resource: "@VostreSiteBundle/Resources/config/routing.yml"
+    prefix:   /
+
+rest : 
+  type : rest 
+  resource : "routing_rest.yml"
+  prefix : /api

@@ -1,0 +1,7 @@
+parameters:
+#    vostre_crm.example.class: Vostre\CRMBundle\Example
+
+services:
+#    vostre_crm.example:
+#        class: %vostre_crm.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

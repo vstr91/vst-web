@@ -1,0 +1,35 @@
+site:
+    titulo:
+        base: Vostrè | Sistemas, Consultoria e Entretenimento
+    pagina:
+        titulo:
+            servicos: Servi&ccedil;os
+            portfolio: Portfolio
+            contato: Contato
+        descricao:
+            servicos: A <strong>Vostr&egrave;</strong> oferece a voc&ecirc; os seguintes servi&ccedil;os
+            portfolio: Aqui voc&ecirc; confere todos os projetos desenvolvidos e em desenvolvimento!
+            contato: Vamos conversar! Preencha o formul&aacute;rio abaixo, envie um email para <a href="mailto:contato@vostre.com.br" class="v-link-destaque-corpo">contato@vostre.com.br</a> ou ligue para <a href="tel:24992201141" class="v-link-destaque-corpo">(24) 9 9220 1141</a>.
+    rodape:
+        telefone-celular-raw: 24992201141
+        telefone-celular: (24) 9 9220 1141
+        cookies: Este site pode utilizar cookies para proporcionar uma melhor experi&ecirc;ncia a seus visitantes. Ao utiliz&aacute;-lo, voc&ecirc; concorda com o uso.
+    comum:
+        botao:
+            conferir: Conferir!
+            vamos-conversar: Vamos Conversar!
+            breve: Em breve!
+        formulario:
+            contato:
+                nome: Nome
+                email: Email
+                titulo: Título
+                mensagem: Mensagem
+            validacao:
+                nome: Por favor, digite seu nome.
+                email:
+                    vazio: Por favor, digite seu email.
+                    invalido: Por favor, digite um email v&aacute;lido.
+                titulo: Por favor, informe um t&iacute;tulo.
+                mensagem: Por favor, digite sua mensagem.
+            submit: Enviar

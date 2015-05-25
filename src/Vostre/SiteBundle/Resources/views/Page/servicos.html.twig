@@ -1,0 +1,28 @@
+{% extends "VostreSiteBundle::layout.html.twig" %}
+        {#{% block javascript %}
+                {{ parent() }}
+        {% endblock %}    
+        {% block css %}
+                {{ parent() }}
+        {% endblock %}   #}     
+{% block body %}
+        {#{{ parent() }}#}
+        {% block menu %} {{ parent() }} {% endblock %}
+        {% block conteudo %}
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <h3>{% trans %}site.pagina.titulo.servicos{% endtrans %}</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <p>{% trans %}site.pagina.descricao.servicos{% endtrans %}:</p>
+                </div>
+            </div>
+            {% include 'VostreSiteBundle:Component:galeria.html.twig' 
+                with {'portfolio': portfolio, 'caminho': 'uploads/servico/'} %}
+        </div>
+        {% endblock %}
+        {% block rodape %} {{ parent() }} {% endblock %}
+{% endblock %}

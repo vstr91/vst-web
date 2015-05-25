@@ -1,0 +1,332 @@
+{# empty Twig template #}
+{% extends "VostreCentralBundle::layout.html.twig" %}
+{% block javascript %}
+                {{ parent() }}
+<script type="text/javascript" src="{{ asset('js/jquery-ui.min.js') }}"></script>
+<script src="{{ asset('js/moment.js') }}"></script>
+<script src="{{ asset('js/bootstrap-datetimepicker.min.js') }}"></script>
+<script type="text/javascript"
+src="http://maps.google.com/maps/api/js?sensor=false&amp;language=pt_BR"></script>
+<script type="text/javascript" src="{{ asset('js/gmap3.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/jquery.nicescroll.min.js') }}"></script>
+<script>
+
+    var paradas = [];
+    var marcadores = new Array();
+    var $marcadoresOrdenados;
+
+    function findMarcadorIndex(array, attr, value) {
+
+        for (var i = 0; i < array.length; i += 1) {
+            if (array[i][attr] === value) {
+                return i;
+            }
+        }
+    }
+
+    function checaExistenciaMarcador(array, attr, value) {
+
+        index = findMarcadorIndex(array, attr, value);
+
+        if (index > -1) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    {% for parada in paradas %}
+    var umaParada = {
+        lat: '{{ parada.latitude }}',
+        lng: '{{ parada.longitude }}',
+        data: {
+            nome: '{{ parada.referencia }}',
+            id: {{ parada.id }},
+            idBairro: {{ parada.bairro.id }},
+            bairro: '{{ parada.bairro }}'
+        },
+        tag: {{ parada.id }},
+        options: {
+            icon: new google.maps.MarkerImage('{{ asset('imagens/circular/marker.png') }}')
+        }
+    };
+
+    paradas.push(umaParada);
+    {% endfor %}
+
+    $(document).ready(function() {
+
+        $('#caixa-lista-itinerario').niceScroll({
+            cursorcolor: '#D00'
+        });
+
+        $('#btn-form-parada-submit').click(function() {
+            $idPartida = $('#circular_sitebundle_itinerario_partida').val();
+            $idDestino = $('#circular_sitebundle_itinerario_destino').val();
+            $valor = $('#circular_sitebundle_itinerario_valor').val();
+            $distancia = $('#circular_sitebundle_itinerario_distancia').val();
+            $idEmpresa = $('#circular_sitebundle_itinerario_empresa').val();
+            $status = $('#circular_sitebundle_itinerario_status').val();
+
+            $valor = $valor.replace('.', '');
+            $valor = $valor.replace(',', '.');
+
+            $.ajax({
+                type: 'POST',
+                url: '{{ path('circular_site_admin_itinerarios_cadastra') }}',
+                data: {
+                    idPartida: $idPartida,
+                    idDestino: $idDestino,
+                    valor: $valor,
+                    status: $status,
+                    distancia: $distancia,
+                    idEmpresa: $idEmpresa,
+                    paradas: $marcadoresOrdenados
+                }
+            });
+
+        });
+
+        $('#lista-itinerario').sortable();
+
+        $('#botao-cadastra-itinerario').click(function() {
+
+            $marcadoresOrdenados = new Array();
+
+            $('#lista-itinerario li').each(function() {
+
+                $idParadaOrdenada = $(this).children('span.parada-id').text();
+                $idBairroParadaOrdenada = $(this).children('span.parada-bairro-id').text();
+
+                $umaParadaOrdenada = {
+                    id: $idParadaOrdenada,
+                    idBairro: $idBairroParadaOrdenada
+                };
+
+                $marcadoresOrdenados.push($umaParadaOrdenada);
+
+                console.log($(this).children('span.parada-bairro-id').text());
+            });
+
+            $paradaInicial = $marcadoresOrdenados[0].idBairro;
+            $paradaFinal = $marcadoresOrdenados[$marcadoresOrdenados.length - 1].idBairro;
+
+            $('#circular_sitebundle_itinerario_partida').val($paradaInicial);
+            $('#circular_sitebundle_itinerario_destino').val($paradaFinal);
+
+            $('#paradas').val($marcadoresOrdenados);
+
+            $('#modal-form').modal('show');
+        });
+
+        $('#mapa').gmap3({
+            map: {
+                options: {
+                    center: [-22.470904, -43.824914],
+                    zoom: 16,
+                    mapTypeControl: false,
+                    mapTypeId: "circular"
+                }
+            },
+            styledmaptype: {
+                id: "circular",
+                options: {
+                    name: "Circular"
+                },
+                styles: [
+                    {
+                        featureType: "poi",
+                        elementType: "poi",
+                        stylers: [
+                            {hue: "#ff0022"},
+                            {saturation: 60},
+                            {lightness: -20},
+                            {visibility: "off"}
+                        ]
+                    }
+                ]
+            },
+            marker: {
+                values: paradas,
+                events: {
+                    mouseover: function(marker, event, context) {
+                        $(this).gmap3({
+                            clear: {
+                                name: 'overlay'
+                            },
+                            overlay: {
+                                latLng: marker.getPosition(),
+                                options: {
+                                    content: '<div class="v-infowindow"><div class="v-info-conteudo">'
+                                            + context.data.nome + '<br /><br />'
+                                            + context.data.bairro + '</div></div>',
+                                    offset: {
+                                        x: 0,
+                                        y: -105
+                                    }
+                                }
+                            }
+                        });
+                    },
+                    mouseout: function() {
+                        $(".v-infowindow").fadeOut(1000);
+                    },
+                    click: function(marker, event, context) {
+                        if (!checaExistenciaMarcador(marcadores, 'id', context.data.id)) {
+                            $li = $("<li />")
+                                    .append($("<div class='parada-nome' />").text(context.data.nome))
+                                    .append($("<span class='parada-id' />").text(context.data.id))
+                                    .append($("<span class='parada-bairro-id' />").text(context.data.idBairro))
+                                    .append($("<span class='v-icone-exclui' />").append($("<a href='#' />").text('X')));
+                            $('#lista-itinerario').append($li);
+                            $('#lista-itinerario').sortable('refresh');
+
+                            umaParada = {
+                                id: context.data.id,
+                                idBairro: context.data.idBairro
+                            };
+
+                            marcadores.push(umaParada);
+
+                        } else {
+                            alert("Ja existe!!!");
+                        }
+                    }
+                }
+            }
+        });
+
+        $('body').on('click', '.v-icone-exclui', function() {
+            console.log($(this).parent().children('.parada-id').html());
+
+            id = parseInt($(this).parent().children('.parada-id').html());
+
+            index = findMarcadorIndex(marcadores, 'id', id);
+
+            if (index > -1) {
+
+                $(this).parent().fadeOut(1000);
+
+                setTimeout(function() {
+                    $(this).parent().remove();
+                }, 1000);
+
+                marcadores.splice(index, 1);
+                $(this).parent().remove();
+            }
+
+        });
+
+    });
+</script>
+        {% endblock %}
+        {% block css %}
+                {{ parent() }}
+<link rel="stylesheet" href="{{ asset('css/bootstrap-datetimepicker.min.css') }}" />
+<link rel="stylesheet" type="text/css" href="{{ asset('css/circular/jquery-ui.css') }}" />
+        {% endblock %}        
+{% block body %}
+        {#{{ parent() }}#}
+        {% block menu %} 
+            {{ parent() }}
+        {% endblock %}
+        {% block conteudo %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <h4 class="text-center">Gerenciamento de Itiner&aacute;rios<br />
+                <small>Clique nos marcadores para adicionar &agrave; lista de paradas do itiner&aacute;rio</small></h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8">
+            {#<form name="form-parada" id="form-parada" method="POST" 
+                  action="{{ path('circular_site_admin_paradas_cadastra', {'id_parada': -1}) }}">
+                {{ form_widget(formParada) }}
+                <input type="submit" value="Cadastrar" class="btn btn-primary" />
+            </form>#}
+            <div id="mapa" style="width: 100%; height: 400px;">
+                mapa
+            </div>
+
+        </div>
+        <div class="col-md-4">
+            <div id="caixa-itinerario">
+                <div id="caixa-lista-itinerario">
+                    <ul id="lista-itinerario">
+
+                    </ul>
+                </div>
+                <div id="caixa-itinerario-botoes">
+                    <input id="botao-cadastra-itinerario" type="button" value="Cadastrar" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-hover table-striped table-responsive text-center">
+                <thead>
+                    <tr>
+                        <td>ID</td>
+                        <td>Partida</td>
+                        <td>Destino</td>
+                        <td>Status</td>
+                        <td>A&ccedil;&otilde;es</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for itinerario in itinerarios %}
+                    <tr>
+                        <td>{{ itinerario.id }}</td>
+                        <td>{{ itinerario.partida.nome }} ({{ itinerario.partida.local.nome }})</td>
+                        <td>{{ itinerario.destino.nome }} ({{ itinerario.destino.local.nome }})</td>
+                        <td>
+                                {% if itinerario.status == 0 %}
+                            Ativo
+                                {% else %}
+                            Inativo
+                                {% endif %}
+                        </td>
+                        <td>
+                            <a href="#">Editar</a> | 
+                            <a href="#">{% if itinerario.status == 0 %}
+                                Inativar
+                                {% else %}
+                                Ativar
+                                {% endif %}</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-form">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Cadastrar Itiner&aacute;rio</h4>
+            </div>
+            <div class="modal-body">
+                <form name="form-parada" id="form-parada" method="POST" 
+                      action="{{ path('circular_site_admin_itinerarios_cadastra', {'id_itinerario': -1}) }}">
+            {{ form_widget(formItinerario) }}
+                    <input type="hidden" name="paradas" />
+{#            <input type="submit" value="Cadastrar" class="btn btn-primary" />#}
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                <button type="button" class="btn btn-primary" id="btn-form-parada-submit">Cadastrar</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+        {% endblock %}
+        {% block rodape %} {{ parent() }} {% endblock %}    
+{% endblock %}

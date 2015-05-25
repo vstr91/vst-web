@@ -1,0 +1,9 @@
+{# empty Twig template #}
+<form id="form-horarios" 
+      action="{{ path('circular_site_admin_itinerario_horario_cadastrar') }}" 
+      method="POST" {{ form_enctype(form) }}>
+    {{ form_widget(form) }}
+    <p>
+        <input type="submit" value="Cadastrar" />
+    </p>
+</form>

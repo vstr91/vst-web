@@ -1,0 +1,23 @@
+vostre_site_homepage:
+    pattern:  /
+    defaults: { _controller: VostreSiteBundle:Page:index }
+
+vostre_site_servicos:
+    pattern:  /servicos
+    defaults: { _controller: VostreSiteBundle:Page:servicos }
+    
+vostre_site_portfolio:
+    pattern:  /portfolio
+    defaults: { _controller: VostreSiteBundle:Page:portfolio }
+    
+vostre_site_contato:
+    pattern:  /contato
+    defaults: { _controller: VostreSiteBundle:Page:contato }
+
+vostre_site_central_cliente:
+    pattern:  /central-do-cliente
+    defaults: { _controller: VostreSiteBundle:Page:central }
+    
+circular_site:
+    pattern:  /circular
+    defaults: { _controller: CircularSiteBundle:Page:cover }

@@ -1,0 +1,8 @@
+{# empty Twig template #}
+<p>Mensagem enviada pelo usu&aacute;rio <strong>{{ contato.nome }}</strong> &agrave;s 
+    <strong>{{ "now" | date("d/m/Y H:i") }}</strong>.</p>
+
+<p><strong>Email para resposta:</strong> {{ contato.email }}</p>
+<p><strong>Assunto:</strong> {{ contato.titulo }}</p>
+<p><strong>Mensagem:</strong></p>
+<p>{{ contato.mensagem }}</p>

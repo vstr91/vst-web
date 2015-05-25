@@ -1,0 +1,80 @@
+{# empty Twig template #}
+{% extends "VostreCentralBundle::layout.html.twig" %}
+        {% block css %}
+                {{ parent() }}
+<link rel="stylesheet" href="{{ asset('css/bootstrap-datetimepicker.min.css') }}" />
+        {% endblock %}        
+{% block body %}
+        {#{{ parent() }}#}
+        {% block menu %} 
+            {{ parent() }}
+        {% endblock %}
+        {% block conteudo %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <h4 class="text-center">Gerenciamento de Hor&aacute;rios</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <form name="form-horario" id="form-horario" method="POST" 
+                  action="{{ path('circular_site_admin_horarios_cadastra', {'id_horario': -1}) }}">
+                {{ form_widget(formHorario) }}
+                <input type="submit" value="Cadastrar" class="btn btn-primary" />
+            </form>
+            
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-hover table-striped table-responsive text-center">
+                <thead>
+                    <tr>
+                        <td>ID</td>
+                        <td>Nome</td>
+                        <td>Status</td>
+                        <td>A&ccedil;&otilde;es</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for horario in horarios %}
+                        <tr>
+                            <td>{{ horario.id }}</td>
+                            <td>{{ horario.nome|date('H:i') }}</td>
+                            <td>
+                                {% if horario.status == 0 %}
+                                Ativo
+                                {% else %}
+                                Inativo
+                                {% endif %}
+                            </td>
+                            <td>
+                                <a href="#">Editar</a> | 
+                                <a href="#">{% if horario.status == 0 %}
+                                Inativar
+                                {% else %}
+                                Ativar
+                                {% endif %}</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+            
+        {% endblock %}
+        {% block rodape %} {{ parent() }} {% endblock %}
+        {% block javascript %}
+                {{ parent() }}
+                <script src="{{ asset('js/moment.js') }}"></script>
+                <script src="{{ asset('js/bootstrap-datetimepicker.min.js') }}"></script>
+                <script>
+                    $(document).ready(function(){
+                        
+                    });
+                </script>
+        {% endblock %}    
+{% endblock %}

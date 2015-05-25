@@ -1,0 +1,63 @@
+<div id="component-carousel" class="carousel slide" data-ride="carousel" data-interval="5000">
+      
+      <div class="carousel-inner">
+        {% for destaqueCarousel in destaquesCarousel %}
+          
+        {% if loop.index0 == 0 %}
+          <div class="item active">
+            <img class="img-responsive" src="{{ asset('uploads/destaque/'~destaqueCarousel.imagem) }}" 
+                 alt="{{ destaqueCarousel.titulo }}" />
+            <div class="container">
+              <div class="carousel-caption">
+                  <h1>{{ destaqueCarousel.titulo }}</h1>
+                  <p>{{ destaqueCarousel.descricao }}</p>
+                  {% if destaqueCarousel.site != '' %}
+                  <p><a class="btn btn-lg btn-primary" href="http://{{ destaqueCarousel.site }}" target="_blank" 
+                        role="button">{% trans %}site.comum.botao.conferir{% endtrans %}</a></p>
+                  {% else %}
+                        <p><button class="btn btn-lg btn-primary disabled"
+                                   role="button">{% trans %}site.comum.botao.breve{% endtrans %}</button></p>
+                  {% endif %}
+                  {#<p><a class="btn btn-lg btn-primary" href="http://{{ destaqueCarousel.site }}" target="_blank" 
+                        role="button">{% trans %}site.comum.botao.conferir{% endtrans %}</a></p>#}
+              </div>
+            </div>
+          </div>
+        {% else %}
+          <div class="item">
+            <img class="img-responsive" src="{{ asset('uploads/destaque/'~destaqueCarousel.imagem) }}" 
+                 alt="{{ destaqueCarousel.titulo }}" />
+            <div class="container">
+              <div class="carousel-caption">
+                  <h1>{{ destaqueCarousel.titulo }}</h1>
+                  <p>{{ destaqueCarousel.descricao }}</p>
+                <p><a class="btn btn-lg btn-primary" href="http://{{ destaqueCarousel.site }}" target="_blank" role="button">{% trans %}site.comum.botao.conferir{% endtrans %}</a></p>
+              </div>
+            </div>
+          </div>
+        {% endif %}
+          
+        
+        {% endfor %}
+        
+      </div>
+        <!-- Indicators -->
+        
+        {% if destaquesCarousel|length > 1 %}
+            <ol class="carousel-indicators">
+            {% for destaqueCarousel in destaquesCarousel %}
+
+            {% if loop.index0 == 0 %}
+              <li data-target="#component-carousel" data-slide-to="{{ loop.index0 }}" class="active"></li>
+            {% else %}
+              <li data-target="#component-carousel" data-slide-to="{{ loop.index0 }}"></li>
+            {% endif %}
+
+            {% endfor %}
+
+          </ol>
+          <a class="left carousel-control" href="#component-carousel" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
+          <a class="right carousel-control" href="#component-carousel" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
+        {% endif %}
+        
+    </div><!-- /.carousel -->

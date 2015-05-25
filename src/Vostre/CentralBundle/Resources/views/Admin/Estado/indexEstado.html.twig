@@ -1,0 +1,84 @@
+{# empty Twig template #}
+{% extends "VostreCentralBundle::layout.html.twig" %}
+        {% block css %}
+                {{ parent() }}
+<link rel="stylesheet" href="{{ asset('css/bootstrap-datetimepicker.min.css') }}" />
+        {% endblock %}        
+{% block body %}
+        {#{{ parent() }}#}
+        {% block menu %} 
+            {{ parent() }}
+        {% endblock %}
+        {% block conteudo %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <h4 class="text-center">Gerenciamento de Estados</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <form name="form-estado" id="form-estado" method="POST" 
+                  action="{{ path('vostre_site_admin_estados_cadastra', {'id_estado': -1}) }}">
+                {{ form_widget(formEstado) }}
+                <input type="submit" value="Cadastrar" class="btn btn-primary" />
+            </form>
+            
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-hover table-striped table-responsive text-center">
+                <thead>
+                    <tr>
+                        <td>ID</td>
+                        <td>Nome</td>
+                        <td>Sigla</td>
+                        <td>Pa&iacute;s</td>
+                        <td>Status</td>
+                        <td>A&ccedil;&otilde;es</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for estado in estados %}
+                        <tr>
+                            <td>{{ estado.id }}</td>
+                            <td>{{ estado.nome }}</td>
+                            <td>{{ estado.sigla }}</td>
+                            <td>{{ estado.pais.nome }}</td>
+                            <td>
+                                {% if estado.status == 0 %}
+                                Ativo
+                                {% else %}
+                                Inativo
+                                {% endif %}
+                            </td>
+                            <td>
+                                <a href="#">Editar</a> | 
+                                <a href="#">{% if estado.status == 0 %}
+                                Inativar
+                                {% else %}
+                                Ativar
+                                {% endif %}</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+            
+        {% endblock %}
+        {% block rodape %} {{ parent() }} {% endblock %}
+        {% block javascript %}
+                {{ parent() }}
+                <script src="{{ asset('js/moment.js') }}"></script>
+                <script src="{{ asset('js/bootstrap-datetimepicker.min.js') }}"></script>
+                <script>
+                    $(document).ready(function(){
+                        
+                    });
+                </script>
+        {% endblock %}    
+{% endblock %}
