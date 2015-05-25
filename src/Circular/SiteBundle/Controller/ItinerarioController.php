@@ -43,6 +43,9 @@ class ItinerarioController extends FOSRestController {
         $idDestino = $dados['idDestino'];
         $idEmpresa = $dados['idEmpresa'];
         $status = $dados['status'];
+        $observacao = $dados['observacao'];
+        
+        //$observacao = is_null($observacao) ? '' : $observacao;
         
         $paradas = $dados['paradas'];
         
@@ -66,6 +69,7 @@ class ItinerarioController extends FOSRestController {
         $itinerario->setValor($valor);
         $itinerario->setDistancia($distancia);
         $itinerario->setEmpresa($empresa);
+        $itinerario->setObservacao($observacao);
         
         $em->persist($itinerario);
         

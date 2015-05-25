@@ -1,6 +1,6 @@
 <?php
 
-/* CircularSiteBundle:Admin/Itinerario:indexItinerario.html.twig */
+/* CircularSiteBundle:Admin:Itinerario/indexItinerario.html.twig */
 class __TwigTemplate_0957390c902aa549d85a8762e5423a2b09382d96ce6a8c5d037d0bb8ba74aa0e extends Twig_Template
 {
     public function __construct(Twig_Environment $env)
@@ -158,6 +158,7 @@ src=\"http://maps.google.com/maps/api/js?sensor=false&amp;language=pt_BR\"></scr
             \$distancia = \$('#circular_sitebundle_itinerario_distancia').val();
             \$idEmpresa = \$('#circular_sitebundle_itinerario_empresa').val();
             \$status = \$('#circular_sitebundle_itinerario_status').val();
+            \$observacao = \$('#circular_sitebundle_itinerario_observacao').val();
 
             \$valor = \$valor.replace('.', '');
             \$valor = \$valor.replace(',', '.');
@@ -165,7 +166,7 @@ src=\"http://maps.google.com/maps/api/js?sensor=false&amp;language=pt_BR\"></scr
             \$.ajax({
                 type: 'POST',
                 url: '";
-        // line 76
+        // line 77
         echo $this->env->getExtension('routing')->getPath("circular_site_admin_itinerarios_cadastra");
         echo "',
                 data: {
@@ -175,6 +176,7 @@ src=\"http://maps.google.com/maps/api/js?sensor=false&amp;language=pt_BR\"></scr
                     status: \$status,
                     distancia: \$distancia,
                     idEmpresa: \$idEmpresa,
+                    observacao: \$observacao,
                     paradas: \$marcadoresOrdenados
                 }
             });
@@ -316,57 +318,57 @@ src=\"http://maps.google.com/maps/api/js?sensor=false&amp;language=pt_BR\"></scr
         ";
     }
 
-    // line 223
+    // line 225
     public function block_css($context, array $blocks = array())
     {
-        // line 224
+        // line 226
         echo "                ";
         $this->displayParentBlock("css", $context, $blocks);
         echo "
 <link rel=\"stylesheet\" href=\"";
-        // line 225
+        // line 227
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("css/bootstrap-datetimepicker.min.css"), "html", null, true);
         echo "\" />
 <link rel=\"stylesheet\" type=\"text/css\" href=\"";
-        // line 226
+        // line 228
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("css/circular/jquery-ui.css"), "html", null, true);
         echo "\" />
         ";
     }
 
-    // line 228
+    // line 230
     public function block_body($context, array $blocks = array())
     {
-        // line 229
+        // line 231
         echo "        ";
-        // line 230
+        // line 232
         echo "        ";
         $this->displayBlock('menu', $context, $blocks);
-        // line 233
+        // line 235
         echo "        ";
         $this->displayBlock('conteudo', $context, $blocks);
-        // line 331
+        // line 333
         echo "        ";
         $this->displayBlock('rodape', $context, $blocks);
         echo "    
 ";
     }
 
-    // line 230
+    // line 232
     public function block_menu($context, array $blocks = array())
     {
         echo " 
             ";
-        // line 231
+        // line 233
         $this->displayParentBlock("menu", $context, $blocks);
         echo "
         ";
     }
 
-    // line 233
+    // line 235
     public function block_conteudo($context, array $blocks = array())
     {
-        // line 234
+        // line 236
         echo "<div class=\"container-fluid\">
     <div class=\"row\">
         <div class=\"col-md-12\">
@@ -377,7 +379,7 @@ src=\"http://maps.google.com/maps/api/js?sensor=false&amp;language=pt_BR\"></scr
     <div class=\"row\">
         <div class=\"col-md-8\">
             ";
-        // line 248
+        // line 250
         echo "            <div id=\"mapa\" style=\"width: 100%; height: 400px;\">
                 mapa
             </div>
@@ -410,56 +412,56 @@ src=\"http://maps.google.com/maps/api/js?sensor=false&amp;language=pt_BR\"></scr
                 </thead>
                 <tbody>
                     ";
-        // line 279
+        // line 281
         $context['_parent'] = (array) $context;
         $context['_seq'] = twig_ensure_traversable((isset($context["itinerarios"]) ? $context["itinerarios"] : $this->getContext($context, "itinerarios")));
         foreach ($context['_seq'] as $context["_key"] => $context["itinerario"]) {
-            // line 280
+            // line 282
             echo "                    <tr>
                         <td>";
-            // line 281
+            // line 283
             echo twig_escape_filter($this->env, $this->getAttribute($context["itinerario"], "id", array()), "html", null, true);
             echo "</td>
                         <td>";
-            // line 282
+            // line 284
             echo twig_escape_filter($this->env, $this->getAttribute($this->getAttribute($context["itinerario"], "partida", array()), "nome", array()), "html", null, true);
             echo " (";
             echo twig_escape_filter($this->env, $this->getAttribute($this->getAttribute($this->getAttribute($context["itinerario"], "partida", array()), "local", array()), "nome", array()), "html", null, true);
             echo ")</td>
                         <td>";
-            // line 283
+            // line 285
             echo twig_escape_filter($this->env, $this->getAttribute($this->getAttribute($context["itinerario"], "destino", array()), "nome", array()), "html", null, true);
             echo " (";
             echo twig_escape_filter($this->env, $this->getAttribute($this->getAttribute($this->getAttribute($context["itinerario"], "destino", array()), "local", array()), "nome", array()), "html", null, true);
             echo ")</td>
                         <td>
                                 ";
-            // line 285
+            // line 287
             if (($this->getAttribute($context["itinerario"], "status", array()) == 0)) {
-                // line 286
+                // line 288
                 echo "                            Ativo
                                 ";
             } else {
-                // line 288
+                // line 290
                 echo "                            Inativo
                                 ";
             }
-            // line 290
+            // line 292
             echo "                        </td>
                         <td>
                             <a href=\"#\">Editar</a> | 
                             <a href=\"#\">";
-            // line 293
+            // line 295
             if (($this->getAttribute($context["itinerario"], "status", array()) == 0)) {
-                // line 294
+                // line 296
                 echo "                                Inativar
                                 ";
             } else {
-                // line 296
+                // line 298
                 echo "                                Ativar
                                 ";
             }
-            // line 297
+            // line 299
             echo "</a>
                         </td>
                     </tr>
@@ -468,7 +470,7 @@ src=\"http://maps.google.com/maps/api/js?sensor=false&amp;language=pt_BR\"></scr
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['_key'], $context['itinerario'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 301
+        // line 303
         echo "                </tbody>
             </table>
         </div>
@@ -485,16 +487,16 @@ src=\"http://maps.google.com/maps/api/js?sensor=false&amp;language=pt_BR\"></scr
             <div class=\"modal-body\">
                 <form name=\"form-parada\" id=\"form-parada\" method=\"POST\" 
                       action=\"";
-        // line 316
+        // line 318
         echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("circular_site_admin_itinerarios_cadastra", array("id_itinerario" =>  -1)), "html", null, true);
         echo "\">
             ";
-        // line 317
+        // line 319
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock((isset($context["formItinerario"]) ? $context["formItinerario"] : $this->getContext($context, "formItinerario")), 'widget');
         echo "
                     <input type=\"hidden\" name=\"paradas\" />
 ";
-        // line 320
+        // line 322
         echo "                </form>
             </div>
             <div class=\"modal-footer\">
@@ -508,7 +510,7 @@ src=\"http://maps.google.com/maps/api/js?sensor=false&amp;language=pt_BR\"></scr
         ";
     }
 
-    // line 331
+    // line 333
     public function block_rodape($context, array $blocks = array())
     {
         echo " ";
@@ -518,7 +520,7 @@ src=\"http://maps.google.com/maps/api/js?sensor=false&amp;language=pt_BR\"></scr
 
     public function getTemplateName()
     {
-        return "CircularSiteBundle:Admin/Itinerario:indexItinerario.html.twig";
+        return "CircularSiteBundle:Admin:Itinerario/indexItinerario.html.twig";
     }
 
     public function isTraitable()
@@ -528,6 +530,6 @@ src=\"http://maps.google.com/maps/api/js?sensor=false&amp;language=pt_BR\"></scr
 
     public function getDebugInfo()
     {
-        return array (  512 => 331,  498 => 320,  493 => 317,  489 => 316,  472 => 301,  463 => 297,  459 => 296,  455 => 294,  453 => 293,  448 => 290,  444 => 288,  440 => 286,  438 => 285,  431 => 283,  425 => 282,  421 => 281,  418 => 280,  414 => 279,  381 => 248,  370 => 234,  367 => 233,  361 => 231,  356 => 230,  349 => 331,  346 => 233,  343 => 230,  341 => 229,  338 => 228,  332 => 226,  328 => 225,  323 => 224,  320 => 223,  169 => 76,  147 => 56,  135 => 50,  130 => 48,  125 => 46,  121 => 45,  117 => 44,  113 => 43,  108 => 41,  104 => 40,  101 => 39,  97 => 38,  67 => 11,  63 => 10,  57 => 7,  53 => 6,  49 => 5,  44 => 4,  41 => 3,  11 => 2,);
+        return array (  514 => 333,  500 => 322,  495 => 319,  491 => 318,  474 => 303,  465 => 299,  461 => 298,  457 => 296,  455 => 295,  450 => 292,  446 => 290,  442 => 288,  440 => 287,  433 => 285,  427 => 284,  423 => 283,  420 => 282,  416 => 281,  383 => 250,  372 => 236,  369 => 235,  363 => 233,  358 => 232,  351 => 333,  348 => 235,  345 => 232,  343 => 231,  340 => 230,  334 => 228,  330 => 227,  325 => 226,  322 => 225,  170 => 77,  147 => 56,  135 => 50,  130 => 48,  125 => 46,  121 => 45,  117 => 44,  113 => 43,  108 => 41,  104 => 40,  101 => 39,  97 => 38,  67 => 11,  63 => 10,  57 => 7,  53 => 6,  49 => 5,  44 => 4,  41 => 3,  11 => 2,);
     }
 }

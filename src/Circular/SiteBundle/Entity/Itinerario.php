@@ -310,4 +310,27 @@ class Itinerario {
     {
         return $this->empresa;
     }
+
+    /**
+     * Set observacao
+     *
+     * @param string $observacao
+     * @return Itinerario
+     */
+    public function setObservacao($observacao)
+    {
+        $this->observacao = $observacao;
+
+        return $this;
+    }
+
+    /**
+     * Get observacao
+     *
+     * @return string 
+     */
+    public function getObservacao()
+    {
+        return $this->observacao;
+    }
 }
