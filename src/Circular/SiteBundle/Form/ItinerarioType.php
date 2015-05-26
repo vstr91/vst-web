@@ -16,7 +16,7 @@ class ItinerarioType extends AbstractType
     {
         $builder
             ->add('valor')
-            ->add('distancia')
+            //->add('distancia')
             ->add('status', 'choice', array(
                     'choices' => array('0' => 'Ativo', '2' => 'Inativo')
                 ))

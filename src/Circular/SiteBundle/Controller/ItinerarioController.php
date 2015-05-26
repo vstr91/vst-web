@@ -38,7 +38,7 @@ class ItinerarioController extends FOSRestController {
         $dados = $this->getRequest()->request->all();
         
         $valor = $dados['valor'];
-        $distancia = $dados['distancia'];
+        //$distancia = $dados['distancia'];
         $idPartida = $dados['idPartida'];
         $idDestino = $dados['idDestino'];
         $idEmpresa = $dados['idEmpresa'];
@@ -49,8 +49,12 @@ class ItinerarioController extends FOSRestController {
         
         $paradas = $dados['paradas'];
         
+        //die(var_dump($paradas));
+        
+        /*
         $distancia = str_replace(".", "", $distancia);
         $distancia = str_replace(",", ".", $distancia);
+         */
         
         $qtdParadas = count($paradas);
         
@@ -67,7 +71,7 @@ class ItinerarioController extends FOSRestController {
         $itinerario->setDestino($bairroDestino);
         $itinerario->setStatus($status);
         $itinerario->setValor($valor);
-        $itinerario->setDistancia($distancia);
+        //$itinerario->setDistancia($distancia);
         $itinerario->setEmpresa($empresa);
         $itinerario->setObservacao($observacao);
         
@@ -90,6 +94,7 @@ class ItinerarioController extends FOSRestController {
             $umaParada->setOrdem($i+1);
             $umaParada->setParada($parada);
             $umaParada->setItinerario($itinerario);
+            $umaParada->setDestaque($paradas[$i]['isPrincipal']);
             
             $em->persist($umaParada);
         }

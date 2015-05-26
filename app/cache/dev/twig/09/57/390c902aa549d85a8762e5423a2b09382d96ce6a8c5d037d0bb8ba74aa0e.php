@@ -193,15 +193,17 @@ src=\"http://maps.google.com/maps/api/js?sensor=false&amp;language=pt_BR\"></scr
 
                 \$idParadaOrdenada = \$(this).children('span.parada-id').text();
                 \$idBairroParadaOrdenada = \$(this).children('span.parada-bairro-id').text();
+                \$isPrincipalOrdenada = \$(this).children('input').is(':checked') ? -1 : 0;
 
                 \$umaParadaOrdenada = {
                     id: \$idParadaOrdenada,
-                    idBairro: \$idBairroParadaOrdenada
+                    idBairro: \$idBairroParadaOrdenada,
+                    isPrincipal: \$isPrincipalOrdenada
                 };
 
                 \$marcadoresOrdenados.push(\$umaParadaOrdenada);
 
-                console.log(\$(this).children('span.parada-bairro-id').text());
+                console.log(\$isPrincipalOrdenada);
             });
 
             \$paradaInicial = \$marcadoresOrdenados[0].idBairro;
@@ -271,9 +273,12 @@ src=\"http://maps.google.com/maps/api/js?sensor=false&amp;language=pt_BR\"></scr
                         if (!checaExistenciaMarcador(marcadores, 'id', context.data.id)) {
                             \$li = \$(\"<li />\")
                                     .append(\$(\"<div class='parada-nome' />\").text(context.data.nome))
-                                    .append(\$(\"<span class='parada-id' />\").text(context.data.id))
-                                    .append(\$(\"<span class='parada-bairro-id' />\").text(context.data.idBairro))
-                                    .append(\$(\"<span class='v-icone-exclui' />\").append(\$(\"<a href='#' />\").text('X')));
+                                    .append(\$(\"<span class='parada-id hide' />\").text(context.data.id))
+                                    .append(\$(\"<span class='parada-bairro-id hide' />\").text(context.data.idBairro))
+                                    .append(\"Principal? \")
+                                    .append(\$(\"<input type='checkbox' name='parada-principal' value='-1' />\"))
+                                    .append(\$(\"<span class='v-icone-exclui' />\").append(\$(\"<a href='#' />\").text('X')))
+                                    ;
                             \$('#lista-itinerario').append(\$li);
                             \$('#lista-itinerario').sortable('refresh');
 
@@ -318,57 +323,57 @@ src=\"http://maps.google.com/maps/api/js?sensor=false&amp;language=pt_BR\"></scr
         ";
     }
 
-    // line 225
+    // line 230
     public function block_css($context, array $blocks = array())
     {
-        // line 226
+        // line 231
         echo "                ";
         $this->displayParentBlock("css", $context, $blocks);
         echo "
 <link rel=\"stylesheet\" href=\"";
-        // line 227
+        // line 232
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("css/bootstrap-datetimepicker.min.css"), "html", null, true);
         echo "\" />
 <link rel=\"stylesheet\" type=\"text/css\" href=\"";
-        // line 228
+        // line 233
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("css/circular/jquery-ui.css"), "html", null, true);
         echo "\" />
         ";
     }
 
-    // line 230
+    // line 235
     public function block_body($context, array $blocks = array())
     {
-        // line 231
+        // line 236
         echo "        ";
-        // line 232
+        // line 237
         echo "        ";
         $this->displayBlock('menu', $context, $blocks);
-        // line 235
+        // line 240
         echo "        ";
         $this->displayBlock('conteudo', $context, $blocks);
-        // line 333
+        // line 338
         echo "        ";
         $this->displayBlock('rodape', $context, $blocks);
         echo "    
 ";
     }
 
-    // line 232
+    // line 237
     public function block_menu($context, array $blocks = array())
     {
         echo " 
             ";
-        // line 233
+        // line 238
         $this->displayParentBlock("menu", $context, $blocks);
         echo "
         ";
     }
 
-    // line 235
+    // line 240
     public function block_conteudo($context, array $blocks = array())
     {
-        // line 236
+        // line 241
         echo "<div class=\"container-fluid\">
     <div class=\"row\">
         <div class=\"col-md-12\">
@@ -379,7 +384,7 @@ src=\"http://maps.google.com/maps/api/js?sensor=false&amp;language=pt_BR\"></scr
     <div class=\"row\">
         <div class=\"col-md-8\">
             ";
-        // line 250
+        // line 255
         echo "            <div id=\"mapa\" style=\"width: 100%; height: 400px;\">
                 mapa
             </div>
@@ -412,56 +417,56 @@ src=\"http://maps.google.com/maps/api/js?sensor=false&amp;language=pt_BR\"></scr
                 </thead>
                 <tbody>
                     ";
-        // line 281
+        // line 286
         $context['_parent'] = (array) $context;
         $context['_seq'] = twig_ensure_traversable((isset($context["itinerarios"]) ? $context["itinerarios"] : $this->getContext($context, "itinerarios")));
         foreach ($context['_seq'] as $context["_key"] => $context["itinerario"]) {
-            // line 282
+            // line 287
             echo "                    <tr>
                         <td>";
-            // line 283
+            // line 288
             echo twig_escape_filter($this->env, $this->getAttribute($context["itinerario"], "id", array()), "html", null, true);
             echo "</td>
                         <td>";
-            // line 284
+            // line 289
             echo twig_escape_filter($this->env, $this->getAttribute($this->getAttribute($context["itinerario"], "partida", array()), "nome", array()), "html", null, true);
             echo " (";
             echo twig_escape_filter($this->env, $this->getAttribute($this->getAttribute($this->getAttribute($context["itinerario"], "partida", array()), "local", array()), "nome", array()), "html", null, true);
             echo ")</td>
                         <td>";
-            // line 285
+            // line 290
             echo twig_escape_filter($this->env, $this->getAttribute($this->getAttribute($context["itinerario"], "destino", array()), "nome", array()), "html", null, true);
             echo " (";
             echo twig_escape_filter($this->env, $this->getAttribute($this->getAttribute($this->getAttribute($context["itinerario"], "destino", array()), "local", array()), "nome", array()), "html", null, true);
             echo ")</td>
                         <td>
                                 ";
-            // line 287
+            // line 292
             if (($this->getAttribute($context["itinerario"], "status", array()) == 0)) {
-                // line 288
+                // line 293
                 echo "                            Ativo
                                 ";
             } else {
-                // line 290
+                // line 295
                 echo "                            Inativo
                                 ";
             }
-            // line 292
+            // line 297
             echo "                        </td>
                         <td>
                             <a href=\"#\">Editar</a> | 
                             <a href=\"#\">";
-            // line 295
+            // line 300
             if (($this->getAttribute($context["itinerario"], "status", array()) == 0)) {
-                // line 296
+                // line 301
                 echo "                                Inativar
                                 ";
             } else {
-                // line 298
+                // line 303
                 echo "                                Ativar
                                 ";
             }
-            // line 299
+            // line 304
             echo "</a>
                         </td>
                     </tr>
@@ -470,7 +475,7 @@ src=\"http://maps.google.com/maps/api/js?sensor=false&amp;language=pt_BR\"></scr
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['_key'], $context['itinerario'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 303
+        // line 308
         echo "                </tbody>
             </table>
         </div>
@@ -487,16 +492,16 @@ src=\"http://maps.google.com/maps/api/js?sensor=false&amp;language=pt_BR\"></scr
             <div class=\"modal-body\">
                 <form name=\"form-parada\" id=\"form-parada\" method=\"POST\" 
                       action=\"";
-        // line 318
+        // line 323
         echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("circular_site_admin_itinerarios_cadastra", array("id_itinerario" =>  -1)), "html", null, true);
         echo "\">
             ";
-        // line 319
+        // line 324
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock((isset($context["formItinerario"]) ? $context["formItinerario"] : $this->getContext($context, "formItinerario")), 'widget');
         echo "
                     <input type=\"hidden\" name=\"paradas\" />
 ";
-        // line 322
+        // line 327
         echo "                </form>
             </div>
             <div class=\"modal-footer\">
@@ -510,7 +515,7 @@ src=\"http://maps.google.com/maps/api/js?sensor=false&amp;language=pt_BR\"></scr
         ";
     }
 
-    // line 333
+    // line 338
     public function block_rodape($context, array $blocks = array())
     {
         echo " ";
@@ -530,6 +535,6 @@ src=\"http://maps.google.com/maps/api/js?sensor=false&amp;language=pt_BR\"></scr
 
     public function getDebugInfo()
     {
-        return array (  514 => 333,  500 => 322,  495 => 319,  491 => 318,  474 => 303,  465 => 299,  461 => 298,  457 => 296,  455 => 295,  450 => 292,  446 => 290,  442 => 288,  440 => 287,  433 => 285,  427 => 284,  423 => 283,  420 => 282,  416 => 281,  383 => 250,  372 => 236,  369 => 235,  363 => 233,  358 => 232,  351 => 333,  348 => 235,  345 => 232,  343 => 231,  340 => 230,  334 => 228,  330 => 227,  325 => 226,  322 => 225,  170 => 77,  147 => 56,  135 => 50,  130 => 48,  125 => 46,  121 => 45,  117 => 44,  113 => 43,  108 => 41,  104 => 40,  101 => 39,  97 => 38,  67 => 11,  63 => 10,  57 => 7,  53 => 6,  49 => 5,  44 => 4,  41 => 3,  11 => 2,);
+        return array (  519 => 338,  505 => 327,  500 => 324,  496 => 323,  479 => 308,  470 => 304,  466 => 303,  462 => 301,  460 => 300,  455 => 297,  451 => 295,  447 => 293,  445 => 292,  438 => 290,  432 => 289,  428 => 288,  425 => 287,  421 => 286,  388 => 255,  377 => 241,  374 => 240,  368 => 238,  363 => 237,  356 => 338,  353 => 240,  350 => 237,  348 => 236,  345 => 235,  339 => 233,  335 => 232,  330 => 231,  327 => 230,  170 => 77,  147 => 56,  135 => 50,  130 => 48,  125 => 46,  121 => 45,  117 => 44,  113 => 43,  108 => 41,  104 => 40,  101 => 39,  97 => 38,  67 => 11,  63 => 10,  57 => 7,  53 => 6,  49 => 5,  44 => 4,  41 => 3,  11 => 2,);
     }
 }
