@@ -151,7 +151,7 @@ class Bairro {
     }
     
     public function __toString() {
-        return $this->nome;
+        return $this->nome." (".$this->getLocal()->getNome().")";
     }
     
     /**

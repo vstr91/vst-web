@@ -222,7 +222,7 @@ src=\"http://maps.google.com/maps/api/js?sensor=false&amp;language=pt_BR\"></scr
                 options: {
                     center: [-22.470904, -43.824914],
                     zoom: 16,
-                    mapTypeControl: false,
+                    mapTypeControl: true,
                     mapTypeId: \"circular\"
                 }
             },

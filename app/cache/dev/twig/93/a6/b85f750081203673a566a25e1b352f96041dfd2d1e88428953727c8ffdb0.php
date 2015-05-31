@@ -1,6 +1,6 @@
 <?php
 
-/* CircularSiteBundle:Admin/Parada:indexParada.html.twig */
+/* CircularSiteBundle:Admin:Parada/indexParada.html.twig */
 class __TwigTemplate_93a6b85f750081203673a566a25e1b352f96041dfd2d1e88428953727c8ffdb0 extends Twig_Template
 {
     public function __construct(Twig_Environment $env)
@@ -129,7 +129,7 @@ src=\"http://maps.google.com/maps/api/js?sensor=false&amp;language=pt_BR\"></scr
                 options: {
                     center: [-22.470904, -43.824914],
                     zoom: 16,
-                    mapTypeControl: false,
+                    mapTypeControl: true,
                     mapTypeId: \"circular\"
                 },
                 events:{
@@ -148,8 +148,8 @@ src=\"http://maps.google.com/maps/api/js?sensor=false&amp;language=pt_BR\"></scr
                                 tag: -1,
                                 events:{
                                     dragend: function(marker){
-                                        var \$lng = marker.position.D;
-                                        var \$lat = marker.position.k;
+                                        var \$lng = marker.position.F;
+                                        var \$lat = marker.position.A;
 
                                         mostraForm(\$lat, \$lng, -1);
                                     }
@@ -157,8 +157,10 @@ src=\"http://maps.google.com/maps/api/js?sensor=false&amp;language=pt_BR\"></scr
                             }
                         });
 
-                        var \$lng = event.latLng.D;
-                        var \$lat = event.latLng.k;
+                        console.log(event);
+
+                        var \$lng = event.latLng.F;
+                        var \$lat = event.latLng.A;
 
                         mostraForm(\$lat, \$lng, -1);
                     }
@@ -191,53 +193,53 @@ src=\"http://maps.google.com/maps/api/js?sensor=false&amp;language=pt_BR\"></scr
         ";
     }
 
-    // line 107
+    // line 109
     public function block_css($context, array $blocks = array())
     {
-        // line 108
+        // line 110
         echo "                ";
         $this->displayParentBlock("css", $context, $blocks);
         echo "
 <link rel=\"stylesheet\" href=\"";
-        // line 109
+        // line 111
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("css/bootstrap-datetimepicker.min.css"), "html", null, true);
         echo "\" />
         ";
     }
 
-    // line 111
+    // line 113
     public function block_body($context, array $blocks = array())
     {
-        // line 112
+        // line 114
         echo "        ";
-        // line 113
+        // line 115
         echo "        ";
         $this->displayBlock('menu', $context, $blocks);
-        // line 116
+        // line 118
         echo "        ";
         $this->displayBlock('conteudo', $context, $blocks);
-        // line 206
+        // line 208
         echo "        ";
         $this->displayBlock('rodape', $context, $blocks);
         echo "    
 ";
     }
 
-    // line 113
+    // line 115
     public function block_menu($context, array $blocks = array())
     {
         echo " 
             ";
-        // line 114
+        // line 116
         $this->displayParentBlock("menu", $context, $blocks);
         echo "
         ";
     }
 
-    // line 116
+    // line 118
     public function block_conteudo($context, array $blocks = array())
     {
-        // line 117
+        // line 119
         echo "<div class=\"container-fluid\">
     <div class=\"row\">
         <div class=\"col-md-12\">
@@ -247,7 +249,7 @@ src=\"http://maps.google.com/maps/api/js?sensor=false&amp;language=pt_BR\"></scr
     <div class=\"row\">
         <div class=\"col-md-12\">
             ";
-        // line 130
+        // line 132
         echo "            <div id=\"mapa\" style=\"width: 100%; height: 400px;\">
                 mapa
             </div>
@@ -271,64 +273,64 @@ src=\"http://maps.google.com/maps/api/js?sensor=false&amp;language=pt_BR\"></scr
                 </thead>
                 <tbody>
                     ";
-        // line 152
+        // line 154
         $context['_parent'] = (array) $context;
         $context['_seq'] = twig_ensure_traversable((isset($context["paradas"]) ? $context["paradas"] : $this->getContext($context, "paradas")));
         foreach ($context['_seq'] as $context["_key"] => $context["parada"]) {
-            // line 153
+            // line 155
             echo "                    <tr>
                         <td>";
-            // line 154
+            // line 156
             echo twig_escape_filter($this->env, $this->getAttribute($context["parada"], "id", array()), "html", null, true);
             echo "</td>
                         <td>";
-            // line 155
+            // line 157
             echo twig_escape_filter($this->env, $this->getAttribute($context["parada"], "referencia", array()), "html", null, true);
             echo "</td>
                         <td>";
-            // line 156
+            // line 158
             echo twig_escape_filter($this->env, $this->getAttribute($context["parada"], "latitude", array()), "html", null, true);
             echo "</td>
                         <td>";
-            // line 157
+            // line 159
             echo twig_escape_filter($this->env, $this->getAttribute($context["parada"], "longitude", array()), "html", null, true);
             echo "</td>
                         <td>";
-            // line 158
+            // line 160
             echo twig_escape_filter($this->env, $this->getAttribute($this->getAttribute($context["parada"], "bairro", array()), "nome", array()), "html", null, true);
             echo "</td>
                         <td>";
-            // line 159
+            // line 161
             echo twig_escape_filter($this->env, $this->getAttribute($this->getAttribute($this->getAttribute($context["parada"], "bairro", array()), "local", array()), "nome", array()), "html", null, true);
             echo "</td>
                         <td>
                                 ";
-            // line 161
+            // line 163
             if (($this->getAttribute($context["parada"], "status", array()) == 0)) {
-                // line 162
+                // line 164
                 echo "                            Ativo
                                 ";
             } else {
-                // line 164
+                // line 166
                 echo "                            Inativo
                                 ";
             }
-            // line 166
+            // line 168
             echo "                        </td>
                         <td>
                             <a href=\"#\">Editar</a> | 
                             <a href=\"#\">";
-            // line 169
+            // line 171
             if (($this->getAttribute($context["parada"], "status", array()) == 0)) {
-                // line 170
+                // line 172
                 echo "                                Inativar
                                 ";
             } else {
-                // line 172
+                // line 174
                 echo "                                Ativar
                                 ";
             }
-            // line 173
+            // line 175
             echo "</a>
                         </td>
                     </tr>
@@ -337,7 +339,7 @@ src=\"http://maps.google.com/maps/api/js?sensor=false&amp;language=pt_BR\"></scr
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['_key'], $context['parada'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 177
+        // line 179
         echo "                </tbody>
             </table>
         </div>
@@ -354,11 +356,11 @@ src=\"http://maps.google.com/maps/api/js?sensor=false&amp;language=pt_BR\"></scr
       <div class=\"modal-body\">
         <form name=\"form-parada\" id=\"form-parada\" method=\"POST\" 
               action=\"";
-        // line 192
+        // line 194
         echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("circular_site_admin_paradas_cadastra", array("id_parada" =>  -1)), "html", null, true);
         echo "\">
             ";
-        // line 193
+        // line 195
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock((isset($context["formParada"]) ? $context["formParada"] : $this->getContext($context, "formParada")), 'widget');
         echo "
             <input type=\"submit\" value=\"Cadastrar\" class=\"btn btn-primary\" />
@@ -375,7 +377,7 @@ src=\"http://maps.google.com/maps/api/js?sensor=false&amp;language=pt_BR\"></scr
         ";
     }
 
-    // line 206
+    // line 208
     public function block_rodape($context, array $blocks = array())
     {
         echo " ";
@@ -385,7 +387,7 @@ src=\"http://maps.google.com/maps/api/js?sensor=false&amp;language=pt_BR\"></scr
 
     public function getTemplateName()
     {
-        return "CircularSiteBundle:Admin/Parada:indexParada.html.twig";
+        return "CircularSiteBundle:Admin:Parada/indexParada.html.twig";
     }
 
     public function isTraitable()
@@ -395,6 +397,6 @@ src=\"http://maps.google.com/maps/api/js?sensor=false&amp;language=pt_BR\"></scr
 
     public function getDebugInfo()
     {
-        return array (  379 => 206,  362 => 193,  358 => 192,  341 => 177,  332 => 173,  328 => 172,  324 => 170,  322 => 169,  317 => 166,  313 => 164,  309 => 162,  307 => 161,  302 => 159,  298 => 158,  294 => 157,  290 => 156,  286 => 155,  282 => 154,  279 => 153,  275 => 152,  251 => 130,  241 => 117,  238 => 116,  232 => 114,  227 => 113,  220 => 206,  217 => 116,  214 => 113,  212 => 112,  209 => 111,  203 => 109,  198 => 108,  195 => 107,  125 => 40,  113 => 34,  108 => 32,  103 => 30,  99 => 29,  95 => 28,  91 => 27,  86 => 25,  82 => 24,  79 => 23,  75 => 22,  59 => 9,  53 => 6,  49 => 5,  44 => 4,  41 => 3,  11 => 2,);
+        return array (  381 => 208,  364 => 195,  360 => 194,  343 => 179,  334 => 175,  330 => 174,  326 => 172,  324 => 171,  319 => 168,  315 => 166,  311 => 164,  309 => 163,  304 => 161,  300 => 160,  296 => 159,  292 => 158,  288 => 157,  284 => 156,  281 => 155,  277 => 154,  253 => 132,  243 => 119,  240 => 118,  234 => 116,  229 => 115,  222 => 208,  219 => 118,  216 => 115,  214 => 114,  211 => 113,  205 => 111,  200 => 110,  197 => 109,  125 => 40,  113 => 34,  108 => 32,  103 => 30,  99 => 29,  95 => 28,  91 => 27,  86 => 25,  82 => 24,  79 => 23,  75 => 22,  59 => 9,  53 => 6,  49 => 5,  44 => 4,  41 => 3,  11 => 2,);
     }
 }
