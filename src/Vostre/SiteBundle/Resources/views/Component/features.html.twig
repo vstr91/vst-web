@@ -1,0 +1,42 @@
+<div class="container-fluid">
+    
+    {% for destaqueFeature in destaquesFeature %}
+    
+    {% if loop.index0 % 2 == 0 %}
+    <div class="row vostre-bloco-feature">
+        <div class="col-md-6">
+            <img src="{{ asset('uploads/destaque/'~destaqueFeature.imagem) }}" class="imagens-home img-responsive" />
+        </div>
+        <div class="col-md-6 text-center">
+            <h2 class="vostre-features">{{ destaqueFeature.titulo }}</h2>
+            <h4 class="vostre-features-subtitulo text-muted">{{ destaqueFeature.descricao }}</h4>
+        </div>
+    </div>
+    {% else %}
+    <div class="col-md-6 hidden-md hidden-lg">
+        <img src="{{ asset('uploads/destaque/'~destaqueFeature.imagem) }}" class="imagens-home img-responsive" />
+    </div>
+    <div class="row vostre-bloco-feature">
+        <div class="col-md-6 text-center">
+            <h2 class="vostre-features">{{ destaqueFeature.titulo }}</h2>
+            <h4 class="vostre-features-subtitulo text-muted">{{ destaqueFeature.descricao }}</h4>
+        </div>
+        <div class="col-md-6 hidden-sm hidden-xs">
+            <img src="{{ asset('uploads/destaque/'~destaqueFeature.imagem) }}" class="imagens-home img-responsive" />
+        </div>
+    </div>
+    {% endif %}
+    
+    
+    
+    {% if loop.last == false %}
+    <hr class="vostre-separador" />
+    {% endif %}
+    
+    {% endfor %}
+    <div class="row vostre-bloco-feature">
+        <div class="col-md-12 text-center">
+            <a href="{{ path('vostre_site_contato') }}" class="btn btn-lg btn-primary">{% trans %}site.comum.botao.vamos-conversar{% endtrans %}</a>
+        </div>
+    </div>
+</div>

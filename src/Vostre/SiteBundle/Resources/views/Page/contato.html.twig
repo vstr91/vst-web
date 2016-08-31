@@ -1,0 +1,87 @@
+{% extends "VostreSiteBundle::layout.html.twig" %}
+        {#{% block javascript %}
+                {{ parent() }}
+        {% endblock %}    
+        {% block css %}
+                {{ parent() }}
+        {% endblock %}   #}     
+{% block body %}
+        {#{{ parent() }}#}
+        {% block menu %} {{ parent() }} {% endblock %}
+        {% block conteudo %}
+<div class="container-fluid">
+            {% for flashMessage in app.session.flashbag.get('resposta-contato') %}
+    <div class="v-resposta-contato">
+                    {{ flashMessage }}
+    </div>
+            {% endfor %}
+    <div class="row">
+        <div class="col-md-12">
+            <h3>{% trans %}site.pagina.titulo.contato{% endtrans %}</h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <p>{% trans %}site.pagina.descricao.contato{% endtrans %}</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="well">
+                <form name="form-contato" id="form-contato" action="" method="POST">
+                            {{ form_widget(form) }}
+                    <input type="submit" value="{% trans %}site.comum.formulario.submit{% endtrans %}" class="btn btn-primary" />
+                </form>
+            </div>
+        </div>
+    </div>
+            {#<div class="row">
+                <div class="col-md-12">
+                    <br />
+                    <p>J&aacute; &eacute; cliente? Entre em contato pela 
+                        <a href="{{ path('vostre_site_central_cliente') }}" 
+                           class="v-link-destaque-corpo">Central do Cliente</a>.</p>
+                </div>
+            </div>#}
+</div>
+        {% endblock %}
+        {% block rodape %} {{ parent() }} {% endblock %}
+        {% block javascripts %}
+        {{ parent() }}
+<script type="text/javascript" src="{{ asset('js/jquery.validate.min.js') }}"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('.v-resposta-contato').fadeOut(8000);
+        $('#form-contato').validate({
+            rules: {
+                'contato[nome]': "required",
+                'contato[email]':{
+                    required: true,
+                    email: true
+                },
+                'contato[titulo]': {
+                    required: true
+                },
+                'contato[mensagem]': {
+                    required: true
+                }
+            },
+            messages: {
+                'contato[nome]': "{% trans %}site.comum.formulario.validacao.nome{% endtrans %}",
+                'contato[email]':{
+                    required: "{% trans %}site.comum.formulario.validacao.email.vazio{% endtrans %}",
+                    email: "{% trans %}site.comum.formulario.validacao.email.invalido{% endtrans %}"
+                },
+                'contato[titulo]': {
+                    required: "{% trans %}site.comum.formulario.validacao.titulo{% endtrans %}"
+                },
+                'contato[mensagem]': {
+                    required: "{% trans %}site.comum.formulario.validacao.mensagem{% endtrans %}"
+                }
+            }
+        });
+
+    });
+</script>
+        {% endblock %}
+{% endblock %}

@@ -1,0 +1,14 @@
+parameters:
+#    vostre_local.example.class: Vostre\LocalBundle\Example
+
+services:
+    vostre.type.local:
+        class: Vostre\LocalBundle\Form\Type\LocalType
+        tags:
+            - { name: form.type, alias: form_local }
+        arguments: [@doctrine]
+    vostre.type.bairros:
+        class: Vostre\LocalBundle\Form\Type\BairroType
+        tags:
+            - { name: form.type, alias: form_bairro }
+        arguments: [@doctrine]

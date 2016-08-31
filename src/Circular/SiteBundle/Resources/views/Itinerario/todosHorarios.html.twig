@@ -1,0 +1,13 @@
+{# empty Twig template #}
+{% for horario in horarios %}
+{% if horario.horario|date('H:i') == hora %}
+<span class="destaque">{{ horario.horario|date('H:i') }}</span>
+{% else %}
+<span>{{ horario.horario|date('H:i') }}</span>
+{% endif %}
+{% if loop.last == false and loop.index is not divisibleby(5) %}
+ - 
+{% else %}
+ <br />
+{% endif %}
+{% endfor %}

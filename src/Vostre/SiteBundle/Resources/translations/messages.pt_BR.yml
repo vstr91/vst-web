@@ -1,0 +1,64 @@
+site:
+    titulo:
+        base: Vostrè | Sistemas, Consultoria e Entretenimento
+    pagina:
+        titulo:
+            servicos: Servi&ccedil;os
+            portfolio: Portfolio
+            contato: Contato
+            sobre: 
+                titulo: Sobre
+                subtitulo-nome: O Nome
+                subtitulo-fundador: Sobre o Fundador
+        descricao:
+            servicos: A <strong>Vostr&egrave;</strong> oferece a voc&ecirc; os seguintes servi&ccedil;os
+            portfolio: Aqui voc&ecirc; confere todos os projetos desenvolvidos e em desenvolvimento!
+            contato: > 
+                Vamos conversar! Preencha o formul&aacute;rio abaixo, envie um email para 
+                <a href="mailto:contato@vostre.com.br" class="v-link-destaque-corpo">contato@vostre.com.br</a> 
+                ou ligue para <a href="tel:24992201141" class="v-link-destaque-corpo">(24) 9 9220 1141</a>.
+            sobre: 
+                marca: > 
+                    A Vostr&egrave; &eacute; uma marca virtual criada pelo Analista de Sistemas Almir Junior e 
+                    &eacute; utilizada para reunir seus projetos desenvolvidos e em desenvolvimento.
+                historia: > 
+                    Criada em 2014 na cidade de Barra do Pira&iacute;-RJ, a Vostr&egrave; atualmente possui 
+                    sob seu controle o projeto Vostr&egrave; Circular, lan&ccedil;ado na metade de 2015, 
+                    voltado para o transporte p&uacute;blico da regi&atilde;o, levando informa&ccedil;&atilde;o 
+                    de itiner&aacute;rios e hor&aacute;rios de &ocirc;nibus de diversas cidades da regi&atilde;o 
+                    sul do estado do Rio de Janeiro e cidades pr&oacute;ximas.
+                nome: > 
+                    O nome "Vostr&egrave;" vem de uma varia&ccedil;&atilde;o da palavra "ostra", 
+                    em arm&ecirc;nio: "vostre". Este nome surgiu do apelido da cidade de Barra do Piraí: 
+                    "Pérola do Vale".
+                fundador: >
+                    Criador da marca virtual, Almir Junior &eacute; Analista de Sistemas, graduado em 2011 
+                    pela Funda&ccedil;&atilde;o D. Andr&eacute; Arcoverde, de Valen&ccedil;a-RJ. 
+                    Possui experi&ecirc;ncia em desenvolvimento tanto de Sistemas Web quanto 
+                    sistemas desktop, tendo iniciado no &uacute;ltimo ano no desenvolvimento mobile, 
+                    com a cria&ccedil;&atilde;o do Vostr&egrave; Circular.</p><p>Apaixonado por desenvolvimento, 
+                    est&aacute; sempre buscando criar ferramentas que facilitem nosso dia a dia, que cada vez mais 
+                    necessita de agilidade na resolução de tarefas.
+    rodape:
+        telefone-celular-raw: 24992201141
+        telefone-celular: (24) 9 9220 1141
+        cookies: Este site pode utilizar cookies para proporcionar uma melhor experi&ecirc;ncia a seus visitantes. Ao utiliz&aacute;-lo, voc&ecirc; concorda com o uso.
+    comum:
+        botao:
+            conferir: Conferir!
+            vamos-conversar: Vamos Conversar!
+            breve: Em breve!
+        formulario:
+            contato:
+                nome: Nome
+                email: Email
+                titulo: Título
+                mensagem: Mensagem
+            validacao:
+                nome: Por favor, digite seu nome.
+                email:
+                    vazio: Por favor, digite seu email.
+                    invalido: Por favor, digite um email v&aacute;lido.
+                titulo: Por favor, informe um t&iacute;tulo.
+                mensagem: Por favor, digite sua mensagem.
+            submit: Enviar

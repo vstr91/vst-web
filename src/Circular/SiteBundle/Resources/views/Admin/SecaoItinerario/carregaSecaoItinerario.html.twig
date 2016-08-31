@@ -1,0 +1,228 @@
+{# empty Twig template #}
+{% extends "VostreCentralBundle::layout.html.twig" %}
+{% block css %}
+    {{ parent() }}
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/circular/jquery-ui.css') }}" />
+    <style>
+        .v-btn-horario.active{
+            background-color: #FFFFFF !important;
+            color: #c50000 !important;
+        }
+    </style>
+{% endblock %} 
+{% block javascript %}
+    {{ parent() }}
+    <script src="{{ asset('js/moment.js') }}"></script>
+    <script src="{{ asset('js/bootstrap-datetimepicker.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery-ui.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery.form.min.js') }}"></script>
+    <script>
+        
+        function adicionaALista($nome, $valor){
+            $li = $("<li />")
+                    .append('<div class="secao-id hide">'+$cont+'</div>')
+                    .append($("<input type='text' class='secao-nome' size='40' disabled='disabled' />").val($nome))
+                    .append($("<input type='text' class='secao-valor' size='5' disabled='disabled' />").val($valor))
+                    .append($("<span class='v-icone-editar' />")
+                    .append($("<a href='#"+$cont+"' />").text('Editar')));
+            
+            $('#lista-secoes').append($li);
+            $('#lista-secoes').sortable('refresh');
+            
+            $cont++;
+            
+        }
+        
+        $(document).ready(function () {
+            
+            $cont = 100000;
+            
+            $('body').on('click', '.v-icone-editar', function() {
+                $(this).parent().children('input').removeAttr('disabled');
+                {#id = parseInt($(this).parent().children('.secao-id').html());
+                alert(id);#}
+                
+                return false;
+                
+                {#index = findMarcadorIndex(marcadores, 'id', id);
+                if (index > - 1) {
+                    $(this).parent().fadeOut(1000);
+                    setTimeout(function() {
+                    $(this).parent().remove();
+                    }, 1000);
+                    marcadores.splice(index, 1);
+                    $(this).parent().remove();
+                }#}
+
+            });
+            
+            $('#lista-secoes').sortable();
+            
+            $('#form-secao-itinerario').submit(function(){
+                
+                $nome = $('#circular_sitebundle_secaoitinerario_nome').val();
+                $valor = $('#circular_sitebundle_secaoitinerario_valor').val();
+                
+                adicionaALista($nome, $valor);
+                
+                $('#form-secao-itinerario')[0].reset();
+                
+                return false;
+                
+            });
+            
+            $('#btn-cadastra-secoes').click(function(){
+                
+                $secoes = new Array();
+                $ordem = 1;
+                
+                $('#lista-secoes li').each(function() {
+
+                    $idSecao = $(this).children('div.secao-id').text();
+                    $nomeSecao = $(this).children('input.secao-nome').val();
+                    $valorSecao = $(this).children('input.secao-valor').val();
+
+                    $valorSecao = $valorSecao.replace('.', '');
+                    $valorSecao = $valorSecao.replace(',', '.');
+
+                    $umaSecao = {
+                        id: $idSecao,
+                        nome: $nomeSecao,
+                        valor: $valorSecao,
+                        ordem: $ordem
+                    };
+
+                    $secoes.push($umaSecao);
+                    $ordem++;
+                });
+                
+                if($secoes.length > 0){
+                    $.ajax({
+                        type: 'POST',
+                        url: '{{ path('circular_site_admin_secoes_itinerarios_edita') }}',
+                        data: {
+                            secoes: $secoes,
+                            idItinerario: {{ itinerario.id }}
+                        },
+                        success: function(response) {
+                            alert("Cadastrado!");
+                            location.reload();
+                        }
+                    });
+                } else{
+                    alert("Nenhuma seção cadastrada!");
+                }
+                
+                return false;
+                
+            });
+            
+            $('#lista-secoes, #lista-secoes-inativas').sortable({
+                connectWith: ".conectadas"
+            });
+            
+        });
+    </script>
+{% endblock %} 
+{% block body %}
+    {#{{ parent() }}#}
+    {% block menu %} 
+        {{ parent() }}
+    {% endblock %}
+    {% block conteudo %}
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <h4 class="text-center">Gerenciamento de Se&ccedil;&otilde;es Itiner&aacute;rios</h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <form name="form-secao-itinerario" id="form-secao-itinerario" method="POST" 
+                          class="form-horizontal" 
+                          action="{{ path('circular_site_admin_secoes_itinerarios_edita') }}">
+                        {{ form_widget(formSecaoItinerario) }}
+                        <input type="submit" value="Adicionar" class="btn btn-primary" />
+                    </form>
+                </div>
+                <div class="col-md-6">
+                    <ul id="lista-secoes" class="conectadas">
+                        {% for umaSecao in secoes %}
+                            <li>
+                                <div class="secao-id hide">{{ umaSecao.id }}</div>
+                                <input type="text" class="secao-nome" disabled='disabled' 
+                                       value="{{ umaSecao.nome }}" size='40' />
+                                <input type="text" class='secao-valor' disabled='disabled' 
+                                       value="{{ umaSecao.valor|replace('.', ',') }}" size="5" />
+                                <span class='v-icone-editar'><a href='#{{ umaSecao.id }}'>Editar</a></span>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    <h4 class="text-center">Se&ccedil;&otilde;es Inativas</h4>
+                    <ul id="lista-secoes-inativas" class="conectadas">
+                        {% for umaSecaoInativa in secoesInativas %}
+                            <li>
+                                <div class="secao-id hide">{{ umaSecaoInativa.id }}</div>
+                                <input type="text" class="secao-nome" disabled='disabled' 
+                                       value="{{ umaSecaoInativa.nome }}" size='40' />
+                                <input type="text" class='secao-valor' disabled='disabled'
+                                       size="5"
+                                       value="{{ umaSecaoInativa.valor|replace('.', ',') }}" />
+                                <span class='v-icone-editar'><a href='#{{ umaSecaoInativa.id }}'>Editar</a></span>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    <a href="{{ path('circular_site_admin_secoes_itinerarios_edita') }}" 
+                       class="btn btn-primary" id="btn-cadastra-secoes">Cadastrar</a>
+                </div>
+            </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <a href="{{ path('circular_site_admin_secoes_itinerarios') }}" 
+                           class="btn btn-primary pull-right">Voltar</a>
+                    </div>
+                </div>
+</div>
+{#<div class="row">
+    <div class="col-md-12">
+        <table class="table table-hover table-striped table-responsive text-center">
+            <thead>
+                <tr>
+                    <td>ID</td>
+                    <td>Nome</td>
+                    <td>Status</td>
+                    <td>A&ccedil;&otilde;es</td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for horario in horarios %}
+                    <tr>
+                        <td>{{ horario.id }}</td>
+                        <td>{{ horario.nome|date('H:i') }}</td>
+                        <td>
+                            {% if horario.status == 0 %}
+                            Ativo
+                            {% else %}
+                            Inativo
+                            {% endif %}
+                        </td>
+                        <td>
+                            <a href="#">Editar</a> | 
+                            <a href="#">{% if horario.status == 0 %}
+                            Inativar
+                            {% else %}
+                            Ativar
+                            {% endif %}</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>#}
+</div>
+
+{% endblock %}
+    {% block rodape %} {{ parent() }} {% endblock %}   
+    {% endblock %}

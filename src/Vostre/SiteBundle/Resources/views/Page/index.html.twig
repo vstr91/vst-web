@@ -1,0 +1,16 @@
+{% extends "VostreSiteBundle::layout.html.twig" %}
+        {#{% block javascript %}
+                {{ parent() }}
+        {% endblock %}    
+        {% block css %}
+                {{ parent() }}
+        {% endblock %}   #}     
+{% block body %}
+        {#{{ parent() }}#}
+        {% block menu %} {{ parent() }} {% endblock %}
+        {% block conteudo %}
+        {% include 'VostreSiteBundle:Component:carousel.html.twig' with destaquesCarousel %}
+        {% include 'VostreSiteBundle:Component:features.html.twig' with destaquesFeature %}
+        {% endblock %}
+        {% block rodape %} {{ parent() }} {% endblock %}
+{% endblock %}

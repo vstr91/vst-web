@@ -1,0 +1,275 @@
+{% form_theme form 'bootstrap_3_horizontal_layout.html.twig' %}
+{# empty Twig template #}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{% trans %}site.titulo.base.circular{% endtrans %}</title>
+
+        <!-- Bootstrap -->
+        <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/circular/cover.css') }}" rel="stylesheet">
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+          <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+    </head>
+    <body>
+        <div class="container-fluid">
+            <div class="row text-center">
+                <div class="col-md-6 col-md-offset-3">
+                    <img id="logo" style="max-width: 30%;" src="{{ asset('imagens/circular/logo-branca.png') }}" alt="Logo" />
+                </div>
+            </div>
+                
+                <div class="row">
+                    <div class="col-md-6 col-md-offset-3">
+                        {{ form_start(form) }}
+                            {{ form_errors(form) }}
+                            <div class="form-group">
+                                <label for="local" class="control-label col-md-2 col-sm-2 col-xs-2 text-right">{{ form_label(form.local) }}</label>
+                                <div class="col-md-10 col-sm-10 col-xs-10">
+                                    {{ form_widget(form.local) }}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="partida" class="control-label col-md-2 col-sm-2 col-xs-2 text-right">{{ form_label(form.partida) }}</label>
+                                <div class="col-md-10 col-sm-10 col-xs-10">
+                                    {{ form_widget(form.partida) }}
+                                </div>
+                            </div> 
+                             <div class="form-group">
+                                <label for="destino" class="control-label col-md-2 col-sm-2 col-xs-2 text-right">{{ form_label(form.destino) }}</label>
+                                <div class="col-md-10 col-sm-10 col-xs-10">
+                                    {{ form_widget(form.destino) }}
+                                </div>
+                            </div>
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+
+            <!-- INICIO CONSULTA -->
+
+            {#<div class="row">
+                <div class="col-md-6 col-md-offset-3">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label for="local" class="control-label col-md-2 col-sm-2 col-xs-2">Local</label>
+                            <div class="col-md-10 col-sm-10 col-xs-10">
+                                <select class="form-control">
+                                    <option value="-1">Selecione o Local</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="local" class="control-label col-md-2 col-sm-2 col-xs-2">Partida</label>
+                            <div class="col-md-10 col-sm-10 col-xs-10">
+                                <select class="form-control">
+                                    <option value="-1">Selecione a Partida</option>
+                                </select>
+                            </div>
+                            
+                        </div>
+                        <div class="form-group">
+                            <label for="local" class="control-label col-md-2 col-sm-2 col-xs-2">Destino</label>
+                            <div class="col-md-10 col-sm-10 col-xs-10">
+                                <select class="form-control">
+                                    <option value="-1">Selecione o Destino</option>
+                                </select>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>#}
+            <div id="caixa-dados">
+                
+            </div>
+
+            <!-- FIM CONSULTA -->
+
+            <div class="row text-center" style="padding-top: 3%;">
+                <div class="col-md-2 col-md-offset-2 hidden-sm hidden-xs">
+                    <a href="#" class="btn btn-lg btn-default botoes" data-toggle="modal" 
+                       data-target="#modal-saiba">{% trans %}site.botoes.index.saiba-mais{% endtrans %}</a>
+                </div>
+                <div class="col-md-4">
+                    <a href="https://play.google.com/store/apps/details?id=br.com.vostre.circular" target="_blank">
+                        <img id="banner-google" alt="Dispon&i&iacute;vel Tamb&eac&eacute;m no Google Play"
+                             src="https://developer.android.com/images/brand/pt-br_generic_rgb_wo_60.png" />
+                    </a>
+                </div>
+                <div class="col-md-2 col-md-offset-2 hidden-md hidden-lg">
+                    <a href="#" class="btn btn-lg btn-default botoes" data-toggle="modal" 
+                       data-target="#modal-saiba">{% trans %}site.botoes.index.saiba-mais{% endtrans %}</a>
+                </div>
+                <div class="col-md-2">
+                    <a href="#" class="btn btn-lg btn-default botoes" data-toggle="modal" 
+                       data-target="#modal-parceiro">{% trans %}site.botoes.index.seja-parceiro{% endtrans %}</a>
+                </div>
+            </div>
+            <div class="navbar text-center" id="rodape">
+                {#            <p>Um produto <a href="http://vostre.com.br">Vostr&egrave;</a> - 2014</p>#}
+                <p>{% trans %}site.rodape.descricao.produto{% endtrans %} <a href="http://vostre.com.br" target="_blank">
+                        <img id="logo-vostre" src="{{ asset('imagens/-logo-branca-20.png') }}" /></a> &copy; 2015</p>
+            </div>
+
+    </body>
+    
+    <!-- SAIBA -->
+        <div class="modal fade" id="modal-saiba">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3>{% trans %}site.modal.saiba-mais.titulo{% endtrans %}</h3>
+                    </div>
+                    <div class="modal-body">
+                        <p>{% trans %}site.modal.saiba-mais.descricao.introducao{% endtrans %}</p>
+                        <p>{% trans %}site.modal.saiba-mais.descricao.funcionalidades.introducao{% endtrans %}:</p>
+                        <ul>
+                            <li>{% trans %}site.modal.saiba-mais.descricao.funcionalidades.localizacao{% endtrans %}</li>
+                            <li>{% trans %}site.modal.saiba-mais.descricao.funcionalidades.itinerario{% endtrans %}</li>
+                            <li>{% trans %}site.modal.saiba-mais.descricao.funcionalidades.proximo-horario{% endtrans %}</li>
+                            <li>{% trans %}site.modal.saiba-mais.descricao.funcionalidades.sem-conexao{% endtrans %}</li>
+                            <li>{% trans %}site.modal.saiba-mais.descricao.funcionalidades.realidade-aumentada{% endtrans %}</li>
+                            <li>{% trans %}site.modal.saiba-mais.descricao.funcionalidades.busca-itinerario{% endtrans %}</li>
+                        </ul>
+                        <p>{% trans %}site.modal.saiba-mais.descricao.experimente{% endtrans %}</p>
+                        <p>
+                            <a href="https://play.google.com/store/apps/details?id=br.com.vostre.circular" target="_blank">
+                                <img alt="Get it on Google Play"
+                                     src="https://developer.android.com/images/brand/pt-br_generic_rgb_wo_45.png" />
+                            </a>
+                        </p>
+                        {#<br />
+                        <br />
+                        <p>{% trans %}site.modal.saiba-mais.descricao.baixar{% endtrans %}</p>#}
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" 
+                                data-dismiss="modal">{% trans %}site.comum.botoes.fechar{% endtrans %}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- FIM SAIBA -->
+
+        <!-- PARCEIRO -->
+        <div class="modal fade" id="modal-parceiro">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3>{% trans %}site.modal.seja-parceiro.titulo{% endtrans %}</h3>
+                    </div>
+                    <div class="modal-body">
+                        <p>{% trans %}site.modal.quero-ajudar.descricao.quer-ajudar{% endtrans %}:</p>
+                        <br />
+                        <h4>{% trans %}site.modal.quero-ajudar.descricao.info-sugestoes.titulo{% endtrans %}</h4>
+                        <p>{% trans %}site.modal.quero-ajudar.descricao.info-sugestoes.descricao{% endtrans %}</p>
+                        <p>{% trans %}site.modal.quero-ajudar.descricao.info-sugestoes.contato-email{% endtrans %}</p>
+                        <p>{% trans %}site.modal.quero-ajudar.descricao.info-sugestoes.agradecimento{% endtrans %}</p>
+                        <br />
+                        <h4>{% trans %}site.modal.quero-ajudar.descricao.parcerias.titulo{% endtrans %}</h4>
+                        <p>{% trans %}site.modal.quero-ajudar.descricao.parcerias.descricao{% endtrans %}</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">{% trans %}site.comum.botoes.fechar{% endtrans %}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- FIM PARCEIRO -->
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="{{ asset('js/jquery.js') }}"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            
+            $local = $('#form_local');
+            $partida = $('#form_partida');
+            
+            $local.change(function() {
+                var $form = $(this).closest('form');
+                var data = {};
+                data[$local.attr('name')] = $(this).val();
+
+                $.ajax({
+                    url: '{{ path('circular_site') }}',
+                    type: 'POST',
+                    data: data,
+                    success: function(html) {
+                        $('#form_partida').replaceWith(
+                                $(html).find('#form_partida')
+                                );
+                    }
+                });
+            });
+
+            $('form').on('change', '#form_partida', function() {
+                var $form = $(this).closest('form');
+                var data = {};
+                data[$partida.attr('name')] = $(this).val();
+
+                $.ajax({
+                    url: '{{ path('circular_site') }}',
+                    type: 'POST',
+                    data: data,
+                    success: function(html) {
+                        $('#form_destino').replaceWith(
+                                $(html).find('#form_destino')
+                                );
+                    }
+                });
+            });
+            
+            $('form').on('change', '#form_destino', function() {
+                var $form = $(this).closest('form');
+                var data = {};
+                data['partida'] = $('#form_partida').val();
+                data['destino'] = $(this).val();
+
+                console.log(data);
+
+                $.ajax({
+                    url: '{{ path('circular_site_consulta') }}',
+                    type: 'POST',
+                    data: data,
+                    success: function(html) {
+                        console.log(html);
+                        $('#caixa-dados').replaceWith(html);
+                        $('#btn-todos-horarios').removeClass('disabled');
+                    }
+                });
+            });
+            
+            $('#caixa-dados').on('click', '#btn-todos-horarios', function() {
+                var id = $(this).attr('href').replace('#', '');
+                
+                alert(id);
+                
+                console.log(id);
+
+                var data = {};
+                data['itinerario'] = id;
+
+                $.ajax({
+                    url: '{{ path('circular_site_consulta_todos_horarios') }}',
+                    type: 'POST',
+                    data: data,
+                    success: function(html) {
+                        console.log(html);
+                        //$('#caixa-dados').replaceWith(html);
+                        //$('#btn-todos-horarios').removeClass('disabled');
+                    }
+                });
+            });
+        
+        });
+    </script>
+</html>

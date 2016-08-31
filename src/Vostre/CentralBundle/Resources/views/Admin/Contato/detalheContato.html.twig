@@ -1,0 +1,9 @@
+{# empty Twig template #}
+{% extends "VostreCentralBundle::layout.html.twig" %}       
+{% block body %}
+    <h4>
+        {{ contato.titulo }}<br />
+        <small>Enviado Por: {{ contato.email }}</small>
+    </h4>
+    <p>{{ contato.mensagem }}</p>
+{% endblock %}

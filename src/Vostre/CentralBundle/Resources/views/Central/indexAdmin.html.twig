@@ -1,0 +1,163 @@
+<div class="container-fluid" style="min-height: 100%;">
+    <div class="row">
+        <div class="col-md-12">
+            <h4>Ol&aacute;, {{ usuario.nome }}!</h4>
+            <p>Seja bem vindo &agrave; central do administrador <strong>Vostr&egrave;</strong>!</p>
+            <p>Aqui voc&ecirc; pode enviar avisos, verificar 
+                chamados abertos, al&eacute;m de ler sugest&otilde;es de melhorias, 
+                atrav&eacute;s de mensagens de nossos clientes e, claro, gerenciar os dados dos m&oacute;dulos.</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <h4>Universais</h4>
+        </div>
+    </div>
+    <div class="row text-center v-links-administracao">
+        <div class="col-md-12">
+            <div class="btn-group">
+                <a href="{{ path('vostre_site_admin_paises') }}" class="btn btn-primary">Gerenciar Pa&iacute;ses</a>
+                <a href="{{ path('vostre_site_admin_estados') }}" class="btn btn-primary">Gerenciar Estados</a>
+                <a href="{{ path('vostre_site_admin_locais') }}" class="btn btn-primary">Gerenciar Locais</a>
+                <a href="{{ path('vostre_site_admin_bairros') }}" class="btn btn-primary">Gerenciar Bairros</a>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <h4>Vostr&egrave; Circular</h4>
+        </div>
+    </div>
+    <div class="row text-center v-links-administracao">
+        <div class="col-md-12">
+            <div class="btn-group">
+{#                <a href="{{ path('circular_site_admin_horarios') }}" class="btn btn-primary">Gerenciar Hor&aacute;rios</a>#}
+                <a href="{{ path('circular_site_admin_paradas') }}" class="btn btn-primary">Gerenciar Paradas</a>
+                <a href="{{ path('circular_site_admin_empresas') }}" class="btn btn-primary">Gerenciar Empresas</a>
+                <a href="{{ path('circular_site_admin_itinerarios') }}" class="btn btn-primary">Gerenciar Itiner&aacute;rios</a>
+                <a href="{{ path('circular_site_admin_horarios_itinerarios') }}" class="btn btn-primary">Gerenciar Hor&aacute;rios Itiner&aacute;rios</a>
+                <a href="{{ path('circular_site_admin_mensagens') }}" class="btn btn-primary">Gerenciar Mensagens</a>
+                {#<a href="{{ path('circular_site_admin_secoes_itinerarios') }}" class="btn btn-primary">Gerenciar Se&ccedil;&otilde;es Itiner&aacute;rios</a>#}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4 col-md-offset-1">
+            <h4 class="text-center">&Uacute;ltimos Acessos</h4>
+            <table class="table table-striped table-hover text-center">
+                <thead>
+                    <tr>
+                        <td>Cont.</td>
+                        <td>Token</td>
+                        <td>Identificador &Uacute;nico</td>
+                        <td>Data</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for acesso in acessos %}
+                        <tr>
+                            <td>{{ loop.index }}</td>
+                            <td>{{ acesso.puroTexto }}</td>
+                            <td>{{ acesso.identificadorUnico }}</td>
+                            <td>{{ acesso.dataCriacao|date('d/m/Y H:i:s') }}</td>
+                        </tr>
+                    {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-5 col-md-offset-1">
+            <h4 class="text-center">&Uacute;ltimas Mensagens Recebidas</h4>
+            <table class="table table-striped table-hover text-center">
+                <thead>
+                    <tr>
+                        <td>Cont.</td>
+                        <td>T&iacute;tulo</td>
+                        <td>Email</td>
+                        <td>Data</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for contato in contatos %}
+                        <tr class="linha-clicavel" data-id="{{ contato.id }}">
+                            <td>{{ loop.index }}</td>
+                            <td>{{ contato.titulo }}</td>
+                            <td>{{ contato.email }}</td>
+                            <td>{{ contato.dataCadastro|date('d/m/Y H:i:s') }}</td>
+                            <td><a class="link-excluir-contato" href="#{{ contato.id }}">Excluir</a></td>
+                        </tr>
+                    {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="form-modal" tabindex="-1" role="dialog" aria-labelledby="modal-lable" 
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="modal-lable">Mensagem</h4>
+            </div>
+            <div class="modal-body" id="conteudo-modal">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+
+    function carregaContato(id) {
+        
+        var caminho = '{{ path('vostre_site_admin_contato_carrega') }}';
+        
+        $.ajax({
+            url: caminho+"/"+id,
+            method: 'GET',
+            success: function (response, status, xhr, form) {
+                $('#conteudo-modal').html(response);
+                $('.modal').modal('show');
+            }
+        });
+    }
+
+    function excluiContato(id) {
+        
+        var caminho = '{{ path('vostre_site_admin_contato_exclui') }}';
+        
+        $.ajax({
+            url: caminho+"/"+id,
+            method: 'POST',
+            success: function (response, status, xhr, form) {
+                alert(response);
+                window.location.reload();
+            }
+        });
+    }
+
+    $(document).ready(function () {
+        
+        $('.linha-clicavel').click(function(){
+            var id = $(this).data('id');
+            
+            carregaContato(id);
+            
+        });
+
+        $('.link-excluir-contato').click(function () {
+
+            var id = $(this).attr('href').replace('#', '');
+
+            excluiContato(id);
+
+            return false;
+        });
+
+    });
+</script>

@@ -1,0 +1,159 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 02/06/2016, 10:33:32
+    Author     : Almir
+*/
+
+@cinza: #333333;
+@branco: #FFFFFF;
+@vermelho: #DD0000;
+
+@font-face {
+    font-family: 'La-chata';
+    src: url('../fonts/La-chata-normal.eot');
+    src: local('☺'), url('../fonts/La-chata-normal.woff') format('woff'), url('../fonts/La-chata-normal.ttf') format('truetype'), 
+        url('../fonts/La-chata-normal.svg') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body{
+    //font-family: 'La-chata';
+}
+
+#imagem-topo{
+    width: 50%;
+    height: auto;
+}
+
+#topo{
+    background-color: @cinza;
+    color: @branco;
+}
+
+#funcionalidades{
+    background-color: @branco;
+    color: @cinza;
+    font-size: 120%;
+    letter-spacing: 2px;
+    font-weight: bold;
+}
+
+#dados{
+    background-color: @cinza;
+    color: @branco;
+    font-size: 120%;
+}
+
+#contato{
+    font-size: 120%;
+    letter-spacing: 2px;
+    font-weight: bold;
+}
+
+#rodape{
+    min-height: 200px;
+    background-color: @cinza;
+    color: @branco;
+}
+
+#contato label{
+    font-size: 100%;
+    letter-spacing: 0;
+    font-weight: normal;
+}
+
+.titulo-secao{
+    font-weight: bold;
+}
+
+.fonte-branca{
+    color: @branco;
+}
+
+.fonte-cinza{
+    color: @cinza;
+}
+
+.linha-titulo{
+    background-color: red;
+    height: 5px;
+    width: 30%;
+    text-align: left;
+    margin: 0;
+    margin-top: -10px;
+    border-radius: 50px;
+    border-color: transparent;
+}
+
+.destaque{
+    color: @vermelho;
+}
+
+.dado-destaque{
+    font-size: 1500%;
+    margin-bottom: 0;
+}
+
+.texto-destaque{
+    font-size: 230%;
+    margin-top: -50px;
+    letter-spacing: 5px;
+}
+
+.texto-destaque-topo{
+    margin-top: 0;
+}
+
+.dado-subdestaque{
+    font-size: 450%;
+}
+
+.texto-subdestaque{
+    font-size: 200%;
+    margin-top: -50px;
+}
+
+input, textarea{
+    border-radius: 50px !important;
+}
+
+textarea{
+    border-radius: 20px !important;
+}
+
+input[type="submit"]{
+    border-radius: 0 !important;
+}
+
+.badge-vermelha{
+    background-color: @vermelho;
+}
+
+// mobile
+
+@media (max-width: 768px) {
+
+    #imagem-topo{
+        width: 80%;
+    }
+
+    .texto-destaque{
+        font-size: 170%;
+        padding: 5%;
+        padding-top: 0;
+    }
+
+    .titulo-secao{
+        font-size: 17px;
+    }
+
+    #funcionalidades{
+        font-size: 80%;
+    }
+
+}

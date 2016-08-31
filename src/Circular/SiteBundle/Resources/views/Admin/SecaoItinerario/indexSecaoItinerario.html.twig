@@ -1,0 +1,67 @@
+{# empty Twig template #}
+{% extends "VostreCentralBundle::layout.html.twig" %}
+        {% block css %}
+                {{ parent() }}
+<link rel="stylesheet" href="{{ asset('css/bootstrap-datetimepicker.min.css') }}" />
+        {% endblock %} 
+        {% block javascript %}
+                {{ parent() }}
+                <script src="{{ asset('js/moment.js') }}"></script>
+                <script src="{{ asset('js/bootstrap-datetimepicker.min.js') }}"></script>
+                <script>
+                    $(document).ready(function(){
+                        
+                    });
+                </script>
+        {% endblock %} 
+{% block body %}
+        {#{{ parent() }}#}
+        {% block menu %} 
+            {{ parent() }}
+        {% endblock %}
+        {% block conteudo %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <h4 class="text-center">Gerenciamento de Se&ccedil;&otilde;es Itiner&aacute;rios</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-hover table-striped table-responsive text-center">
+                <thead>
+                    <tr>
+                        <td>ID</td>
+                        <td>Partida</td>
+                        <td>Destino</td>
+                        <td>Status</td>
+                        <td>A&ccedil;&otilde;es</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for itinerario in itinerarios %}
+                        <tr>
+                            <td>{{ itinerario.id }}</td>
+                            <td>{{ itinerario.partida.nome~" ("~itinerario.partida.local.nome~")" }}</td>
+                            <td>{{ itinerario.destino.nome~" ("~itinerario.destino.local.nome~")" }}</td>
+                            <td>
+                                {% if itinerario.status == 0 %}
+                                Ativo
+                                {% else %}
+                                Inativo
+                                {% endif %}
+                            </td>
+                            <td>
+                                <a href="{{ path('circular_site_admin_secoes_itinerarios_carrega', {'idItinerario': itinerario.id}) }}">Editar Se&ccedil;&otilde;es</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+            
+        {% endblock %}
+        {% block rodape %} {{ parent() }} {% endblock %}   
+{% endblock %}

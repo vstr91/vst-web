@@ -1,0 +1,171 @@
+{# empty Twig template #}
+{% extends "VostreCentralBundle::layout.html.twig" %}
+        {% block css %}
+                {{ parent() }}
+<link rel="stylesheet" href="{{ asset('css/bootstrap-datetimepicker.min.css') }}" />
+        {% endblock %}        
+{% block body %}
+        {#{{ parent() }}#}
+        {% block menu %} 
+            {{ parent() }}
+        {% endblock %}
+        {% block conteudo %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <h4 class="text-center">Gerenciamento de Locais</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <form name="form-local" id="form-local" method="POST" 
+                  action="{{ path('vostre_site_admin_locais_cadastra', {'id_local': -1}) }}">
+                {{ form_widget(formLocal) }}
+                <input type="submit" value="Cadastrar" class="btn btn-primary" />
+            </form>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-hover table-striped table-responsive text-center">
+                <thead>
+                    <tr>
+                        <td>ID</td>
+                        <td>Nome</td>
+                        <td>Tipo</td>
+                        <td>Cidade</td>
+                        <td>Estado</td>
+                        <td>Status</td>
+                        <td>A&ccedil;&otilde;es</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for local in locais %}
+                    <tr>
+                        <td>{{ local.id }}</td>
+                        <td>{{ local.nome }}</td>
+                        <td>
+                                {% if local.tipo == 0 %}
+                            Cidade
+                                {% else %}
+                            Distrito
+                                {% endif %}
+                        </td>
+                        <td>{{ local.cidade.nome }}</td>
+                        <td>{{ local.estado.nome }}</td>
+                        <td>
+                                {% if local.status == 0 %}
+                            Ativo
+                                {% else %}
+                            Inativo
+                                {% endif %}
+                        </td>
+                        <td>
+                            <a href="#{{ local.id }}" class="link-editar">Editar</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+                
+        <!-- MODAL EDICAO -->
+
+        <div class="modal fade" id="modal-edicao">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">Editar Local</h4>
+                    </div>
+                    <div class="modal-body" id="body-edicao">
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                        <button type="button" class="btn btn-primary" id="btn-editar">Salvar</button>
+                    </div>
+                </div>
+            </div>
+        </div>        
+
+        {% endblock %}
+        {% block rodape %} {{ parent() }} {% endblock %}
+        {% block javascript %}
+                {{ parent() }}
+<script src="{{ asset('js/moment.js') }}"></script>
+<script src="{{ asset('js/bootstrap-datetimepicker.min.js') }}"></script>
+<script>
+    $(document).ready(function() {
+        var $estado = $('#vostre_localbundle_local_estado');
+        var $tipoLocal = $('#vostre_localbundle_local_tipo');
+
+        $('#vostre_localbundle_local_cidade').attr('disabled', 'disabled');
+        $('#vostre_localbundle_local_cidade').removeAttr('required');
+
+        $tipoLocal.change(function() {
+
+            console.log($tipoLocal);
+
+            if ($tipoLocal.val() != '0') {
+                $('#vostre_localbundle_local_cidade').removeAttr('disabled');
+                $('#vostre_localbundle_local_cidade').attr('required', 'required');
+            } else {
+                $('#vostre_localbundle_local_cidade').attr('disabled', 'disabled');
+                $('#vostre_localbundle_local_cidade').removeAttr('required');
+                $('#vostre_localbundle_local_cidade').val(-1);
+            }
+
+        });
+
+
+        $estado.change(function() {
+            var $form = $(this).closest('form');
+            var data = {};
+            data[$estado.attr('name')] = $estado.val();
+            $.ajax({
+                url: '{{ path('vostre_site_admin_locais') }}',
+                type: $form.attr('method'),
+                data: data,
+                success: function(html) {
+                    console.log(html);
+                    $('#vostre_localbundle_local_cidade').replaceWith(
+                            $(html).find('#vostre_localbundle_local_cidade')
+                            );
+                    if ($tipoLocal.val() != '0') {
+                        $('#vostre_localbundle_local_cidade').removeAttr('disabled');
+                        $('#vostre_localbundle_local_cidade').attr('required', 'required');
+                    } else {
+                        $('#vostre_localbundle_local_cidade').attr('disabled', 'disabled');
+                        $('#vostre_localbundle_local_cidade').removeAttr('required');
+                    }
+                }
+            });
+        });
+        
+        $('.link-editar').click(function () {
+
+                    $idLocal = $(this).attr('href').replace('#', '');
+
+                    $url = '{{ path('circular_site_admin_locais_form') }}' + "/" + $idLocal;
+
+                    $.ajax({
+                        type: 'GET',
+                        url: $url,
+                        success: function (response) {
+                            $('#body-edicao').html(response);
+                            $('#modal-edicao').modal('show');
+                        }
+                    });
+
+                    return false;
+
+                });
+        
+    });
+</script>
+        {% endblock %}    
+{% endblock %}

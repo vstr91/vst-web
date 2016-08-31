@@ -1,0 +1,61 @@
+body{
+    background-color: #333;
+    color: #DDD;
+}
+
+#logo{
+    position: relative;
+    max-width: 70%;
+    padding: 2%;
+    padding-top: 5%;
+}
+
+.botoes{
+    margin: 0 10px;
+    min-width: 25%;
+    background-color: #DDD;
+    border: 1px #D00 solid;
+    border-radius: 0;
+    width: 99%;
+    max-width: 98%;
+}
+
+.botoes:hover{
+    background-color: #999;
+    border: 1px #D00 solid;
+}
+
+#textos{
+    padding-top: 5%;
+}
+
+#textos h3{
+    text-spacing: space-adjacent;
+}
+
+.modal{
+    color: black;
+}
+
+#rodape{
+    /*position: absolute;*/
+    bottom: 0;
+    width: 100%;
+    padding-top: 4%;
+    margin-bottom: 0;
+}
+
+#logo-vostre{
+    position: relative;
+    width: 80px;
+    margin-top: -14px;
+}
+
+.v-bandeiras{
+    margin-top: 4%;
+}
+
+#banner-google{
+    margin: 5px;
+    margin-top: 0px;
+}
