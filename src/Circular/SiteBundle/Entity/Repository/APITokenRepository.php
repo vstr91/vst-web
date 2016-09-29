@@ -17,12 +17,48 @@ class APITokenRepository extends EntityRepository
         $qb = $this->createQueryBuilder('t')
 //                ->select('b.id, b.nome, b.status, l.id AS local')
                 ->select('t')
+                ->andWhere('t.tipo NOT LIKE :tipo')
                 ->distinct()
+                ->setParameter('tipo', 'mensagem')
                 ->addOrderBy('t.dataCriacao', 'DESC');
         
         if(false == is_null($limite)){
             $qb->setMaxResults($limite);
         }
+        
+        return $qb->getQuery()->getResult();
+        
+    }
+    
+    public function listarUltimosAcessosPorIdentificador($limite = null, $identificador, $tipo){
+        $qb = $this->createQueryBuilder('t')
+//                ->select('b.id, b.nome, b.status, l.id AS local')
+                ->select('t')
+                ->andWhere('t.identificadorUnico LIKE :identificador')
+                ->andWhere('t.tipo LIKE :tipo')
+                ->distinct()
+                ->setParameter('identificador', $identificador)
+                ->setParameter('tipo', $tipo)
+                ->addOrderBy('t.dataCriacao', 'DESC');
+        
+        if(false == is_null($limite)){
+            $qb->setMaxResults($limite);
+        }
+        
+        return $qb->getQuery()->getResult();
+        
+    }
+    
+    public function rankingAcessosPorIdentificador($tipo){
+        $qb = $this->createQueryBuilder('t')
+//                ->select('b.id, b.nome, b.status, l.id AS local')
+                ->addSelect('t.identificadorUnico, COUNT(t.dataCriacao) AS qtd')
+                ->andWhere('t.tipo LIKE :tipo')
+                ->andWhere('t.dataValidacao IS NOT NULL')
+                ->distinct()
+                ->groupBy('t.identificadorUnico')
+                ->setParameter('tipo', $tipo)
+                ->addOrderBy('t.dataCriacao', 'DESC');
         
         return $qb->getQuery()->getResult();
         

@@ -35,8 +35,8 @@ class CentralController extends Controller {
         $acessos = $em->getRepository('CircularSiteBundle:APIToken')
                 ->listarUltimosAcessos(20);
         
-         $contatos = $em->getRepository('VostreSiteBundle:Contato')
-                ->listarUltimosContatos(20);
+         $contatos = $em->getRepository('CircularSiteBundle:APIToken')
+                ->rankingAcessosPorIdentificador('acesso');
         
 //        $recadoType = new RecadoType();
 //        $formRecado = $this->createForm($recadoType);
@@ -162,6 +162,26 @@ class CentralController extends Controller {
         return $this->render('VostreCentralBundle:Admin:Contato/detalheContato.html.twig', array(
             'usuario' => $user,
             'contato' => $contato
+        ));
+    }
+    
+    public function carregaAcessoPorIdentificadorAction($identificador)
+    {
+        
+        $user = $this->getUser();
+        
+        $em = $this->getDoctrine()->getManager();
+        
+        $acessosDados = $em->getRepository('CircularSiteBundle:APIToken')
+                ->listarUltimosAcessosPorIdentificador(null, $identificador, 'dados');
+        
+        $acessosMensagens = $em->getRepository('CircularSiteBundle:APIToken')
+                ->listarUltimosAcessosPorIdentificador(null, $identificador, 'mensagem');
+        
+        return $this->render('VostreCentralBundle:Admin:APIToken/detalhes.html.twig', array(
+            'usuario' => $user,
+            'acessosDados' => $acessosDados,
+            'acessosMensagens' => $acessosMensagens
         ));
     }
     

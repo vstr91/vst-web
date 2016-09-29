@@ -51,15 +51,23 @@
                         <td>Token</td>
                         <td>Identificador &Uacute;nico</td>
                         <td>Data</td>
+                        <td>Data Cria&ccedil;&atilde;o Identificador</td>
                     </tr>
                 </thead>
                 <tbody>
                     {% for acesso in acessos %}
-                        <tr>
+                        <tr class="linha-clicavel-identificador" 
+                            data-id="{{ acesso.identificadorUnico }}">
                             <td>{{ loop.index }}</td>
                             <td>{{ acesso.puroTexto }}</td>
                             <td>{{ acesso.identificadorUnico }}</td>
                             <td>{{ acesso.dataCriacao|date('d/m/Y H:i:s') }}</td>
+                            <td>{{ acesso
+                                    .identificadorUnico|slice(2, 2) }}/{{ acesso
+                                    .identificadorUnico|slice(4, 2) }}/{{ acesso
+                                    .identificadorUnico|slice(6, 2) }}
+                                    {{ acesso.identificadorUnico|slice(8, 2) }}:{{ acesso.identificadorUnico|slice(10, 2) }}
+                            </td>
                         </tr>
                     {% endfor %}
 
@@ -100,7 +108,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="modal-lable">Mensagem</h4>
+                <h4 class="modal-title" id="modal-label">Mensagem</h4>
             </div>
             <div class="modal-body" id="conteudo-modal">
 
@@ -122,6 +130,7 @@
             method: 'GET',
             success: function (response, status, xhr, form) {
                 $('#conteudo-modal').html(response);
+                $('#modal-label').html("Mensagem");
                 $('.modal').modal('show');
             }
         });
@@ -140,6 +149,21 @@
             }
         });
     }
+    
+    function carregaAcessos(id) {
+        
+        var caminho = '{{ path('vostre_site_admin_acessos_carrega') }}';
+        
+        $.ajax({
+            url: caminho+"/"+id,
+            method: 'GET',
+            success: function (response, status, xhr, form) {
+                $('#conteudo-modal').html(response);
+                $('#modal-label').html("Acessos usuário "+id);
+                $('.modal').modal('show');
+            }
+        });
+    }
 
     $(document).ready(function () {
         
@@ -147,6 +171,13 @@
             var id = $(this).data('id');
             
             carregaContato(id);
+            
+        });
+        
+        $('.linha-clicavel-identificador').click(function(){
+            var id = $(this).data('id');
+            
+            carregaAcessos(id);
             
         });
 
