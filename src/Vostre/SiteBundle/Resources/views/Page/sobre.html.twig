@@ -1,0 +1,45 @@
+{% extends "VostreSiteBundle::layout.html.twig" %}
+        {#{% block javascript %}
+                {{ parent() }}
+        {% endblock %}    
+        {% block css %}
+                {{ parent() }}
+        {% endblock %}   #}     
+{% block body %}
+        {#{{ parent() }}#}
+        {% block menu %} {{ parent() }} {% endblock %}
+        {% block conteudo %}
+<div class="container-fluid" style="min-height: 100%;">
+    <div class="row">
+        <div class="col-md-12">
+            <h3>{% trans %}site.pagina.titulo.sobre.titulo{% endtrans %}</h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <p>{% trans %}site.pagina.descricao.sobre.marca{% endtrans %}</p>
+            <p>{% trans %}site.pagina.descricao.sobre.historia{% endtrans %}</p>
+            <h4 class="v-subtitulo-sobre">{% trans %}site.pagina.titulo.sobre.subtitulo-nome{% endtrans %}</h4>
+            <p>{% trans %}site.pagina.descricao.sobre.nome{% endtrans %}</p>
+            <h4 class="v-subtitulo-sobre">{% trans %}site.pagina.titulo.sobre.subtitulo-fundador{% endtrans %}</h4>
+            <p>{% trans %}site.pagina.descricao.sobre.fundador{% endtrans %}</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            
+        </div>
+    </div>
+</div>
+        {% endblock %}
+        {% block rodape %} {{ parent() }} {% endblock %}
+        {% block javascripts %}
+        {{ parent() }}
+<script type="text/javascript" src="{{ asset('js/jquery.validate.min.js') }}"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        
+    });
+</script>
+        {% endblock %}
+{% endblock %}

@@ -1,0 +1,14 @@
+# This file is auto-generated during the composer install
+parameters:
+    database_driver: pdo_mysql
+    database_host: 127.0.0.1
+    database_port: null
+    database_name: vostre_novo_dev
+    database_user: root
+    database_password: root
+    mailer_transport: gmail
+    mailer_host: smtp.gmail.com
+    mailer_user: almir.amjunior@gmail.com
+    mailer_password: almirjunior91
+    locale: pt_BR
+    secret: 671ad10a550c5482a14f12f7c899be115

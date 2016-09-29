@@ -1,0 +1,51 @@
+vostre_site_homepage:
+    pattern:  /
+    defaults: { _controller: VostreSiteBundle:Page:index }
+
+vostre_site_servicos:
+    pattern:  /servicos
+    defaults: { _controller: VostreSiteBundle:Page:servicos }
+    
+vostre_site_portfolio:
+    pattern:  /portfolio
+    defaults: { _controller: VostreSiteBundle:Page:portfolio }
+    
+vostre_site_contato:
+    pattern:  /contato
+    defaults: { _controller: VostreSiteBundle:Page:contato }
+    
+vostre_site_sobre:
+    pattern:  /sobre
+    defaults: { _controller: VostreSiteBundle:Page:sobre }
+
+vostre_site_central_cliente:
+    pattern:  /central-do-cliente
+    defaults: { _controller: VostreSiteBundle:Page:central }
+    
+circular_site:
+    pattern:  /circular
+    defaults: { _controller: CircularSiteBundle:Page:cover }
+    
+circular_site_consulta:
+    pattern:  /circular/consulta
+    defaults: { _controller: CircularSiteBundle:Page:consulta }
+    
+circular_site_consulta_todos_horarios:
+    pattern:  /circular/consulta/todos-horarios
+    defaults: { _controller: CircularSiteBundle:Page:consultaTodosHorarios }
+    
+circular_site_lista_itinerarios_parada:
+    pattern:  /parada/{id_parada}/itinerarios
+    defaults: { _controller: CircularSiteBundle:Parada:itinerarios, id_parada: -1 }
+    
+circular_site_lista_paradas_itinerario:
+    pattern:  /itinerario/{id_itinerario}/paradas
+    defaults: { _controller: CircularSiteBundle:Parada:paradasItinerario, id_itinerario: -1 }
+    
+circular_site_itinerario_todos_horarios:
+    pattern: /itinerario/{id_itinerario}/horarios/{hora}
+    defaults: {_controller: CircularSiteBundle:Itinerario:todosHorarios}
+    
+circular_site_contato:
+    pattern:  /circular/contato
+    defaults: { _controller: CircularSiteBundle:Page:contato }

@@ -1,0 +1,356 @@
+{# empty Twig template #}
+<!DOCTYPE html>
+<html lang="pt">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{% trans %}site.titulo.base.circular{% endtrans %}</title>
+
+        <!-- Bootstrap -->
+        <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/nova.css') }}" rel="stylesheet">
+        <link rel="stylesheet" href="{{ asset('css/circular/jquery.fullpage.min.css') }}" />
+        <link rel="stylesheet" href="{{ asset('css/circular/jquery.simplyscroll.css') }}" />
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+          <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+{#        <script src='https://www.google.com/recaptcha/api.js'></script>#}
+    </head>
+    <body>
+        <div id="conteudo-scroll">
+            <div class="section text-center" data-section-name="topo" id="topo">
+                <p class="text-center"><img id="imagem-topo" 
+                                            src="{{ asset('imagens/circular/banner-novo.png') }}"</p>
+                <p class="text-center texto-destaque 
+                   texto-destaque-topo">Os hor&aacute;rios do seu &ocirc;nibus no seu bolso</p>
+                <p><a href="https://play.google.com/store/apps/details?id=br.com.vostre.circular" target="_blank">
+                        <img alt="Get it on Google Play"
+                             src="https://developer.android.com/images/brand/pt-br_generic_rgb_wo_60.png" />
+                    </a></p>
+                    {#<div class="row">
+                        <div class="col-md-6 col-md-offset-3">
+                            {{ form_start(form) }}
+                                {{ form_errors(form) }}
+                                <div class="form-group">
+                                    <label for="local" class="control-label col-md-2 col-sm-2 col-xs-2 text-right">{{ form_label(form.local) }}</label>
+                                    <div class="col-md-10 col-sm-10 col-xs-10">
+                                        {{ form_widget(form.local) }}
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="partida" class="control-label col-md-2 col-sm-2 col-xs-2 text-right">{{ form_label(form.partida) }}</label>
+                                    <div class="col-md-10 col-sm-10 col-xs-10">
+                                        {{ form_widget(form.partida) }}
+                                    </div>
+                                </div> 
+                                 <div class="form-group">
+                                    <label for="destino" class="control-label col-md-2 col-sm-2 col-xs-2 text-right">{{ form_label(form.destino) }}</label>
+                                    <div class="col-md-10 col-sm-10 col-xs-10">
+                                        {{ form_widget(form.destino) }}
+                                    </div>
+                                </div>
+                            {{ form_end(form) }}
+                        </div>
+                    </div>#}
+
+                <!-- INICIO CONSULTA -->
+                {#<div id="caixa-dados">
+                    
+                </div>#}
+
+                <!-- FIM CONSULTA -->
+            </div>
+            <div class="section" data-section-name="funcionalidades" id="funcionalidades">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h2 class="titulo-secao">O QUE &Eacute;?</h2>
+                            <hr class="linha-titulo" />
+                            <br />
+                            <br />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p>Aplicativo de mobilidade urbana voltado inicialmente para o Sul do Estado do Rio de Janeiro e 
+                                regi&otilde;es pr&oacute;ximas. Traz de maneira simples e r&aacute;pida a informa&ccedil;&atilde;o 
+                                sempre que voc&ecirc; precisar.</p>
+                            <br />
+                            <p>Voc&ecirc; vai encontrar no Circular:</p>
+                            <br />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <ul>
+                                <li>Itiner&aacute;rios</li>
+                                <li>Paradas e Rodovi&aacute;rias</li>
+                                <li>Quadro de Hor&aacute;rios</li>
+                                <li>Pr&oacute;ximo Hor&aacute;rio Dispon&iacute;vel</li>
+                                <li>Tarifas</li>
+                                <li>Dados Dispon&iacute;veis Offline</li>
+                                <li>Realidade Aumentada</li>
+                                <li>Se&ccedil;&otilde;es <span class="badge badge-vermelha">Novo!</span></li>
+                                <li>Itiner&aacute;rios e Paradas Favoritas <span class="badge badge-vermelha">Novo!</span></li>
+                            </ul>
+                            <br />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p>Todos os dados s&atilde;o colhidos de fontes oficias, ou seja, 
+                                informa&ccedil;&otilde;es prestadas pela pr&oacute;pria empresa respons&aacute;vel pelo 
+                                itiner&aacute;rio. 
+                                <span class="destaque">N&atilde;o h&aacute;, atualmente, qualquer v&iacute;nculo com qualquer 
+                                    empresa p&uacute;blica ou privada.</span></p>
+                            <p>Caso verifique alguma inconsist&ecirc;ncia nos dados apresentados, por favor 
+                                <a data-scroll href="#contato">nos informe</a> e 
+                                faremos a corre&ccedil;&atilde;o o mais breve poss&iacute;vel.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="section" data-section-name="dados" id="dados">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h2 class="titulo-secao">ALGUNS DADOS</h2>
+                            <hr class="linha-titulo" />
+                            <br />
+                            <br />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 text-center">
+                            <span class="dado-destaque counter">{{ itinerarios }}</span><br />
+                            <p class="texto-destaque">Itiner&aacute;rios</p>
+                        </div>
+                        <div class="col-md-4 col-md-offset-2">
+                            <p><span class="dado-subdestaque counter">{{ paradas }}</span> 
+                                <span class="texto-subdestaque">paradas</span></p>
+                            <p><span class="dado-subdestaque counter">{{ locais }}</span> 
+                                <span class="texto-subdestaque">cidades / distritos</span></p>
+                            <p><span class="dado-subdestaque counter">{{ estados }}</span> <span class="texto-subdestaque">estados</span></p>
+                            <p><span class="dado-subdestaque counter">{{ empresas }}</span> <span class="texto-subdestaque">empresas</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="section" data-section-name="contato" id="contato">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h2 class="titulo-secao">ENTRE EM CONTATO</h2>
+                            <hr class="linha-titulo" />
+                            <br />
+                            <br />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p>Tem alguma d&uacute;vida, cr&iacute;tica ou sugest&atilde;o? Descobriu algum dado incorreto? 
+                                Escreva pra gente!</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <form id="form-contato" id="form-contato" action="{{ path('circular_site_contato') }}" method="POST">
+                                {{ form_widget(formContato) }}
+{#                                <div class="g-recaptcha" data-sitekey="6Lf6SRgTAAAAAHn2j1PAJvnB-_XMfS2FoahBVbeB"></div>#}
+                                <input type="submit" value="Enviar" class="btn btn-primary" id="btn-enviar" 
+                                       data-loading-text="Enviando..." />
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="section fp-auto-height" data-section-name="rodape" id="rodape">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p class="text-center text">&COPY; Vostr&egrave; 2016 - Desenvolvido por Almir Junior</p>
+                            <p class="text-center"><img style="width: 10%; height: auto;" 
+                                                        src="{{ asset('imagens/-logo-branca-20.png') }}"</p>
+                            <p class="text-center">contato@vostre.com.br - (24) 9 9220 1141</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="{{ asset('js/jquery.js') }}"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery.fullpage.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/smooth-scroll.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery.form.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery.validate.min.js') }}"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/waypoints/2.0.3/waypoints.min.js"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery.counterup.min.js') }}"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            
+            $(window).resize(function() {
+                
+                var largura = $(window).width();
+                
+                if(largura <= 768){
+                    $.fn.fullpage.destroy();
+                } else{
+                    $.fn.fullpage.rebuild();
+                }
+        
+                
+            });
+            
+            smoothScroll.init();
+            
+            $('.counter').counterUp({
+                time: 2000
+            });
+                
+            $('#conteudo-scroll').fullpage({
+                scrollBar: true,
+                fitToSection: true
+            });
+            
+            var largura = $(window).width();
+                
+            if(largura <= 768){
+                $.fn.fullpage.destroy();
+            } else{
+                $.fn.fullpage.rebuild();
+            }
+
+            $('#form-contato').validate({
+                ignore: [],
+                submitHandler: function (form) {
+
+                    //$('#modal-load').modal('show');
+                    $('#btn-enviar').button('loading');
+
+                    $(form).ajaxSubmit({
+                        success: function (response, status, xhr, form) {
+                            if (response != '') {
+                                //$('#modal-load').modal('hide');
+                                $('#btn-enviar').button('reset');
+                                alert("Houve um problema ao enviar a mensagem. Por favor tente novamente");
+                            } else {
+                                //$('#modal-load').modal('hide');
+                                $('#btn-enviar').button('reset');
+                                alert("Mensagem Enviada! Obrigado!");
+                                $('#form-contato')[0].reset();
+                            }
+                        }
+                    });
+
+                    return false;
+
+                },
+                rules: {
+                    'contato[nome]': "required",
+                    'contato[email]':{
+                        required: true,
+                        email: true
+                    },
+                    'contato[titulo]': "required",
+                    'contato[mensagem]': "required"
+                },
+                messages: {
+                    'contato[nome]': "Por favor informe seu nome",
+                    'contato[email]':{
+                        required: "Por favor informe seu email",
+                        email: "Por favor informe um email válido"
+                    },
+                    'contato[titulo]': "Por favor informe o assunto",
+                    'contato[mensagem]': "Por favor digite a mensagem"
+                }
+            });
+
+        {#$local = $('#form_local');
+        $partida = $('#form_partida');
+            
+        $local.change(function() {
+            var $form = $(this).closest('form');
+            var data = {};
+            data[$local.attr('name')] = $(this).val();
+
+            $.ajax({
+                url: '{{ path('circular_site') }}',
+                type: 'POST',
+                data: data,
+                success: function(html) {
+                    $('#form_partida').replaceWith(
+                            $(html).find('#form_partida')
+                            );
+                }
+            });
+        });
+
+        $('form').on('change', '#form_partida', function() {
+            var $form = $(this).closest('form');
+            var data = {};
+            data[$partida.attr('name')] = $(this).val();
+
+            $.ajax({
+                url: '{{ path('circular_site') }}',
+                type: 'POST',
+                data: data,
+                success: function(html) {
+                    $('#form_destino').replaceWith(
+                            $(html).find('#form_destino')
+                            );
+                }
+            });
+        });
+            
+        $('form').on('change', '#form_destino', function() {
+            var $form = $(this).closest('form');
+            var data = {};
+            data['partida'] = $('#form_partida').val();
+            data['destino'] = $(this).val();
+
+            console.log(data);
+
+            $.ajax({
+                url: '{{ path('circular_site_consulta') }}',
+                type: 'POST',
+                data: data,
+                success: function(html) {
+                    console.log(html);
+                    $('#caixa-dados').replaceWith(html);
+                    $('#btn-todos-horarios').removeClass('disabled');
+                }
+            });
+        });
+            
+        $('#caixa-dados').on('click', '#btn-todos-horarios', function() {
+            var id = $(this).attr('href').replace('#', '');
+
+            var data = {};
+            data['itinerario'] = id;
+
+            $.ajax({
+                url: '{{ path('circular_site_consulta_todos_horarios') }}',
+                type: 'POST',
+                data: data,
+                success: function(html) {
+                    $('#caixa-dados').html(html);
+                    $('#btn-todos-horarios').removeClass('disabled');
+                }
+            });
+                
+            return false;
+                
+        });#}
+
+                });
+    </script>
+</html>

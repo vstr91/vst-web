@@ -1,0 +1,99 @@
+{# empty Twig template #}
+{% extends "VostreCentralBundle::layout.html.twig" %}
+{% block javascript %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('js/jquery-ui.min.js') }}"></script>
+    <script src="{{ asset('js/moment.js') }}"></script>
+    <script src="{{ asset('js/bootstrap-datetimepicker.min.js') }}"></script>
+    <script type="text/javascript"
+    src="http://maps.google.com/maps/api/js?sensor=false&amp;language=pt_BR"></script>
+    <script type="text/javascript" src="{{ asset('js/gmap3.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery.nicescroll.min.js') }}"></script>
+    <script type="text/javascript">
+
+        $(document).ready(function() {
+            
+            {#$('#chk-tarifa').change(function(){
+                
+                if($(this).parent().parent().hasClass('bg-primary')){
+                    $(this).parent().parent().removeClass('bg-primary');
+                } else{
+                    $(this).parent().parent().addClass('bg-primary');
+                }
+                
+            });#}
+            
+        });
+    </script>
+{% endblock %}
+{% block css %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/bootstrap-datetimepicker.min.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/circular/jquery-ui.css') }}" />
+{% endblock %}        
+{% block body %}
+    {#{{ parent() }}#}
+    {% block menu %} 
+        {{ parent() }}
+    {% endblock %}
+    {% block conteudo %}
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <h4 class="text-center">Gerenciamento de Itiner&aacute;rios - Tarifas<br />
+                        <small>Atualize tarifas de v&aacute;rios itiner&aacute;rios de uma s&oacute; vez</small></h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <form name="form-tarifa" id="form-tarifa" method="POST" action="">
+                    <label for="tarifa">Nova Tarifa</label>
+                    <input type="text" class="form-control" name="tarifa" id="tarifa" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <p>Escolha abaixo quais itiner&aacute;rios ter&atilde;o a tarifa alterada para o valor acima</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table table-hover table-responsive text-center">
+                        <thead>
+                            <tr>
+                                <td></td>
+                                <td>Partida</td>
+                                <td>Destino</td>
+                                <td>Observa&ccedil;&atilde;o</td>
+                                <td>Tarifa Atual</td>
+                                <td>Status</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for itinerario in itinerarios %}
+                                <tr>
+                                    <td><input type="checkbox" name="chk-tarifa[]" id="chk-tarifa"
+                                               value="{{ itinerario.id }}" /></td>
+                                    <td>{{ itinerario.partida.nome }} ({{ itinerario.partida.local.nome }})</td>
+                                    <td>{{ itinerario.destino.nome }} ({{ itinerario.destino.local.nome }})</td>
+                                    <td>{{ itinerario.observacao }}</td>
+                                    <td>{{ itinerario.valor }}</td>
+                                    <td>
+                                        {% if itinerario.status == 0 %}
+                                            Ativo
+                                        {% else %}
+                                            Inativo
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                        <input type="submit" value="Alterar" class="btn btn-primary" />
+                </div>
+            </div>
+        </div>
+
+    {% endblock %}
+    {% block rodape %} {{ parent() }} {% endblock %}    
+{% endblock %}

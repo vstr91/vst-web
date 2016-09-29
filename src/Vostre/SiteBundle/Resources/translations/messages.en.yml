@@ -1,0 +1,60 @@
+site:
+    titulo:
+        base: Vostrè | Systems, Consulting & Entertainment
+    pagina:
+        titulo:
+            servicos: Services
+            portfolio: Portfolio
+            contato: Contact
+            sobre: 
+                titulo: About
+                subtitulo-nome: The Name
+                subtitulo-fundador: About the Founder
+        descricao:
+            servicos: <strong>Vostr&egrave;</strong> offers you the following services
+            portfolio: Here you'll find all the projects developed and under development!
+            contato: >
+                Let's talk! Fill the form below, send an email to <a href="mailto:contato@vostre.com.br" 
+                class="v-link-destaque-corpo">contato@vostre.com.br</a> or call 
+                <a href="tel:+5524992201141" class="v-link-destaque-corpo">+55 (24) 9 9220 1141</a>.
+            sobre: 
+                marca: > 
+                    Vostr&egrave; is a virtual brand created by Systems Analyst and Developer 
+                    Almir Junior to hold all of his projects.
+                historia: > 
+                    Founded in 2014 at Barra do Pira&iacute;-RJ, Vostr&egrave; holds a project called 
+                    Vostr&egrave; Circular, released in June, 2015, aiming to give information about the 
+                    buses in the region, such as schedules, routes and fares.
+                nome: > 
+                    The name "Vostr&egrave;" came from the armenian word "vostre", which means "oyster". 
+                    This name came from the Barra do Pira&iacute;'s nickname: "Valley's Pearl".
+                fundador: >
+                    Founder of the virtual brand, Almir Junior is a Systems Analyst and Developer, 
+                    graduated in Dom Andr&eacute; Arcoverde Foundation in 2011.
+                    He has experience developing web and desktop systems, and started developing mobile apps 
+                    in 2014, developing Vostr&egrave; Circular's app.</p>
+                    <p>As a development enthusiast, Almir is always trying to develop applications that can 
+                    help us optimize our time.
+    rodape:
+        telefone-celular-raw: +5524992201141
+        telefone-celular: +55 (24) 9 9220 1141
+        cookies: This website may use cookies to give its users a better experience. By using this, you agree with the use.
+    comum:
+        botao:
+            conferir: Take a look!
+            vamos-conversar: Let's Talk!
+            breve: Available soon!
+        formulario:
+            contato:
+                nome: Name
+                email: Email
+                titulo: Subject
+                mensagem: Message
+            validacao:
+                nome: Please enter your name.
+                email:
+                    vazio: Please enter your email.
+                    invalido: Please enter a valid email.
+                titulo: Please enter a subject.
+                mensagem: Please enter your message.
+            submit: Send

@@ -1,0 +1,168 @@
+{# empty Twig template #}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{% trans %}site.titulo.base.circular{% endtrans %}</title>
+
+        <!-- Bootstrap -->
+        <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/circular/cover.css') }}" rel="stylesheet">
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+          <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+    </head>
+    <body>
+        <div class="container-fluid">
+            <div class="row text-center">
+                <div class="col-md-3">
+                    <p class="v-bandeiras visible-xs">
+                        <a href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')|merge({'_locale' : 'pt_BR'})) }}">
+                            <img src="{{ asset('imagens/bra.png') }}" />
+                        </a>
+                        <a href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')|merge({'_locale' : 'en'})) }}">
+                            <img src="{{ asset('imagens/usa.png') }}" />
+                        </a>
+                    </p>
+                </div>
+                <div class="col-md-6">
+                    <img id="logo" src="{{ asset('imagens/circular/logo-branca.png') }}" alt="Logo" />
+                </div>
+                <div class="col-md-3">
+                    <p class="v-bandeiras visible-sm visible-md visible-lg">
+                        <a href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')|merge({'_locale' : 'pt_BR'})) }}">
+                            <img src="{{ asset('imagens/bra.png') }}" />
+                        </a>
+                        <a href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')|merge({'_locale' : 'en'})) }}">
+                            <img src="{{ asset('imagens/usa.png') }}" />
+                        </a>
+                    </p>
+                </div>
+            </div>
+            <div class="row text-center">
+                <div class="col-md-12" id="textos">
+                    <h3>{% trans %}site.mensagem.index.titulo{% endtrans %}</h3>
+                    <h3>{% trans %}site.mensagem.index.descricao{% endtrans %}</h3>
+                </div>
+            </div>
+            <div class="row text-center" style="padding-top: 3%;">
+                <div class="col-md-12">
+                    <a href="https://play.google.com/store/apps/details?id=br.com.vostre.circular" target="_blank">
+                        <img alt="Get it on Google Play"
+                             src="https://developer.android.com/images/brand/pt-br_generic_rgb_wo_60.png" />
+                    </a>
+                </div>
+            </div>
+            <div class="row text-center" style="padding-top: 3%;">
+                <div class="col-md-3">
+
+                </div>
+                <div class="col-md-3">
+                    <a href="#" class="btn btn-lg btn-default botoes" data-toggle="modal" 
+                       data-target="#modal-saiba">{% trans %}site.botoes.index.saiba-mais{% endtrans %}</a>
+                </div>
+                <div class="col-md-3">
+                    <a href="#" class="btn btn-lg btn-default botoes" data-toggle="modal" 
+                       data-target="#modal-parceiro">{% trans %}site.botoes.index.seja-parceiro{% endtrans %}</a>
+                </div>
+                {#<div class="col-md-2">
+                    <a href="#" class="btn btn-lg btn-default botoes" data-toggle="modal" 
+                       data-target="#modal-ajudar">{% trans %}site.botoes.index.quero-ajudar{% endtrans %}</a>
+                </div>#}
+                {#<div class="col-md-6">
+                    <a href="#" class="btn btn-lg btn-default botoes" data-toggle="modal" 
+                       data-target="#modal-saiba">Saiba Mais</a>
+                    <a href="#" class="btn btn-lg btn-default botoes" data-toggle="modal" 
+                       data-target="#modal-empresa">Cadastre sua Empresa</a>
+                    <a href="#" class="btn btn-lg btn-default botoes" data-toggle="modal" 
+                       data-target="#modal-ajudar">Quero Ajudar</a>
+                </div>#}
+                <div class="col-md-3">
+
+                </div>
+            </div>
+        </div>
+        <div class="navbar text-center" id="rodape">
+            {#            <p>Um produto <a href="http://vostre.com.br">Vostr&egrave;</a> - 2014</p>#}
+            <p>{% trans %}site.rodape.descricao.produto{% endtrans %} <a href="http://vostre.com.br" target="_blank">
+                    <img id="logo-vostre" src="{{ asset('imagens/-logo-branca-20.png') }}" /></a> &copy; 2015</p>
+        </div>
+
+        <!-- SAIBA -->
+        <div class="modal fade" id="modal-saiba">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3>{% trans %}site.modal.saiba-mais.titulo{% endtrans %}</h3>
+                    </div>
+                    <div class="modal-body">
+                        <p>{% trans %}site.modal.saiba-mais.descricao.introducao{% endtrans %}</p>
+                        <p>{% trans %}site.modal.saiba-mais.descricao.funcionalidades.introducao{% endtrans %}:</p>
+                        <ul>
+                            <li>{% trans %}site.modal.saiba-mais.descricao.funcionalidades.localizacao{% endtrans %}</li>
+                            <li>{% trans %}site.modal.saiba-mais.descricao.funcionalidades.itinerario{% endtrans %}</li>
+                            <li>{% trans %}site.modal.saiba-mais.descricao.funcionalidades.proximo-horario{% endtrans %}</li>
+                            <li>{% trans %}site.modal.saiba-mais.descricao.funcionalidades.sem-conexao{% endtrans %}</li>
+                            <li>{% trans %}site.modal.saiba-mais.descricao.funcionalidades.realidade-aumentada{% endtrans %}</li>
+                            <li>{% trans %}site.modal.saiba-mais.descricao.funcionalidades.busca-itinerario{% endtrans %}</li>
+                        </ul>
+                        <p>{% trans %}site.modal.saiba-mais.descricao.experimente{% endtrans %}</p>
+                        <p>
+                            <a href="https://play.google.com/store/apps/details?id=br.com.vostre.circular" target="_blank">
+                                <img alt="Get it on Google Play"
+                                     src="https://developer.android.com/images/brand/pt-br_generic_rgb_wo_45.png" />
+                            </a>
+                        </p>
+                        {#<br />
+                        <br />
+                        <p>{% trans %}site.modal.saiba-mais.descricao.baixar{% endtrans %}</p>#}
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" 
+                                data-dismiss="modal">{% trans %}site.comum.botoes.fechar{% endtrans %}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- FIM SAIBA -->
+
+        <!-- PARCEIRO -->
+        <div class="modal fade" id="modal-parceiro">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3>{% trans %}site.modal.seja-parceiro.titulo{% endtrans %}</h3>
+                    </div>
+                    <div class="modal-body">
+                        <p>{% trans %}site.modal.quero-ajudar.descricao.quer-ajudar{% endtrans %}:</p>
+                        <br />
+                        <h4>{% trans %}site.modal.quero-ajudar.descricao.info-sugestoes.titulo{% endtrans %}</h4>
+                        <p>{% trans %}site.modal.quero-ajudar.descricao.info-sugestoes.descricao{% endtrans %}</p>
+                        <p>{% trans %}site.modal.quero-ajudar.descricao.info-sugestoes.contato-email{% endtrans %}</p>
+                        <p>{% trans %}site.modal.quero-ajudar.descricao.info-sugestoes.agradecimento{% endtrans %}</p>
+                        <br />
+                        <h4>{% trans %}site.modal.quero-ajudar.descricao.parcerias.titulo{% endtrans %}</h4>
+                        <p>{% trans %}site.modal.quero-ajudar.descricao.parcerias.descricao{% endtrans %}</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">{% trans %}site.comum.botoes.fechar{% endtrans %}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- FIM PARCEIRO -->
+
+    </body>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="{{ asset('js/jquery.js') }}"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+
+</html>

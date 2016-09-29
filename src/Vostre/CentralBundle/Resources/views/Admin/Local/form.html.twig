@@ -1,0 +1,72 @@
+<form id="form-local-edita" 
+      action="{{ path('vostre_site_admin_locais_cadastra', {'id_local': local.id}) }}" 
+      method="POST" {{ form_enctype(form) }}>
+    {{ form_widget(form) }}
+    <p>
+        <input type="submit" class="hidden" id="btn-submit" value="Cadastrar" />
+    </p>
+</form>
+<script type="text/javascript">
+    
+    $(document).ready(function(){
+        var $estado = $('#form-local-edita #vostre_localbundle_local_estado');
+        var $tipoLocal = $('#form-local-edita #vostre_localbundle_local_tipo');
+
+        $('#form-local-edita #vostre_localbundle_local_cidade').attr('disabled', 'disabled');
+        $('#form-local-edita #vostre_localbundle_local_cidade').removeAttr('required');
+
+        $tipoLocal.change(function() {
+
+            if ($tipoLocal.val() != '0') {
+                $('#form-local-edita #vostre_localbundle_local_cidade').removeAttr('disabled');
+                $('#form-local-edita #vostre_localbundle_local_cidade').attr('required', 'required');
+            } else {
+                $('#form-local-edita #vostre_localbundle_local_cidade').attr('disabled', 'disabled');
+                $('#form-local-edita #vostre_localbundle_local_cidade').removeAttr('required');
+                $('#form-local-edita #vostre_localbundle_local_cidade').val(-1);
+            }
+
+        });
+
+
+        $estado.change(function() {
+            var $form = $(this).closest('form');
+            var data = {};
+            data[$estado.attr('name')] = $estado.val();
+            $.ajax({
+                url: '{{ path('vostre_site_admin_locais') }}',
+                type: $form.attr('method'),
+                data: data,
+                success: function(html) {
+                    console.log(html);
+                    $('#form-local-edita #vostre_localbundle_local_cidade').replaceWith(
+                            $(html).find('#vostre_localbundle_local_cidade')
+                            );
+                    if ($tipoLocal.val() != '0') {
+                        $('#form-local-edita #vostre_localbundle_local_cidade').removeAttr('disabled');
+                        $('#form-local-edita #vostre_localbundle_local_cidade').attr('required', 'required');
+                    } else {
+                        $('#form-local-edita #vostre_localbundle_local_cidade').attr('disabled', 'disabled');
+                        $('#form-local-edita #vostre_localbundle_local_cidade').removeAttr('required');
+                    }
+                }
+            });
+        });
+        
+        $('#btn-editar').click(function(){
+            $('#btn-submit').click();
+        });
+        
+    });
+    
+    {#$('#form-parada').submit(function(){
+        $(this).ajaxSubmit(function(data){
+            console.log(data);
+            $(".caixaForm").dialog('close');
+            return false;
+        });
+        return false;
+    });#}
+    
+    
+</script>

@@ -1,0 +1,1 @@
+ALTER TABLE circular_api_token ADD dataValidacao DATETIME DEFAULT NULL;
