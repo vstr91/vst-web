@@ -47,6 +47,7 @@ class ParadaRepository extends EntityRepository
                 ->leftJoin("VostreLocalBundle:Bairro", "b", "WITH", "b.id = p.bairro")
                 ->leftJoin("CircularSiteBundle:ParadaItinerario", "pi", "WITH", "pi.parada = p.id")
 //                ->where($this->createQueryBuilder('e2')->expr()->in('p.id', $subquery))
+                ->andWhere("p.status IN (0,2)")
                 ->andWhere("p.ultimaAlteracao > :ultimaAlteracao")
                 ->setParameter('ultimaAlteracao', $dataUltimoAcesso)
                 ->addOrderBy('p.id');

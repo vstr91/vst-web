@@ -33,3 +33,11 @@ circular_api_get_paradas:
 circular_api_get_mensagens:
     pattern: /recebe-dados/mensagens/{hash}/{data}
     defaults: {_controller: CircularSiteBundle:MensagemRest:getDados}
+    
+circular_api_recebe_mensagens:
+    pattern: /recebe-dados/mensagens/recebe/post/{hash}
+    defaults: {_controller: CircularSiteBundle:MensagemRest:recebeDados}
+    
+circular_api_recebe_paradas:
+    pattern: /recebe-dados/paradas/recebe/post/{hash}
+    defaults: {_controller: CircularSiteBundle:ParadaRest:recebeDados}

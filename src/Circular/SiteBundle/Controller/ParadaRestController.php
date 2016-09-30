@@ -8,8 +8,11 @@
 
 namespace Circular\SiteBundle\Controller;
 
+use Circular\SiteBundle\Entity\MCrypt;
+use Circular\SiteBundle\Entity\Parada;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\View\View;
+use Vostre\LocalBundle\Entity\Bairro;
 
 /**
  * Description of ParadaRest
@@ -21,7 +24,7 @@ class ParadaRestController extends FOSRestController {
     public function getDadosAction($hash, $data) {
         $em = $this->getDoctrine()->getManager();
 
-        $crypto = new \Circular\SiteBundle\Entity\MCrypt();
+        $crypto = new MCrypt();
         
         $hashDescriptografado = $crypto->decrypt($crypto->decrypt($hash));
 
@@ -58,11 +61,81 @@ class ParadaRestController extends FOSRestController {
         
         $em = $this->getDoctrine()->getManager();
 
-        $crypto = new \Circular\SiteBundle\Entity\MCrypt();
+        $crypto = new MCrypt();
         
         $request = $this->getRequest();
         
         $hashDescriptografado = $crypto->decrypt($crypto->decrypt($hash));
+        
+    }
+    
+    public function recebeDadosAction($hash) {
+        
+        $em = $this->getDoctrine()->getManager();
+        
+        $crypto = new MCrypt();
+        
+        $hashDescriptografado = $crypto->decrypt($crypto->decrypt($hash));
+        
+        if (null != $em->getRepository('CircularSiteBundle:APIToken')->validaToken($hashDescriptografado)) {
+            $dados = $this->getRequest()->request->all();
+            
+            //die(var_dump($dados));
+            
+            $paradas = json_decode($dados['dados'], TRUE);
+            $total = $dados['total'];
+            
+            //die(var_dump($mensagens));
+            
+            $paradas = $paradas['paradas'];
+            
+            $processadas = array();
+            
+            for($i = 0; $i < $total; $i++){
+                
+                $umaParada = new Parada();
+                $umaParada->setReferencia($paradas[$i]['referencia']);
+                $umaParada->setLatitude($paradas[$i]['latitude']);
+                $umaParada->setLongitude($paradas[$i]['longitude']);
+                
+                $umBairro = new Bairro();
+                $umBairro->setId($paradas[$i]['bairro']);
+                
+                $umBairro = $em->find('VostreLocalBundle:Bairro', $umBairro->getId());
+                
+                $umaParada->setBairro($umBairro);
+                
+                $umaParada->setStatus(3);
+//                $umaMensagem->setDataCriacao($mensagem[0]['descricao'])
+
+                $em->persist($umaParada);
+                $processadas[] = $paradas[$i]['id'];
+            }
+            
+            $em->flush();
+            
+            $view = View::create(
+                            array(
+                        "meta" => array(array("registros" => count($processadas), "status" => 200, "mensagem" => "ok")),
+                        "processadas" => $processadas
+                            ), 200, array('totalRegistros' => count($processadas)))->setTemplateVar("u");
+            
+            $em->getRepository('CircularSiteBundle:APIToken')->atualizaToken($hashDescriptografado);
+
+            return $this->handleView($view);
+            
+        }
+        
+        $view = View::create(
+                    array(
+                        "meta" => array(array("registros" => 0, "status" => 403, "mensagem" => "Acesso negado."))
+                    ),
+                403, array('totalRegistros' => 0))->setTemplateVar("u");
+//                ->setStatusCode(200)
+//                ->setData($paises);
+
+
+            return $this->handleView($view);
         
     }
 

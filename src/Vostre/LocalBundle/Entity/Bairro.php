@@ -82,6 +82,19 @@ class Bairro {
     {
         return $this->id;
     }
+    
+    /**
+     * Set id
+     * @param string $id
+     * @return Bairro
+     *
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
 
     /**
      * Set nome
