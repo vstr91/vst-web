@@ -60,8 +60,7 @@ class Empresa {
     /**
      * @var string
      *
-     * @ORM\Column(name="cnpj", type="string", length=50)
-     * @Assert\NotBlank()
+     * @ORM\Column(name="cnpj", type="string", length=50, nullable=true)
      * @Expose
      */
     private $cnpj;
@@ -69,8 +68,7 @@ class Empresa {
     /**
      * @var string
      *
-     * @ORM\Column(name="telefone", type="string", length=50)
-     * @Assert\NotBlank()
+     * @ORM\Column(name="telefone", type="string", length=50, nullable=true)
      * @Expose
      */
     private $telefone;
@@ -78,7 +76,7 @@ class Empresa {
     /**
      * @var string
      *
-     * @ORM\Column(name="site", type="string", length=50)
+     * @ORM\Column(name="site", type="string", length=50, nullable=true)
      * @Expose
      */
     private $site;
@@ -86,16 +84,14 @@ class Empresa {
     /**
      * @var string
      *
-     * @ORM\Column(name="rua", type="string", length=50)
-     * @Assert\NotBlank()
+     * @ORM\Column(name="rua", type="string", length=50, nullable=true)
      */
     private $rua;
     
     /**
      * @var string
      *
-     * @ORM\Column(name="numero", type="string", length=50)
-     * @Assert\NotBlank()
+     * @ORM\Column(name="numero", type="string", length=50, nullable=true)
      */
     private $numero;
     

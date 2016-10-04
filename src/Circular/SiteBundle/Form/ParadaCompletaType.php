@@ -43,7 +43,7 @@ class ParadaCompletaType extends ParadaType {
                         'label' => 'Bairro'
                     ))
            ->add('status', 'choice', array(
-                    'choices' => array('0' => 'Ativo', '2' => 'Inativo')
+                    'choices' => array('0' => 'Ativo', '2' => 'Inativo', '3' => 'Aguardando Aprovação')
                 ))
         ;
     }

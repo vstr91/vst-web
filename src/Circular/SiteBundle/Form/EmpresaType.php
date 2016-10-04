@@ -17,15 +17,15 @@ class EmpresaType extends AbstractType
         $builder
             ->add('razaoSocial')
             ->add('fantasia')
-            ->add('cnpj')
-            ->add('telefone')
-            ->add('site')
-            ->add('rua')
-            ->add('numero')
+//            ->add('cnpj')
+//            ->add('telefone')
+//            ->add('site')
+//            ->add('rua')
+//            ->add('numero')
             ->add('status', 'choice', array(
                     'choices' => array('0' => 'Ativo', '2' => 'Inativo')
                 ))
-            ->add('bairro')
+//            ->add('bairro')
         ;
     }
     
