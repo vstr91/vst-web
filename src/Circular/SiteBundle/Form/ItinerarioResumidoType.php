@@ -8,15 +8,24 @@
 
 namespace Circular\SiteBundle\Form;
 
+use Circular\SiteBundle\Form\DataTransformer\TimeToTextTransformer;
+use Doctrine\ORM\EntityManager;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
  * Description of ItinerarioResumidoType
  *
- * @author Cefet
+ * @author Almir
  */
 class ItinerarioResumidoType extends ItinerarioType {
+    
+    private $em;
+
+    public function __construct(EntityManager $entityManager)
+    {
+        $this->em = $entityManager;
+    }
     
     /**
      * @param FormBuilderInterface $builder
@@ -32,7 +41,11 @@ class ItinerarioResumidoType extends ItinerarioType {
                 ))
             ->add('empresa')
             ->add('observacao')
+            ->add('duracao', 'text')
         ;
+        
+        $builder->get('duracao')->addModelTransformer(new TimeToTextTransformer($this->em));
+        
     }
     
     /**

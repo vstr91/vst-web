@@ -41,7 +41,9 @@ class ItinerarioRepository extends EntityRepository
                 ->leftJoin("VostreLocalBundle:Bairro", "bd", "WITH", "bd.id = i.destino")
                 ->leftJoin("CircularSiteBundle:Empresa", "e", "WITH", "e.id = i.empresa")
                 ->where("i.ultimaAlteracao > :ultimaAlteracao")
+                ->andWhere("i.ultimaAlteracao <= :now")
                 ->setParameter('ultimaAlteracao', $dataUltimoAcesso)
+                ->setParameter('now', new \DateTime())
                 //->leftJoin("CircularSiteBundle:ParadaItinerario", "pi", "WITH", "pi.parada = p.id")
                 ->addOrderBy('i.id');
         

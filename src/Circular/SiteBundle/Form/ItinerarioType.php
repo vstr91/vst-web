@@ -23,6 +23,7 @@ class ItinerarioType extends AbstractType
             ->add('partida')
             ->add('destino')
             ->add('empresa')
+            ->add('duracao', 'text')
             ->add('observacao')
         ;
     }

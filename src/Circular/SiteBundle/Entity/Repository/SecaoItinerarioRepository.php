@@ -20,7 +20,9 @@ class SecaoItinerarioRepository extends EntityRepository
                 ->distinct()
                 ->leftJoin("CircularSiteBundle:Itinerario", "i", "WITH", "i.id = si.itinerario")
                 ->where("si.ultimaAlteracao > :ultimaAlteracao")
+                ->andWhere("si.ultimaAlteracao <= :now")
                 ->setParameter('ultimaAlteracao', $dataUltimoAcesso)
+                ->setParameter('now', new \DateTime())
                 //->leftJoin("CircularSiteBundle:ParadaItinerario", "pi", "WITH", "pi.parada = p.id")
                 ->addOrderBy('si.id');
         

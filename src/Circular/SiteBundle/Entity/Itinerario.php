@@ -79,6 +79,12 @@ class Itinerario {
     protected $distancia;
     
     /**
+     @ORM\Column(name="duracao", type="time", nullable=true)
+     * @Expose
+     */
+    protected $duracao;
+    
+    /**
      * @ORM\Column(type="integer")
      * @Expose
      */
@@ -332,5 +338,28 @@ class Itinerario {
     public function getObservacao()
     {
         return $this->observacao;
+    }
+
+    /**
+     * Set duracao
+     *
+     * @param \DateTime $duracao
+     * @return Itinerario
+     */
+    public function setDuracao($duracao)
+    {
+        $this->duracao = $duracao;
+
+        return $this;
+    }
+
+    /**
+     * Get duracao
+     *
+     * @return \DateTime 
+     */
+    public function getDuracao()
+    {
+        return $this->duracao;
     }
 }

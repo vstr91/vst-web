@@ -22,7 +22,9 @@ class HorarioItinerarioRepository extends EntityRepository
                 ->leftJoin("CircularSiteBundle:Horario", "h", "WITH", "h.id = hi.horario")
                 ->leftJoin("CircularSiteBundle:Itinerario", "i", "WITH", "i.id = hi.itinerario")
                 ->where("hi.ultimaAlteracao > :ultimaAlteracao")
+                ->andWhere("hi.ultimaAlteracao <= :now")
                 ->setParameter('ultimaAlteracao', $dataUltimoAcesso)
+                ->setParameter('now', new \DateTime())
                 //->leftJoin("CircularSiteBundle:ParadaItinerario", "pi", "WITH", "pi.parada = p.id")
                 ->addOrderBy('hi.id');
         

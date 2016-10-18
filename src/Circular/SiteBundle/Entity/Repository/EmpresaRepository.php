@@ -20,7 +20,9 @@ class EmpresaRepository extends EntityRepository
                 ->distinct()
 //                ->leftJoin("CircularSiteBundle:Local", "l", "WITH", "l.id = b.local")
                 ->where("e.ultimaAlteracao > :ultimaAlteracao")
+                ->andWhere("e.ultimaAlteracao <= :now")
                 ->setParameter('ultimaAlteracao', $dataUltimoAcesso)
+                ->setParameter('now', new \DateTime())
                 ->addOrderBy('e.id');
         
         if(false == is_null($limite)){

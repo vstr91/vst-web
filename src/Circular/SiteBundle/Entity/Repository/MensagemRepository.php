@@ -20,8 +20,10 @@ class MensagemRepository extends EntityRepository
                 ->distinct()
 //                ->leftJoin("CircularSiteBundle:Local", "l", "WITH", "l.id = b.local")
                 ->where("m.ultimaAlteracao > :ultimaAlteracao")
+                ->andWhere("m.ultimaAlteracao <= :now")
                 ->andWhere("m.status = 0")
                 ->setParameter('ultimaAlteracao', $dataUltimoAcesso)
+                ->setParameter('now', new \DateTime())
                 ->addOrderBy('m.id');
         
         if(false == is_null($limite)){

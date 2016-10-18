@@ -49,7 +49,9 @@ class ParadaRepository extends EntityRepository
 //                ->where($this->createQueryBuilder('e2')->expr()->in('p.id', $subquery))
                 ->andWhere("p.status IN (0,2)")
                 ->andWhere("p.ultimaAlteracao > :ultimaAlteracao")
+                ->andWhere("p.ultimaAlteracao <= :now")
                 ->setParameter('ultimaAlteracao', $dataUltimoAcesso)
+                ->setParameter('now', new \DateTime())
                 ->addOrderBy('p.id');
         
         if(false == is_null($limite)){

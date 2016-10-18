@@ -26,7 +26,9 @@ class HorarioRepository extends EntityRepository
                 ->distinct()
 //                ->where($this->createQueryBuilder('e2')->expr()->in('h.id', $subquery))
                 ->andWhere("h.ultimaAlteracao > :ultimaAlteracao")
+                ->andWhere("h.ultimaAlteracao <= :now")
                 ->setParameter('ultimaAlteracao', $dataUltimoAcesso)
+                ->setParameter('now', new \DateTime())
                 ->addOrderBy('h.id');
         
         if(false == is_null($limite)){

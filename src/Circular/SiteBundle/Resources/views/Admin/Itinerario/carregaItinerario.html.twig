@@ -83,6 +83,8 @@
             $idEmpresa = $('#circular_sitebundle_itinerario_empresa').val();
             $status = $('#circular_sitebundle_itinerario_status').val();
             $observacao = $('#circular_sitebundle_itinerario_observacao').val();
+            $duracao = $('#circular_sitebundle_itinerario_duracao').val();
+            
             $valor = $valor.replace('.', '');
             $valor = $valor.replace(',', '.');
             // ==============================================================================
@@ -122,6 +124,7 @@
                             status: $status,
                             idEmpresa: $idEmpresa,
                             observacao: $observacao,
+                            duracao: $duracao,
                             paradas: $marcadoresOrdenados
                     },
                     success: function(response) {
@@ -269,7 +272,11 @@
             <div class="row">
                 <div class="col-md-12">
                     <h4 class="text-center">{{ itinerario.partida.nome }} ({{ itinerario.partida.local.nome}}) X 
-                        {{ itinerario.destino.nome }} ({{ itinerario.destino.local.nome}})</h4>
+                        {{ itinerario.destino.nome }} ({{ itinerario.destino.local.nome}})
+                        {% if itinerario.observacao|default('-') != '-' %}
+                            <small>{{ itinerario.observacao }}</small>
+                        {% endif %}
+                    </h4>
                 </div>
             </div>
             <div class="row">

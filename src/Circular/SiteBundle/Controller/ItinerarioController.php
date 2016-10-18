@@ -45,6 +45,7 @@ class ItinerarioController extends FOSRestController {
         $idEmpresa = $dados['idEmpresa'];
         $status = $dados['status'];
         $observacao = $dados['observacao'];
+        $duracao = $dados['duracao'];
         
         //$observacao = is_null($observacao) ? '' : $observacao;
         
@@ -75,6 +76,7 @@ class ItinerarioController extends FOSRestController {
         //$itinerario->setDistancia($distancia);
         $itinerario->setEmpresa($empresa);
         $itinerario->setObservacao($observacao);
+        $itinerario->setDuracao($duracao);
         
         $em->persist($itinerario);
         
@@ -133,7 +135,7 @@ class ItinerarioController extends FOSRestController {
             $itinerario = new Itinerario();
         }
         
-        $form = $this->createForm(new ItinerarioResumidoType(), $itinerario);
+        $form = $this->createForm(new ItinerarioResumidoType($em), $itinerario);
         
 //        $form->bind($request);
         
@@ -164,6 +166,7 @@ class ItinerarioController extends FOSRestController {
         $idEmpresa = $dados['idEmpresa'];
         $status = $dados['status'];
         $observacao = $dados['observacao'];
+        $duracao = $dados['duracao'];
         
         if(isset($dados['paradas'])){
             $paradas = $dados['paradas'];
@@ -196,6 +199,7 @@ class ItinerarioController extends FOSRestController {
             $itinerario->setValor($valor);
             $itinerario->setEmpresa($empresa);
             $itinerario->setObservacao($observacao);
+            $itinerario->setDuracao(\DateTime::createFromFormat('H:i', $duracao));
             
             $em->persist($itinerario);
 
