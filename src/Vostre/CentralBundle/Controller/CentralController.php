@@ -35,8 +35,11 @@ class CentralController extends Controller {
         $acessos = $em->getRepository('CircularSiteBundle:APIToken')
                 ->listarUltimosAcessos(20);
         
-         $contatos = $em->getRepository('CircularSiteBundle:APIToken')
-                ->rankingAcessosPorIdentificador('acesso');
+         $contatos = $em->getRepository('VostreSiteBundle:Contato')
+                ->listarUltimosContatos(20);
+         
+         $mensagens = $em->getRepository('CircularSiteBundle:Mensagem')
+                ->listarUltimasMensagensRecebidas(20);
         
 //        $recadoType = new RecadoType();
 //        $formRecado = $this->createForm($recadoType);
@@ -45,7 +48,8 @@ class CentralController extends Controller {
             'usuario' => $user,
             //'formRecado' => $formRecado->createView(),
             'acessos' => $acessos,
-            'contatos' => $contatos
+            'contatos' => $contatos,
+            'mensagens' => $mensagens
         ));
     }
     
@@ -182,6 +186,27 @@ class CentralController extends Controller {
             'usuario' => $user,
             'acessosDados' => $acessosDados,
             'acessosMensagens' => $acessosMensagens
+        ));
+    }
+    
+    public function carregarMensagemAction($id_mensagem)
+    {
+        
+        $user = $this->getUser();
+        
+        $em = $this->getDoctrine()->getManager();
+        
+        $mensagem = $em->getRepository('CircularSiteBundle:Mensagem')->find($id_mensagem);
+        
+        if($mensagem && $mensagem->getStatus() == 3){
+            $mensagem->setStatus(4);
+            $em->persist($mensagem);
+            $em->flush();
+        }
+        
+        return $this->render('VostreCentralBundle:Admin:Mensagem/detalheMensagem.html.twig', array(
+            'usuario' => $user,
+            'mensagem' => $mensagem
         ));
     }
     

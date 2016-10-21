@@ -34,4 +34,20 @@ class MensagemRepository extends EntityRepository
         
     }
     
+    public function listarUltimasMensagensRecebidas($limite = null){
+        $qb = $this->createQueryBuilder('m')
+//                ->select('b.id, b.nome, b.status, l.id AS local')
+                ->select('m')
+                ->andWhere('m.status IN(3,4)')
+                ->distinct()
+                ->addOrderBy('m.dataCriacao', 'DESC');
+        
+        if(false == is_null($limite)){
+            $qb->setMaxResults($limite);
+        }
+        
+        return $qb->getQuery()->getResult();
+        
+    }
+    
 }

@@ -67,6 +67,12 @@ vostre_site_admin_acessos_carrega:
     defaults: { _controller: VostreCentralBundle:Central:carregaAcessoPorIdentificador, identificador: -1 }
     requirements:
         _method: GET
+        
+vostre_site_admin_mensagem_carrega:
+    pattern:  /central-do-cliente/home/mensagem/carrega/{id_mensagem}
+    defaults: { _controller: VostreCentralBundle:Central:carregarMensagem, id_mensagem: -1 }
+    requirements:
+        _method: GET
 
 ######################## CONTEUDO SITE ###############################
         

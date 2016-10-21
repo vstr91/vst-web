@@ -48,12 +48,20 @@
                         <td>
                                 {% if mensagem.status == 0 %}
                             Ativo
-                                {% else %}
+                                {% elseif mensagem.status == 2 %}
                             Inativo
+                                {% elseif mensagem.status == 3 %}
+                            Recebida
+                                {% else %}
+                            Lida
                                 {% endif %}
                         </td>
                         <td>
-                            <a href="#{{ mensagem.id }}" class="link-editar">Editar</a>
+                            {% if mensagem.status == 0 or mensagem.status == 2 %}
+                                <a href="#{{ mensagem.id }}" class="link-editar">Editar</a>
+                            {% else %}
+                                -
+                            {% endif %}
                         </td>
                     </tr>
                     {% endfor %}
