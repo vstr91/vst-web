@@ -13,7 +13,7 @@ body{
 .botoes{
     margin: 0 10px;
     min-width: 25%;
-    background-color: #DDD;
+    background-color: #FFF;
     border: 1px #D00 solid;
     border-radius: 0;
     width: 99%;
@@ -21,7 +21,7 @@ body{
 }
 
 .botoes:hover{
-    background-color: #999;
+    background-color: #EEE;
     border: 1px #D00 solid;
 }
 
