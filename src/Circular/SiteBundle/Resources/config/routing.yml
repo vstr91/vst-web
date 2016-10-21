@@ -1,6 +1,6 @@
 circular_site_homepage:
     pattern:  /
-    defaults: { _controller: CircularSiteBundle:Page:cover }
+    defaults: { _controller: CircularSiteBundle:Page:nova }
     
 circular_site_lista_itinerarios_parada:
     pattern:  /parada/{id_parada}/itinerarios
@@ -13,6 +13,10 @@ circular_site_lista_paradas_itinerario:
 circular_site_itinerario_todos_horarios:
     pattern: /itinerario/{id_itinerario}/horarios/{hora}
     defaults: {_controller: CircularSiteBundle:Itinerario:todosHorarios}
+    
+circular_site_parada:
+    pattern:  /parada/{slug}
+    defaults: { _controller: CircularSiteBundle:Parada:detalhes, slug: '' }
     
 ## ADMINISTRACAO ###
 

@@ -107,6 +107,13 @@ class Parada {
      * @ORM\JoinColumn(name="id_usuario", referencedColumnName="id")
      */
     private $usuario;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="slug", type="string", length=100)
+     */
+    private $slug;
 
     /**
      * @ORM\Column(type="datetime")
@@ -391,5 +398,28 @@ class Parada {
     public function getTaxaDeEmbarque()
     {
         return $this->taxaDeEmbarque;
+    }
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     * @return Parada
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string 
+     */
+    public function getSlug()
+    {
+        return $this->slug;
     }
 }

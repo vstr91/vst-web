@@ -120,6 +120,7 @@ class ParadaRepository extends EntityRepository
     public function listarRegistrosAtivosVinculados(){
         $qb = $this->createQueryBuilder('p')
                 ->select('COUNT(DISTINCT p.id) AS total')
+                ->andWhere("p.status = 0")
                 //->select('p')
 //                ->distinct()
                 ->innerJoin("CircularSiteBundle:ParadaItinerario", "pi", "WITH", "pi.parada = p.id")

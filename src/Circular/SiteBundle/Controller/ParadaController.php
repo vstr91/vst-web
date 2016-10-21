@@ -20,50 +20,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
  */
 class ParadaController extends Controller {
     
-//    public function cadastrarAction($id_parada){
-//        $parada = new Parada();
-//        $request = $this->getRequest();
-//        
-//        $em = $this->getDoctrine()->getManager();
-//        
-//        //verifica se ja existe registro
-//        $parada = $em->find('CircularSiteBundle:Parada', $id_parada);
-//        
-//        //se nao existir, cria novo objeto
-//        if(is_null($parada)){
-//            $parada = new Parada();
-//        }
-//        
-//        $form = $this->createForm(new ParadaType(), $parada);
-//        $form->bind($request);
-//        
-//        if($form->isValid()){
-//            
-//            //cadastra ou edita objeto
-//            
-//            $em->persist($parada);
-//            $em->flush();
-//            
-//            $paradas = $em->getRepository('CircularSiteBundle:Parada')
-//                ->listarTodos(null);
-//            
-//            return $this->redirect($this->generateUrl('circular_site_homepage'/*, 
-//                    array(
-//                        'paradas' => $paradas
-//                    )*/));
-////            return $this->render('CircularSiteBundle:Page:index.html.twig', 
-////                array(
-////                    'paradas' => $paradas
-////                ));
-//        }
-//        
-//        return $this->render('CircularSiteBundle:Page:index.html.twig', 
-//                array(
-//                    'paradas' => $paradas
-//                ));
-//        
-//    }
-    
     public function cadastrarAction($id_parada){
         $parada = null;
         $request = $this->getRequest();
@@ -177,6 +133,19 @@ class ParadaController extends Controller {
         return $this->render('CircularSiteBundle:Itinerario:detalhes.html.twig', 
                 array(
                     'paradas' => $paradas
+                ));
+    }
+    
+    public function detalhesAction($slug) {
+        $em = $this->getDoctrine()->getManager();
+        
+        $parada = new Parada();
+        
+        $parada = $em->getRepository('CircularSiteBundle:Parada')->findOneBy(array('slug' => $slug));
+        
+        return $this->render('CircularSiteBundle:Parada:detalhes.html.twig', 
+                array(
+                    'parada' => $parada
                 ));
     }
     

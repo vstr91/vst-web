@@ -123,4 +123,18 @@ class ItinerarioRepository extends EntityRepository
         
     }
     
+    public function listarRegistrosAtivosVinculados(){
+        $qb = $this->createQueryBuilder('i')
+                ->select('COUNT(DISTINCT i.id) AS total')
+                ->andWhere("i.status = 0")
+                //->select('p')
+//                ->distinct()
+                ->innerJoin("CircularSiteBundle:ParadaItinerario", "pi", "WITH", "pi.itinerario = i.id")
+                ->innerJoin("CircularSiteBundle:HorarioItinerario", "hi", "WITH", "hi.itinerario = i.id")
+                ;
+        
+        return $qb->getQuery()->getOneOrNullResult();
+        
+    }
+    
 }

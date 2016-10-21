@@ -23,44 +23,6 @@ use Vostre\SiteBundle\Form\ContatoType;
  */
 class PageController extends Controller {
     
-    public function indexAction()
-    {
-        
-        $em = $this->getDoctrine()->getManager();
-        
-        $paradas = $em->getRepository('CircularSiteBundle:Parada')
-                ->listarTodos(null);
-        
-        $json = "[";
-        
-       // foreach ($paradas as $parada) {
-            
-            
-//            $json .= "{lat:'".$parada->latitude."',lng:'-43.824914', 
-//                        data:{nome:'Roberto Silveira',
-//                            endereco:{rua:'Praça Nilo Peçanha', 
-//                                numero:'S/N', bairro:'Centro'},
-//                            cidade:'Barra do Piraí', 
-//                                estado:'Rio de Janeiro', 
-//                                    sigla:'RJ',
-//                                    pais:'Brasil',
-//                                        id:'1',
-//                                            key:'barra-do-pirai',
-//                                                destinos:'4',
-//                        cidadesDestinos:'Valença - '}, 
-//                        tag:'1',
-//                                      options:{
-//                                          icon: new google.maps.MarkerImage('imagens/brasoes/barra-do-pirai.png')
-//                                      }
-//                       }";
-                       // }
-                        
-        return $this->render('CircularSiteBundle:Page:index.html.twig', 
-                array(
-                    'paradas' => $paradas
-                ));
-    }
-    
     public function adminAction()
     {                   
         return $this->render('CircularSiteBundle:Page:admin.html.twig');
@@ -75,10 +37,11 @@ class PageController extends Controller {
         $em = $this->getDoctrine()->getManager();
         $request = $this->getRequest();
         
-        $itinerarios = $em->getRepository('CircularSiteBundle:Itinerario')->findBy(array('status' => 0));
+//        $itinerarios = $em->getRepository('CircularSiteBundle:Itinerario')->findBy(array('status' => 0));;
         
-        $qtdItinerarios = count($itinerarios);
+//        $qtdItinerarios = count($itinerarios);
         
+        $qtdItinerarios = $em->getRepository('CircularSiteBundle:Itinerario')->listarRegistrosAtivosVinculados()['total'];
         $qtdParadas = $em->getRepository('CircularSiteBundle:Parada')->listarRegistrosAtivosVinculados()['total'];
         $qtdLocais = $em->getRepository('VostreLocalBundle:Local')->listarRegistrosAtivosVinculados()['total'];
         $qtdEstados = $em->getRepository('VostreLocalBundle:Estado')->listarRegistrosAtivosVinculados()['total'];

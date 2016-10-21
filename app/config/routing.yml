@@ -32,7 +32,7 @@ fos_user_security_logout:
 circular_site:
     path:     /
     host:     circular.vostre.dev.br
-    defaults: { _controller: CircularSiteBundle:Page:cover }
+    defaults: { _controller: CircularSiteBundle:Page:nova }
 
 vostre_crm:
     resource: "@VostreCRMBundle/Resources/config/routing.yml"
@@ -48,6 +48,10 @@ vostre_central:
 
 vostre_site:
     resource: "@VostreSiteBundle/Resources/config/routing.yml"
+    prefix:   /
+    
+circular_site_interno:
+    resource: "@CircularSiteBundle/Resources/config/routing.yml"
     prefix:   /
 
 rest : 
