@@ -71,13 +71,32 @@ class BairroRepository extends EntityRepository
                 //->select('b.id, b.nome, b.status, l.id AS local')
                 ->select('b')
                 ->distinct()
-                ->leftJoin("VostreLocalBundle:Local", "l", "WITH", "l.id = b.local")
+                ->innerJoin("VostreLocalBundle:Local", "l", "WITH", "l.id = b.local")
                 ->where($this->createQueryBuilder('e2')->expr()->in('b.id', $subqueryItinerarioPartida))
                 ->andWhere("l.id = :local")
                 ->setParameter('local', $local)
                 ->addOrderBy('b.nome, l.nome');
         
-        return $qb;//->getQuery()->getResult();
+        return $qb->getQuery()->getResult();
+        
+    }
+    
+    public function carregar($uf, $local, $slug){
+        $qb = $this->createQueryBuilder('b')
+                ->select('b')
+                //->select('p')
+                ->distinct()
+                ->innerJoin("VostreLocalBundle:Local", "l", "WITH", "l.id = b.local")
+                ->innerJoin("VostreLocalBundle:Estado", "e", "WITH", "e.id = l.estado")
+                ->andWhere('b.slug = :slug')
+                ->andWhere('l.slug = :local')
+                ->andWhere('e.sigla = :uf')
+                ->setParameter(':slug', $slug)
+                ->setParameter(':local', $local)
+                ->setParameter(':uf', $uf)
+                ->addOrderBy('l.nome');
+        
+        return $qb->getQuery()->getOneOrNullResult();
         
     }
     

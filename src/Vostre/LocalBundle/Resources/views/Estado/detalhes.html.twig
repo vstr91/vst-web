@@ -1,0 +1,18 @@
+{% extends "CircularSiteBundle:Page:interno.html.twig" %}
+{% block conteudo %}
+    <h3 class="text-center">{{ estado.nome }}</h3>
+    
+    {% for local in locais %}
+        
+        {% if local.tipo == 1 %}
+            <p><a href="{{ path('circular_site_local', {'sigla': local.estado.sigla|lower, 'slug': local.slug}) }}">
+                    {{ local.nome }} ({{ local.cidade.nome }})</a></p>
+        {% else %}
+            <p><a href="{{ path('circular_site_local', {'sigla': local.estado.sigla|lower, 'slug': local.slug}) }}">
+                    {{ local.nome }}</a></p>
+        {% endif %}
+        
+        
+    {% endfor %}
+    
+{% endblock conteudo %}

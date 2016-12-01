@@ -1,0 +1,24 @@
+{% extends "CircularSiteBundle:Page:interno.html.twig" %}
+{% block conteudo %}
+    <h3 class="text-center">
+        {{ local.nome }}
+        <br />
+        {% if local.tipo == 1 %}
+            <small>
+                <a href="{{ path('circular_site_local', {'sigla': local.estado.sigla|lower, 'slug': local.cidade.slug}) }}">
+                    {{ local.cidade.nome }}</a>/
+                <a href="{{ path('circular_site_estado', {'sigla': local.estado.sigla|lower}) }}">{{ local.estado.nome }}</a></small>
+        {% else %}
+            <small><a href="{{ path('circular_site_estado', {'sigla': local.estado.sigla|lower}) }}">
+                    {{ local.estado.nome }}</a></small>
+        {% endif %}
+    </h3>
+    
+    {% for bairro in bairros %}
+
+        <p><a href="{{ path('circular_site_bairro', {'sigla': bairro.local.estado.sigla|lower, 'local': bairro.local.slug, 'slug': bairro.slug}) }}">
+                {{ bairro.nome }}</a></p>
+        
+    {% endfor %}
+    
+{% endblock conteudo %}

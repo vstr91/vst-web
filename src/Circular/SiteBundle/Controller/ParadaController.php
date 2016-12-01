@@ -136,16 +136,37 @@ class ParadaController extends Controller {
                 ));
     }
     
-    public function detalhesAction($slug) {
+    public function detalhesAction($sigla, $local, $bairro, $slug) {
         $em = $this->getDoctrine()->getManager();
         
         $parada = new Parada();
+        $itinerarios = array();
         
-        $parada = $em->getRepository('CircularSiteBundle:Parada')->findOneBy(array('slug' => $slug));
+        $parada = $em->getRepository('CircularSiteBundle:Parada')->carregar($sigla, $local, $bairro, $slug);
+        
+        $proximasSaidas = $em->getRepository('CircularSiteBundle:Parada')->listaProximasSaidasPorParada($parada);
+        
+        //die(var_dump($proximasSaidas));
+        
+        $total = count($proximasSaidas);
+        
+        for($i = 0; $i < $total; $i++){
+            $itinerario = $em->getRepository('CircularSiteBundle:Itinerario')->find($proximasSaidas[$i]['id']);
+            $horario = $em->getRepository('CircularSiteBundle:Horario')->find($proximasSaidas[$i]['hora']);
+            
+            $hi = new \Circular\SiteBundle\Entity\HorarioItinerario();
+            $hi->setHorario($horario);
+            $hi->setItinerario($itinerario);
+            
+            $itinerarios[] = $hi;
+        }
+        
+        //die(var_dump($itinerarios));
         
         return $this->render('CircularSiteBundle:Parada:detalhes.html.twig', 
                 array(
-                    'parada' => $parada
+                    'parada' => $parada,
+                    'itinerarios' => $itinerarios
                 ));
     }
     

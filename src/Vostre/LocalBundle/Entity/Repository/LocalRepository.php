@@ -64,6 +64,36 @@ class LocalRepository extends EntityRepository
         
     }
     
+    public function listarTodosVinculadosPorEstado($estado){
+        
+//        $subquery = $this->createQueryBuilder('l4')
+//                ->select('IDENTITY(l3.id)')
+//                ->from("VostreLocalBundle:Local", 'l3')
+//                ->distinct()
+//                
+//                ->where('pi.status = 0')
+//                ->getDQL();
+        
+        $qb = $this->createQueryBuilder('l')
+                //->select('l.id, l.nome, l.tipo, l.status, e.id AS estado, c.id AS cidade')
+                ->select('l')
+                ->distinct()
+                ->innerJoin("VostreLocalBundle:Estado", "e", "WITH", "e.id = l.estado")
+                ->innerJoin("VostreLocalBundle:Bairro", 'b', "WITH", "b.local = l.id")
+                ->innerJoin("CircularSiteBundle:Parada", 'p', "WITH", "p.bairro = b.id")
+                ->innerJoin("CircularSiteBundle:ParadaItinerario", 'pi', "WITH", "pi.parada = p.id")
+                //->where($this->createQueryBuilder('l2')->expr()->in('l.id', $subquery))
+                ->andWhere('l.estado = :estado')
+                ->andWhere('pi.status = 0')
+                ->setParameter('estado', $estado->getId())
+                ->addOrderBy('l.nome');
+
+        //die(var_dump($qb));
+        
+        return $qb->getQuery()->getResult();
+        
+    }
+    
     public function listarRegistrosAtivosVinculados(){
         $qb = $this->createQueryBuilder('l')
                 ->select('COUNT(DISTINCT l.id) AS total')
@@ -73,6 +103,23 @@ class LocalRepository extends EntityRepository
                 ->innerJoin("CircularSiteBundle:Parada", "p", "WITH", "p.bairro = b.id")
                 ->innerJoin("CircularSiteBundle:ParadaItinerario", "pit", "WITH", "pit.parada = p.id")
                 ;
+        
+        return $qb->getQuery()->getOneOrNullResult();
+        
+    }
+    
+    public function carregar($uf, $slug){
+        $qb = $this->createQueryBuilder('l')
+                ->select('l')
+                //->select('p')
+                ->distinct()
+                ->innerJoin("VostreLocalBundle:Bairro", "b", "WITH", "b.local = l.id")
+                ->innerJoin("VostreLocalBundle:Estado", "e", "WITH", "e.id = l.estado")
+                ->andWhere('l.slug = :slug')
+                ->andWhere('e.sigla = :uf')
+                ->setParameter(':slug', $slug)
+                ->setParameter(':uf', $uf)
+                ->addOrderBy('l.nome');
         
         return $qb->getQuery()->getOneOrNullResult();
         

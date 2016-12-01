@@ -1,0 +1,22 @@
+{% extends "CircularSiteBundle:Page:interno.html.twig" %}
+{% block conteudo %}
+    <h3 class="text-center">{{ bairro.nome }}
+        <br />
+        {% if bairro.local.tipo == 1 %}
+            <small><a href="{{ path('circular_site_local', {'sigla': bairro.local.estado.sigla|lower, 'slug': bairro.local.slug}) }}">{{ bairro.local.nome }}</a> 
+                (<a href="{{ path('circular_site_local', {'sigla': bairro.local.estado.sigla|lower, 'slug': bairro.local.cidade.slug}) }}">{{ bairro.local.cidade.nome }}</a>)/
+                    <a href="{{ path('circular_site_estado', {'sigla': bairro.local.estado.sigla|lower}) }}">{{ bairro.local.estado.sigla }}</a></small>
+        {% else %}
+            <small><a href="{{ path('circular_site_local', {'sigla': bairro.local.estado.sigla|lower, 'slug': bairro.local.cidade.slug}) }}">{{ bairro.local.nome }}</a>/
+                <a href="{{ path('circular_site_estado', {'sigla': bairro.local.estado.sigla|lower}) }}">
+                    {{ bairro.local.estado.sigla }}</a></small>
+        {% endif %}
+    </h3>
+    
+    {% for parada in paradas %}
+
+        <p><a href="{{ path('circular_site_parada', {'sigla': bairro.local.estado.sigla|lower, 'local':bairro.local.slug, 'bairro': bairro.slug, 'slug': parada.slug}) }}">{{ parada.referencia }}</a></p>
+        
+    {% endfor %}
+    
+{% endblock conteudo %}

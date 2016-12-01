@@ -89,6 +89,71 @@ class ParadaRepository extends EntityRepository
         
     }
     
+    public function listaProximasSaidasPorParada($parada) {
+        
+        $hora = new \DateTime();
+        
+        $dia = '';
+        
+        switch ($hora->format('l')){
+            case 'Sunday':
+                $dia = 'domingo';
+                break;
+            case 'Monday':
+                $dia = 'segunda';
+                break;
+            case 'Tuesday':
+                $dia = 'terca';
+                break;
+            case 'Wednesday':
+                $dia = 'quarta';
+                break;
+            case 'Thursday':
+                $dia = 'quinta';
+                break;
+            case 'Friday':
+                $dia = 'sexta';
+                break;
+            case 'Saturday':
+                $dia = 'sabado';
+                break;
+        }
+        
+        $hora = $hora->format('H:i');
+        
+        $sql = "SELECT i.id, (
+                SELECT h.id 
+                FROM circular_horario h INNER JOIN
+                          circular_horario_itinerario hi ON hi.id_horario = h.id
+                WHERE h.nome >= :hora
+                AND   hi.id_itinerario = i.id
+                AND  hi.".$dia." = -1
+                AND  hi.status = 0
+                ORDER BY h.nome
+                LIMIT 1
+        ) AS 'hora'
+        FROM circular_horario_itinerario hi INNER JOIN
+                        circular_horario h ON h.id = hi.id_horario INNER JOIN
+                  circular_itinerario i ON i.id = hi.id_itinerario INNER JOIN
+                  circular_parada_itinerario pit ON pit.id_itinerario = i.id INNER JOIN
+                  circular_parada p ON p.id = pit.id_parada
+        WHERE p.id = :id_parada
+        AND  h.nome >= :hora
+        AND  pit.ordem = 1
+        AND  hi.".$dia." = -1
+        AND  hi.status = 0
+        GROUP BY i.id
+        ORDER BY hora";
+        
+        $params = array(
+            'id_parada' => $parada->getId(),
+            'hora' => $hora
+        );
+        
+        return $this->getEntityManager()->getConnection()->executeQuery($sql, $params)->fetchAll();
+        
+    }
+    
     public function listaParadasPorItinerario($itinerario) {
         $qb = $this->createQueryBuilder('p')
                 ->select('p')
@@ -127,6 +192,51 @@ class ParadaRepository extends EntityRepository
                 ;
         
         return $qb->getQuery()->getOneOrNullResult();
+        
+    }
+    
+    public function carregar($uf, $local, $bairro, $slug){
+        $qb = $this->createQueryBuilder('p')
+                ->select('p')
+                //->select('p')
+                ->distinct()
+                ->innerJoin("VostreLocalBundle:Bairro", "b", "WITH", "b.id = p.bairro")
+                ->innerJoin("VostreLocalBundle:Local", "l", "WITH", "l.id = b.local")
+                ->innerJoin("VostreLocalBundle:Estado", "e", "WITH", "e.id = l.estado")
+                ->andWhere('p.slug = :slug')
+                ->andWhere('e.sigla = :uf')
+                ->andWhere('l.slug = :local')
+                ->andWhere('b.slug = :bairro')
+                ->setParameter(':slug', $slug)
+                ->setParameter(':uf', $uf)
+                ->setParameter(':local', $local)
+                ->setParameter(':bairro', $bairro)
+                ->addOrderBy('p.referencia');
+        
+        return $qb->getQuery()->getOneOrNullResult();
+        
+    }
+    
+    public function listarTodosVinculadosPorBairro($bairro){
+        
+        $subqueryParadaItinerario = $this->createQueryBuilder('l3')
+                ->select('IDENTITY(i.partida)')
+                ->from("CircularSiteBundle:Itinerario", 'i')
+                ->where('i.status = 0')
+                ->getDQL();
+        
+        $qb = $this->createQueryBuilder('p')
+                //->select('b.id, b.nome, b.status, l.id AS local')
+                ->select('p')
+                ->distinct()
+                ->innerJoin("VostreLocalBundle:Bairro", "b", "WITH", "b.id = p.bairro")
+                ->innerJoin("CircularSiteBundle:ParadaItinerario", "pi", "WITH", "pi.parada = p.id")
+                //->where($this->createQueryBuilder('e2')->expr()->in('b.id', $subqueryItinerarioPartida))
+                ->andWhere("b.id = :bairro")
+                ->setParameter('bairro', $bairro)
+                ->addOrderBy('p.referencia');
+        
+        return $qb->getQuery()->getResult();
         
     }
     

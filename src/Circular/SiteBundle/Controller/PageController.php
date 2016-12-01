@@ -220,4 +220,36 @@ class PageController extends Controller {
         
     }
     
+    public function populaSlugsAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $request = $this->getRequest();
+        
+        $paradas = $em->getRepository('CircularSiteBundle:Parada')->findAll();
+        
+        foreach($paradas as $parada){
+            $parada->setSlug(NULL);
+            $em->persist($parada);
+        }
+        
+        $locais = $em->getRepository('VostreLocalBundle:Local')->findAll();
+        
+        foreach($locais as $local){
+            $local->setSlug(NULL);
+            $em->persist($local);
+        }
+        
+        $bairros = $em->getRepository('VostreLocalBundle:Bairro')->findAll();
+        
+        foreach($bairros as $bairro){
+            $bairro->setSlug(NULL);
+            $em->persist($bairro);
+        }
+        
+        $em->flush();
+        
+        return new Response();
+        
+    }
+    
 }

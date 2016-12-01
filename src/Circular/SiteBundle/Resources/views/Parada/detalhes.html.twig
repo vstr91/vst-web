@@ -4,8 +4,20 @@
         {% if parada.bairro.local.tipo == 1 %}
             <small>{{ parada.bairro.nome }} ({{ parada.bairro.local.nome }}) - 
                 {{ parada.bairro.local.cidade.nome }}/{{ parada.bairro.local.estado.sigla }}</small>
-        {% else %}
-            <small>{{ parada.bairro.nome }} - {{ parada.bairro.local.nome }}/{{ parada.bairro.local.estado.sigla }}</small>
+            {% else %}
+            <small>{{ parada.bairro.nome }} - {{ parada.bairro.local.nome }}/
+                <a href="{{ path('circular_site_estado', {'sigla': parada.bairro.local.estado.sigla|lower}) }}">{{ parada.bairro.local.estado.sigla }}</a></small>
         {% endif %}
     </h3>
+
+    {% for hi in itinerarios %}
+        
+        {% if hi.itinerario.partida.local != hi.itinerario.destino.local %}
+            <p>{{ hi.itinerario.partida.nome }} x {{ hi.itinerario.destino.nome }} ({{ hi.itinerario.destino.local.nome }}) - {{ hi.horario.nome|date('H:i') }}</p>
+        {% else %}
+            <p>{{ hi.itinerario.partida.nome }} x {{ hi.itinerario.destino.nome }} - {{ hi.horario.nome|date('H:i') }}</p>
+        {% endif %}
+        
+    {% endfor %}
+    
 {% endblock conteudo %}

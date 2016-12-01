@@ -13,6 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Description of Bairro
@@ -62,6 +63,14 @@ class Bairro {
      * @Expose
      */
     protected $local;
+    
+    /**
+     * @var string
+     * 
+     * @Gedmo\Slug(fields={"nome"}, unique=false)
+     * @ORM\Column(name="slug", type="string", length=100, nullable=true)
+     */
+    private $slug;
     
     /**
      * @ORM\Column(type="datetime")
@@ -233,4 +242,27 @@ class Bairro {
         return $this->ultimaAlteracao;
     }
     
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     * @return Bairro
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string 
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
 }

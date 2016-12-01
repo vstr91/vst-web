@@ -18,6 +18,7 @@ use Doctrine\ORM\Mapping\InheritanceType;
 use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Description of Parada
@@ -110,8 +111,9 @@ class Parada {
     
     /**
      * @var string
-     *
-     * @ORM\Column(name="slug", type="string", length=100)
+     * 
+     * @Gedmo\Slug(fields={"referencia"}, unique=false)
+     * @ORM\Column(name="slug", type="string", length=100, nullable=true)
      */
     private $slug;
 
