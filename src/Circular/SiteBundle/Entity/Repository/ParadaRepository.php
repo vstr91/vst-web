@@ -31,6 +31,23 @@ class ParadaRepository extends EntityRepository
         
     }
     
+    public function listarTodosVinculados($limite = null){
+        $qb = $this->createQueryBuilder('p')
+                ->select('p')
+                //->select('p')
+                ->distinct()
+                ->innerJoin("VostreLocalBundle:Bairro", "b", "WITH", "b.id = p.bairro")
+                ->innerJoin("CircularSiteBundle:ParadaItinerario", "pi", "WITH", "pi.parada = p.id")
+                ->addOrderBy('p.referencia');
+        
+        if(false == is_null($limite)){
+            $qb->setMaxResults($limite);
+        }
+        
+        return $qb->getQuery()->getResult();
+        
+    }
+    
     public function listarTodosREST($limite = null, $dataUltimoAcesso){
         
 //        $subquery = $this->createQueryBuilder('l1')

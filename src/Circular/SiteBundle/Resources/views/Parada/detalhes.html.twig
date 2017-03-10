@@ -1,14 +1,17 @@
-{% extends "CircularSiteBundle:Page:interno.html.twig" %}
-{% block conteudo %}
+{#{% extends "CircularSiteBundle:Page:interno.html.twig" %}
+{% block menu %}{% endblock menu %}#}
+{#{% block conteudo %}#}
     <h3 class="text-center">{{ parada.referencia }}<br />
         {% if parada.bairro.local.tipo == 1 %}
             <small>{{ parada.bairro.nome }} ({{ parada.bairro.local.nome }}) - 
                 {{ parada.bairro.local.cidade.nome }}/{{ parada.bairro.local.estado.sigla }}</small>
             {% else %}
             <small>{{ parada.bairro.nome }} - {{ parada.bairro.local.nome }}/
-                <a href="{{ path('circular_site_estado', {'sigla': parada.bairro.local.estado.sigla|lower}) }}">{{ parada.bairro.local.estado.sigla }}</a></small>
+                {#<a href="{{ path('circular_site_estado', {'sigla': parada.bairro.local.estado.sigla|lower}) }}">#}{{ parada.bairro.local.estado.sigla }}{#</a>#}</small>
         {% endif %}
     </h3>
+    
+    <h4 class="text-center">Pr&oacute;ximas Sa&iacute;das</h4>
 
     {% for hi in itinerarios %}
         
@@ -18,6 +21,9 @@
             <p>{{ hi.itinerario.partida.nome }} x {{ hi.itinerario.destino.nome }} - {{ hi.horario.nome|date('H:i') }}</p>
         {% endif %}
         
+        {% else %}
+            <p class="text-center">Nenhuma sa&iacute;da encontrada</p>
+        
     {% endfor %}
     
-{% endblock conteudo %}
+{#{% endblock conteudo %}#}

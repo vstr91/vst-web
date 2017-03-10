@@ -19,44 +19,45 @@
           <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
           <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
-{#        <script src='https://www.google.com/recaptcha/api.js'></script>#}
+        {#        <script src='https://www.google.com/recaptcha/api.js'></script>#}
     </head>
     <body>
         <div id="conteudo-scroll">
             <div class="section text-center" data-section-name="topo" id="topo">
-                <p class="text-center"><img id="imagem-topo" 
+                <div id="mapa" style="height: 300px"></div>
+                {#<p class="text-center"><img id="imagem-topo" 
                                             src="{{ asset('imagens/circular/banner-novo.png') }}"</p>
                 <p class="text-center texto-destaque 
                    texto-destaque-topo">Os hor&aacute;rios do seu &ocirc;nibus no seu bolso</p>
                 <p><a href="https://play.google.com/store/apps/details?id=br.com.vostre.circular" target="_blank">
                         <img alt="Get it on Google Play"
                              src="https://developer.android.com/images/brand/pt-br_generic_rgb_wo_60.png" />
-                    </a></p>
-                    {#<div class="row">
-                        <div class="col-md-6 col-md-offset-3">
-                            {{ form_start(form) }}
-                                {{ form_errors(form) }}
-                                <div class="form-group">
-                                    <label for="local" class="control-label col-md-2 col-sm-2 col-xs-2 text-right">{{ form_label(form.local) }}</label>
-                                    <div class="col-md-10 col-sm-10 col-xs-10">
-                                        {{ form_widget(form.local) }}
-                                    </div>
+                    </a></p>#}
+                {#<div class="row">
+                    <div class="col-md-6 col-md-offset-3">
+                        {{ form_start(form) }}
+                            {{ form_errors(form) }}
+                            <div class="form-group">
+                                <label for="local" class="control-label col-md-2 col-sm-2 col-xs-2 text-right">{{ form_label(form.local) }}</label>
+                                <div class="col-md-10 col-sm-10 col-xs-10">
+                                    {{ form_widget(form.local) }}
                                 </div>
-                                <div class="form-group">
-                                    <label for="partida" class="control-label col-md-2 col-sm-2 col-xs-2 text-right">{{ form_label(form.partida) }}</label>
-                                    <div class="col-md-10 col-sm-10 col-xs-10">
-                                        {{ form_widget(form.partida) }}
-                                    </div>
-                                </div> 
-                                 <div class="form-group">
-                                    <label for="destino" class="control-label col-md-2 col-sm-2 col-xs-2 text-right">{{ form_label(form.destino) }}</label>
-                                    <div class="col-md-10 col-sm-10 col-xs-10">
-                                        {{ form_widget(form.destino) }}
-                                    </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="partida" class="control-label col-md-2 col-sm-2 col-xs-2 text-right">{{ form_label(form.partida) }}</label>
+                                <div class="col-md-10 col-sm-10 col-xs-10">
+                                    {{ form_widget(form.partida) }}
                                 </div>
-                            {{ form_end(form) }}
-                        </div>
-                    </div>#}
+                            </div> 
+                             <div class="form-group">
+                                <label for="destino" class="control-label col-md-2 col-sm-2 col-xs-2 text-right">{{ form_label(form.destino) }}</label>
+                                <div class="col-md-10 col-sm-10 col-xs-10">
+                                    {{ form_widget(form.destino) }}
+                                </div>
+                            </div>
+                        {{ form_end(form) }}
+                    </div>
+                </div>#}
 
                 <!-- INICIO CONSULTA -->
                 {#<div id="caixa-dados">
@@ -131,7 +132,7 @@
                             <p class="texto-destaque">Itiner&aacute;rios</p>
                         </div>
                         <div class="col-md-4 col-md-offset-2">
-                            <p><span class="dado-subdestaque counter">{{ paradas }}</span> 
+                            <p><span class="dado-subdestaque counter">{{ qtdParadas }}</span> 
                                 <span class="texto-subdestaque">paradas</span></p>
                             <p><span class="dado-subdestaque counter">{{ locais }}</span> 
                                 <span class="texto-subdestaque">cidades / distritos</span></p>
@@ -161,7 +162,7 @@
                         <div class="col-md-12">
                             <form id="form-contato" id="form-contato" action="{{ path('circular_site_contato') }}" method="POST">
                                 {{ form_widget(formContato) }}
-{#                                <div class="g-recaptcha" data-sitekey="6Lf6SRgTAAAAAHn2j1PAJvnB-_XMfS2FoahBVbeB"></div>#}
+                                {#                                <div class="g-recaptcha" data-sitekey="6Lf6SRgTAAAAAHn2j1PAJvnB-_XMfS2FoahBVbeB"></div>#}
                                 <input type="submit" value="Enviar" class="btn btn-primary" id="btn-enviar" 
                                        data-loading-text="Enviando..." />
                             </form>
@@ -182,12 +183,33 @@
                 </div>
             </div>
         </div>
+        
+        <div class="modal fade" id="modal-parada">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">Detalhes da Parada</h4>
+                    </div>
+                    <div class="modal-body" id="body-parada">
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+                            
     </body>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="{{ asset('js/jquery.js') }}"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&key=AIzaSyBwHuCk1pqkG33l7fGjZVUBFn6Ujy54njA"></script>
+    <script type="text/javascript" src="{{ asset('js/gmap3.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/maps.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/jquery.fullpage.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/smooth-scroll.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/jquery.form.min.js') }}"></script>
@@ -195,39 +217,86 @@
     <script src="http://cdnjs.cloudflare.com/ajax/libs/waypoints/2.0.3/waypoints.min.js"></script>
     <script type="text/javascript" src="{{ asset('js/jquery.counterup.min.js') }}"></script>
     <script type="text/javascript">
-        $(document).ready(function () {
-            
-            $(window).resize(function() {
-                
-                var largura = $(window).width();
-                
-                if(largura <= 768){
-                    $.fn.fullpage.destroy();
-                } else{
-                    $.fn.fullpage.rebuild();
-                }
         
-                
+        var paradas = [];
+        
+        {% for parada in paradas %}
+            var umaParada = {
+            lat: '{{ parada.latitude }}',
+                    lng: '{{ parada.longitude }}',
+                    data: {
+                    nome: '{{ parada.referencia }}',
+                            id:{{ parada.id }},
+                            idBairro:{{ parada.bairro.id }},
+                            nomeBairro: '{{ parada.bairro.nome }}',
+                            bairro: '{{ parada.bairro.slug }}',
+                            nomeLocal: '{{ parada.bairro.local.nome }}',
+                            local: '{{ parada.bairro.local.slug }}',
+                            uf: '{{ parada.bairro.local.estado.sigla }}',
+                            slug: '{{ parada.slug }}'
+                    },
+                    tag:{{ parada.id }},
+                    options:{
+                        
+                        {#{% if parada.status == 3 %}
+                            icon: new google.maps.MarkerImage('{{ asset('imagens/circular/marker-selecionado.png') }}')
+                        {% else %}#}
+                            icon: new google.maps.MarkerImage('{{ asset('imagens/circular/marker.png') }}')
+{#                        {% endif %}#}
+                        
+                    
+                    }
+            };
+                    paradas.push(umaParada);
+        {% endfor %}
+    
+        function carregaModal($uf, $local, $bairro, $slug){
+            $url = '{{ path('circular_site_parada', {'sigla': -1, 'local': -2, 'bairro': -3, 'slug': -4}) }}';
+            $url = $url.replace('-1', $uf).replace('-2', $local).replace('-3', $bairro).replace('-4', $slug);
+            console.log($url);
+            $.ajax({
+            type: 'GET',
+                    url: $url,
+                    success: function(response) {
+                    $('#body-parada').html(response);
+                            $('#modal-parada').modal('show');
+                    }
             });
-            
-            smoothScroll.init();
-            
+        }
+        
+        $(document).ready(function () {
+
+            $(window).resize(function () {
+
+                var largura = $(window).width();
+
+                {#if (largura <= 768) {
+                    $.fn.fullpage.destroy();
+                } else {
+                    $.fn.fullpage.rebuild();
+                }#}
+
+
+            });
+
+            {#smoothScroll.init();#}
+
             $('.counter').counterUp({
                 time: 2000
             });
-                
-            $('#conteudo-scroll').fullpage({
+
+            {#$('#conteudo-scroll').fullpage({
                 scrollBar: true,
                 fitToSection: true
-            });
-            
+            });#}
+
             var largura = $(window).width();
-                
-            if(largura <= 768){
+
+            {#if (largura <= 768) {
                 $.fn.fullpage.destroy();
-            } else{
+            } else {
                 $.fn.fullpage.rebuild();
-            }
+            }#}
 
             $('#form-contato').validate({
                 ignore: [],
@@ -256,7 +325,7 @@
                 },
                 rules: {
                     'contato[nome]': "required",
-                    'contato[email]':{
+                    'contato[email]': {
                         required: true,
                         email: true
                     },
@@ -265,7 +334,7 @@
                 },
                 messages: {
                     'contato[nome]': "Por favor informe seu nome",
-                    'contato[email]':{
+                    'contato[email]': {
                         required: "Por favor informe seu email",
                         email: "Por favor informe um email válido"
                     },
@@ -274,83 +343,90 @@
                 }
             });
 
-        {#$local = $('#form_local');
-        $partida = $('#form_partida');
-            
-        $local.change(function() {
-            var $form = $(this).closest('form');
-            var data = {};
-            data[$local.attr('name')] = $(this).val();
-
-            $.ajax({
-                url: '{{ path('circular_site') }}',
-                type: 'POST',
-                data: data,
-                success: function(html) {
-                    $('#form_partida').replaceWith(
-                            $(html).find('#form_partida')
-                            );
+        $('#mapa').gmap3({
+                map: {
+                    options: {
+                        center: [ - 22.470904, - 43.824914],
+                        zoom: 16,
+                        mapTypeControl: true,
+                        mapTypeId: "circular"
+                    },
+                    events:{
+                        click: function(map, event){
+                            $('#mapa').gmap3({
+                                clear:{
+                                    tag: -1
+                                }
+                            });
+                            
+                            $('#mapa').gmap3({
+                                marker:{
+                                    latLng: event.latLng,
+                                    options:{
+                                        draggable: false
+                                    },
+                                    tag: -1
+                                }
+                            });
+                        }
+                    }
+                },
+                styledmaptype: {
+                    id: "circular",
+                    options: {
+                        name: "Circular"
+                    },
+                    styles: [
+                        {
+                            featureType: "poi",
+                            elementType: "poi",
+                            stylers: [
+                                {hue: "#ff0022"},
+                                {saturation: 60},
+                                {lightness: - 20},
+                                {visibility: "off"}
+                            ]
+                        }
+                    ]
+                },
+                marker: {
+                    values: paradas,
+                    events: {
+                        mouseover: function(marker, event, context) {
+                            $(this).gmap3({
+                                clear: {
+                                    name: 'overlay'
+                                },
+                                overlay: {
+                                    latLng: marker.getPosition(),
+                                    options: {
+                                        content: '<div class="v-infowindow"><div class="v-info-conteudo">'
+                                                + context.data.nome + '<br /><br />'
+                                                + context.data.nomeBairro + ' ('+context.data.nomeLocal+')</div></div>',
+                                                offset: {
+                                                    x: -95,
+                                                    y: - 100
+                                                }
+                                    }
+                                }
+                            });
+                        },
+                        mouseout: function() {
+                            $(".v-infowindow").fadeOut(1000);
+                        },
+                        click: function(marker, event, context){
+                            $uf = context.data.uf;
+                            $local = context.data.local;
+                            $bairro = context.data.bairro;
+                            $slug = context.data.slug;
+                            carregaModal($uf, $local, $bairro, $slug);
+                        }
+                    }
                 }
             });
-        });
 
-        $('form').on('change', '#form_partida', function() {
-            var $form = $(this).closest('form');
-            var data = {};
-            data[$partida.attr('name')] = $(this).val();
-
-            $.ajax({
-                url: '{{ path('circular_site') }}',
-                type: 'POST',
-                data: data,
-                success: function(html) {
-                    $('#form_destino').replaceWith(
-                            $(html).find('#form_destino')
-                            );
-                }
-            });
-        });
-            
-        $('form').on('change', '#form_destino', function() {
-            var $form = $(this).closest('form');
-            var data = {};
-            data['partida'] = $('#form_partida').val();
-            data['destino'] = $(this).val();
-
-            console.log(data);
-
-            $.ajax({
-                url: '{{ path('circular_site_consulta') }}',
-                type: 'POST',
-                data: data,
-                success: function(html) {
-                    console.log(html);
-                    $('#caixa-dados').replaceWith(html);
-                    $('#btn-todos-horarios').removeClass('disabled');
-                }
-            });
-        });
-            
-        $('#caixa-dados').on('click', '#btn-todos-horarios', function() {
-            var id = $(this).attr('href').replace('#', '');
-
-            var data = {};
-            data['itinerario'] = id;
-
-            $.ajax({
-                url: '{{ path('circular_site_consulta_todos_horarios') }}',
-                type: 'POST',
-                data: data,
-                success: function(html) {
-                    $('#caixa-dados').html(html);
-                    $('#btn-todos-horarios').removeClass('disabled');
-                }
-            });
                 
-            return false;
-                
-        });#}
 
-                });
-    </script>
-</html>
+            });
+        </script>
+    </html>

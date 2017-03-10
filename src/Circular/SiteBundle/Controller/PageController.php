@@ -47,6 +47,8 @@ class PageController extends Controller {
         $qtdEstados = $em->getRepository('VostreLocalBundle:Estado')->listarRegistrosAtivosVinculados()['total'];
         $qtdEmpresas = $em->getRepository('CircularSiteBundle:Empresa')->listarRegistrosAtivosVinculados()['total'];
         
+        $paradas = $em->getRepository('CircularSiteBundle:Parada')->listarTodosVinculados();
+        
         /*
         
         $listarTodosHorarios = $em->getRepository('CircularSiteBundle:HorarioItinerario')
@@ -115,7 +117,8 @@ class PageController extends Controller {
 //            'form' => $form->createView(),
             'formContato' => $formContato->createView(),
             'itinerarios' => $qtdItinerarios,
-            'paradas' => $qtdParadas,
+            'paradas' => $paradas,
+            'qtdParadas' => $qtdParadas,
             'locais' => $qtdLocais,
             'estados' => $qtdEstados,
             'empresas' => $qtdEmpresas
