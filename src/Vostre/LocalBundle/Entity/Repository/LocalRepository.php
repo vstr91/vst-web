@@ -22,7 +22,7 @@ class LocalRepository extends EntityRepository
 //                ->getDQL();
         
         $qb = $this->createQueryBuilder('l')
-                ->select('l.id, l.nome, l.tipo, l.status, e.id AS estado, c.id AS cidade')
+                ->select('l.id, l.nome, l.tipo, l.status, e.id AS estado, c.id AS cidade, l.slug')
                 ->distinct()
                 ->leftJoin("VostreLocalBundle:Estado", "e", "WITH", "e.id = l.estado")
                 ->leftJoin("VostreLocalBundle:Local", "c", "WITH", "c.id = l.cidade")

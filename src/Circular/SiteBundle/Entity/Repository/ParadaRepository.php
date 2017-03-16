@@ -58,7 +58,7 @@ class ParadaRepository extends EntityRepository
         
         $qb = $this->createQueryBuilder('p')
                 ->select('p.id', 'p.latitude', 'p.longitude', 'p.referencia', 'p.status', 
-                        'b.id AS bairro', 'p.taxaDeEmbarque')
+                        'b.id AS bairro', 'p.taxaDeEmbarque', 'p.slug')
                 //->select('p')
                 ->distinct()
                 ->leftJoin("VostreLocalBundle:Bairro", "b", "WITH", "b.id = p.bairro")

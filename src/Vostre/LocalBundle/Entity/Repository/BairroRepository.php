@@ -40,7 +40,7 @@ class BairroRepository extends EntityRepository
 //                ->getDQL();
         
         $qb = $this->createQueryBuilder('b')
-                ->select('b.id, b.nome, b.status, l.id AS local')
+                ->select('b.id, b.nome, b.status, l.id AS local, b.slug')
                 ->distinct()
                 ->leftJoin("VostreLocalBundle:Local", "l", "WITH", "l.id = b.local")
 //                ->where($this->createQueryBuilder('e2')->expr()->in('b.id', $subqueryEmpresa))
