@@ -22,9 +22,38 @@
         {#        <script src='https://www.google.com/recaptcha/api.js'></script>#}
     </head>
     <body>
+        {% block menu %}
+            <div class="navbar" id="menu-principal">
+            <div class="container">
+                <div class="navbar-header">
+                    <button class="navbar-toggle v-botao-collapse" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Navega&ccedil;&atilde;o</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+{#                    <a href="#" class="navbar-brand">Vostr&egrave;</a>#}
+                    <a href="{{ path('circular_site_homepage') }}" class="navbar-brand navbar-text">
+                        <img src="{{ asset('imagens/circular/logo-branca.png') }}" id="logo" /></a>
+                </div>
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav navbar-text">
+                        <li><a href="#">O QUE &Eacute;?</a></li>
+                        <li><a href="#">ALGUNS DADOS</a></li>
+                        <li><a href="#">ENTRE EM CONTATO</a></li>
+                    </ul>
+                    <a href="https://play.google.com/store/apps/details?id=br.com.vostre.circular" target="_blank" class="navbar-text" 
+                       id="banner-google">
+                                <img alt="Get it on Google Play"
+                                     src="https://developer.android.com/images/brand/pt-br_generic_rgb_wo_45.png" />
+                            </a>
+                </div>
+            </div>
+        </div>
+        {% endblock %}
         <div id="conteudo-scroll">
             <div class="section text-center" data-section-name="topo" id="topo">
-                <div id="mapa" style="height: 300px"></div>
+                <div id="mapa" style="min-height: 600px"></div>
                 {#<p class="text-center"><img id="imagem-topo" 
                                             src="{{ asset('imagens/circular/banner-novo.png') }}"</p>
                 <p class="text-center texto-destaque 
