@@ -231,6 +231,31 @@ class PageController extends Controller {
         $paradas = $em->getRepository('CircularSiteBundle:Parada')->findAll();
         
         foreach($paradas as $parada){
+            $parada->setSlug("NULL");
+            $em->persist($parada);
+        }
+        
+        $locais = $em->getRepository('VostreLocalBundle:Local')->findAll();
+        
+        foreach($locais as $local){
+            $local->setSlug("NULL");
+            $em->persist($local);
+        }
+        
+        $bairros = $em->getRepository('VostreLocalBundle:Bairro')->findAll();
+        
+        foreach($bairros as $bairro){
+            $bairro->setSlug("NULL");
+            $em->persist($bairro);
+        }
+        
+        $em->flush();
+        
+        //
+        
+        $paradas = $em->getRepository('CircularSiteBundle:Parada')->findAll();
+        
+        foreach($paradas as $parada){
             $parada->setSlug(NULL);
             $em->persist($parada);
         }
@@ -251,7 +276,7 @@ class PageController extends Controller {
         
         $em->flush();
         
-        return new Response();
+        return new Response("terminou");
         
     }
     

@@ -33,20 +33,21 @@
                         <span class="icon-bar"></span>
                     </button>
 {#                    <a href="#" class="navbar-brand">Vostr&egrave;</a>#}
-                    <a href="{{ path('circular_site_homepage') }}" class="navbar-brand navbar-text">
+                    <a href="{{ path('circular_site_homepage') }}" class="navbar-brand">
                         <img src="{{ asset('imagens/circular/logo-branca.png') }}" id="logo" /></a>
                 </div>
                 <div class="collapse navbar-collapse">
-                    <ul class="nav navbar-nav navbar-text">
-                        <li><a href="#">O QUE &Eacute;?</a></li>
-                        <li><a href="#">ALGUNS DADOS</a></li>
-                        <li><a href="#">ENTRE EM CONTATO</a></li>
-                    </ul>
-                    <a href="https://play.google.com/store/apps/details?id=br.com.vostre.circular" target="_blank" class="navbar-text" 
+                    <a href="https://play.google.com/store/apps/details?id=br.com.vostre.circular" 
+                       target="_blank" class="navbar-text navbar-right" 
                        id="banner-google">
                                 <img alt="Get it on Google Play"
                                      src="https://developer.android.com/images/brand/pt-br_generic_rgb_wo_45.png" />
                             </a>
+                    <ul class="nav navbar-nav navbar-text navbar-right">
+                        <li><a href="#">O QUE &Eacute;?</a></li>
+                        <li><a href="#">ALGUNS DADOS</a></li>
+                        <li><a href="#">ENTRE EM CONTATO</a></li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -377,27 +378,11 @@
                     options: {
                         center: [ - 22.470904, - 43.824914],
                         zoom: 16,
+                        scrollwheel: false,
+                        scaleControl: false,
+                        disableDefaultUI: false,
                         mapTypeControl: true,
                         mapTypeId: "circular"
-                    },
-                    events:{
-                        click: function(map, event){
-                            $('#mapa').gmap3({
-                                clear:{
-                                    tag: -1
-                                }
-                            });
-                            
-                            $('#mapa').gmap3({
-                                marker:{
-                                    latLng: event.latLng,
-                                    options:{
-                                        draggable: false
-                                    },
-                                    tag: -1
-                                }
-                            });
-                        }
                     }
                 },
                 styledmaptype: {

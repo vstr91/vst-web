@@ -16,7 +16,9 @@
     {% for hi in itinerarios %}
         
         {% if hi.itinerario.partida.local != hi.itinerario.destino.local %}
-            <p>{{ hi.itinerario.partida.nome }} x {{ hi.itinerario.destino.nome }} ({{ hi.itinerario.destino.local.nome }}) - {{ hi.horario.nome|date('H:i') }}</p>
+            <p class="text-center">{{ hi.itinerario.partida.local.nome }} 
+                x {{ hi.itinerario.destino.local.nome }} 
+                - {{ hi.horario.nome|date('H:i') }}<br /><small>{{ hi.itinerario.observacao }}</small></p>
         {% else %}
             <p>{{ hi.itinerario.partida.nome }} x {{ hi.itinerario.destino.nome }} - {{ hi.horario.nome|date('H:i') }}</p>
         {% endif %}
