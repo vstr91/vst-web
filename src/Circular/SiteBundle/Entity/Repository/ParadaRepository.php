@@ -115,52 +115,129 @@ class ParadaRepository extends EntityRepository
         switch ($hora->format('l')){
             case 'Sunday':
                 $dia = 'domingo';
+                $diaSeguinte = 'segunda';
                 break;
             case 'Monday':
                 $dia = 'segunda';
+                $diaSeguinte = 'terca';
                 break;
             case 'Tuesday':
                 $dia = 'terca';
+                $diaSeguinte = 'quarta';
                 break;
             case 'Wednesday':
                 $dia = 'quarta';
+                $diaSeguinte = 'quinta';
                 break;
             case 'Thursday':
                 $dia = 'quinta';
+                $diaSeguinte = 'sexta';
                 break;
             case 'Friday':
                 $dia = 'sexta';
+                $diaSeguinte = 'sabado';
                 break;
             case 'Saturday':
                 $dia = 'sabado';
+                $diaSeguinte = 'domingo';
                 break;
         }
         
         $hora = $hora->format('H:i');
         
-        $sql = "SELECT i.id, (
-                SELECT h.id 
-                FROM circular_horario h INNER JOIN
-                          circular_horario_itinerario hi ON hi.id_horario = h.id
-                WHERE h.nome >= :hora
-                AND   hi.id_itinerario = i.id
-                AND  hi.".$dia." = -1
-                AND  hi.status = 0
-                ORDER BY h.nome
+//        $sql = "SELECT i.id, (
+//                SELECT h.id 
+//                FROM circular_horario h INNER JOIN
+//                          circular_horario_itinerario hi ON hi.id_horario = h.id
+//                WHERE h.nome >= :hora
+//                AND   hi.id_itinerario = i.id
+//                AND  hi.".$dia." = -1
+//                AND  hi.status = 0
+//                ORDER BY h.nome
+//                LIMIT 1
+//        ) AS 'hora'
+//        FROM circular_horario_itinerario hi INNER JOIN
+//                        circular_horario h ON h.id = hi.id_horario INNER JOIN
+//                  circular_itinerario i ON i.id = hi.id_itinerario INNER JOIN
+//                  circular_parada_itinerario pit ON pit.id_itinerario = i.id INNER JOIN
+//                  circular_parada p ON p.id = pit.id_parada
+//        WHERE p.id = :id_parada
+//        AND  h.nome >= :hora
+//        AND  pit.ordem = 1
+//        AND  hi.".$dia." = -1
+//        AND  hi.status = 0
+//        GROUP BY i.id
+//        ORDER BY hora";
+        
+        $sql = "SELECT i.id, i.id_partida, i.id_destino, i.valor, i.status,
+IFNULL(
+(
+	SELECT hi.id_horario
+	FROM circular_horario_itinerario hi INNER JOIN
+	circular_horario h ON h.id = hi.id_horario
+	WHERE hi.id_itinerario = i.id AND
+	TIME(h.nome) > :hora AND
+	hi.".$dia." = -1
+	ORDER BY h.id LIMIT 1
+),
+(
+SELECT hi.id_horario
+FROM circular_horario_itinerario hi INNER JOIN
+     circular_horario h ON h.id = hi.id_horario
+WHERE hi.id_itinerario = i.id AND hi.".$diaSeguinte." = -1
+ORDER BY h.id LIMIT 1
+)) AS 'hora',
+ i.id_empresa, i.observacao
+FROM circular_parada_itinerario pit INNER JOIN 
+	  circular_parada p ON p.id = pit.id_parada LEFT JOIN 
+	  circular_itinerario i ON i.id = pit.id_itinerario
+WHERE p.id = :id_parada
+AND p.id <> (SELECT pit2.id_parada FROM circular_parada_itinerario pit2 WHERE pit2.id_itinerario = i.id
+                ORDER BY ordem DESC LIMIT 1)
+AND IFNULL(
+(
+	SELECT hi.id_horario
+	FROM circular_horario_itinerario hi INNER JOIN
+	circular_horario h ON h.id = hi.id_horario
+	WHERE hi.id_itinerario = i.id AND
+	TIME(h.nome) > :hora AND
+	hi.".$dia." = -1
+	ORDER BY h.id LIMIT 1
+),
+(
+SELECT hi.id_horario
+FROM circular_horario_itinerario hi INNER JOIN
+     circular_horario h ON h.id = hi.id_horario
+WHERE hi.id_itinerario = i.id AND hi.".$diaSeguinte." = -1
+ORDER BY h.id LIMIT 1
+)) != ''
+ORDER BY IFNULL((
+                SELECT 0
+                FROM circular_horario_itinerario hi LEFT JOIN
+                     circular_horario h ON h.id = hi.id_horario
+                WHERE hi.id_itinerario = i.id
+                AND TIME(h.nome) > :hora AND hi.".$dia." = -1
                 LIMIT 1
-        ) AS 'hora'
-        FROM circular_horario_itinerario hi INNER JOIN
-                        circular_horario h ON h.id = hi.id_horario INNER JOIN
-                  circular_itinerario i ON i.id = hi.id_itinerario INNER JOIN
-                  circular_parada_itinerario pit ON pit.id_itinerario = i.id INNER JOIN
-                  circular_parada p ON p.id = pit.id_parada
-        WHERE p.id = :id_parada
-        AND  h.nome >= :hora
-        AND  pit.ordem = 1
-        AND  hi.".$dia." = -1
-        AND  hi.status = 0
-        GROUP BY i.id
-        ORDER BY hora";
+                ),
+                1
+               ), 
+               IFNULL(
+(
+	SELECT hi.id_horario
+	FROM circular_horario_itinerario hi INNER JOIN
+	circular_horario h ON h.id = hi.id_horario
+	WHERE hi.id_itinerario = i.id AND
+	TIME(h.nome) > :hora AND
+	hi.".$dia." = -1
+	ORDER BY h.id LIMIT 1
+),
+(
+SELECT hi.id_horario
+FROM circular_horario_itinerario hi INNER JOIN
+     circular_horario h ON h.id = hi.id_horario
+WHERE hi.id_itinerario = i.id AND hi.".$diaSeguinte." = -1
+ORDER BY h.id LIMIT 1
+))";
         
         $params = array(
             'id_parada' => $parada->getId(),

@@ -141,6 +141,21 @@ input[type="submit"] {
   color: #DD0000;
   background-color: #333333;
 }
+#modal-parada .modal-content {
+  background-color: #333333;
+  color: #FFFFFF;
+}
+#modal-parada .modal-header,
+#modal-parada .modal-footer {
+  border-color: #1a1a1a;
+}
+#tabela-itinerarios {
+  width: 100%;
+}
+#tabela-itinerarios tr {
+  border: 1px solid red;
+  padding: 5px;
+}
 @media (max-width: 768px) {
   #imagem-topo {
     width: 80%;

@@ -13,19 +13,25 @@
     
     <h4 class="text-center">Pr&oacute;ximas Sa&iacute;das</h4>
 
+    <table id="tabela-itinerarios">
     {% for hi in itinerarios %}
-        
+        <tr class="text-center">
         {% if hi.itinerario.partida.local != hi.itinerario.destino.local %}
-            <p class="text-center">{{ hi.itinerario.partida.local.nome }} 
-                x {{ hi.itinerario.destino.local.nome }} 
-                - {{ hi.horario.nome|date('H:i') }}<br /><small>{{ hi.itinerario.observacao }}</small></p>
+            <td>
+                {{ hi.itinerario.partida.local.nome }} 
+                    x {{ hi.itinerario.destino.local.nome }}
+                    <br /><small>{{ hi.itinerario.observacao }}</small>
+            </td>
+            <td>{{ hi.horario.nome|date('H:i') }}</td>
         {% else %}
-            <p>{{ hi.itinerario.partida.nome }} x {{ hi.itinerario.destino.nome }} - {{ hi.horario.nome|date('H:i') }}</p>
+            <td>{{ hi.itinerario.partida.nome }} x {{ hi.itinerario.destino.nome }}</td>
+            <td>{{ hi.horario.nome|date('H:i') }}</td>
         {% endif %}
-        
+        </tr>
         {% else %}
             <p class="text-center">Nenhuma sa&iacute;da encontrada</p>
         
     {% endfor %}
+    </table>
     
 {#{% endblock conteudo %}#}

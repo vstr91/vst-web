@@ -283,7 +283,6 @@
         function carregaModal($uf, $local, $bairro, $slug){
             $url = '{{ path('circular_site_parada', {'sigla': -1, 'local': -2, 'bairro': -3, 'slug': -4}) }}';
             $url = $url.replace('-1', $uf).replace('-2', $local).replace('-3', $bairro).replace('-4', $slug);
-            console.log($url);
             $.ajax({
             type: 'GET',
                     url: $url,
