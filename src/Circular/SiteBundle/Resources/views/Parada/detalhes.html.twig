@@ -12,26 +12,32 @@
     </h3>
     
     <h4 class="text-center">Pr&oacute;ximas Sa&iacute;das</h4>
+    <div id="container-tabela-itinerarios">
+        <table id="tabela-itinerarios" class="table">
+        {% for hi in itinerarios %}
+            <tr class="text-center">
+            {% if hi.itinerario.partida.local != hi.itinerario.destino.local %}
+                <td>
+                    {{ hi.itinerario.partida.local.nome }} 
+                        x {{ hi.itinerario.destino.local.nome }}
+                        <br /><small>{{ hi.itinerario.observacao }}</small>
+                </td>
+                <td>{{ hi.horario.nome|date('H:i') }}</td>
+            {% else %}
+                <td>{{ hi.itinerario.partida.nome }} x {{ hi.itinerario.destino.nome }}</td>
+                <td>{{ hi.horario.nome|date('H:i') }}</td>
+            {% endif %}
+            </tr>
+            {% else %}
+                <p class="text-center">Nenhuma sa&iacute;da encontrada</p>
 
-    <table id="tabela-itinerarios">
-    {% for hi in itinerarios %}
-        <tr class="text-center">
-        {% if hi.itinerario.partida.local != hi.itinerario.destino.local %}
-            <td>
-                {{ hi.itinerario.partida.local.nome }} 
-                    x {{ hi.itinerario.destino.local.nome }}
-                    <br /><small>{{ hi.itinerario.observacao }}</small>
-            </td>
-            <td>{{ hi.horario.nome|date('H:i') }}</td>
-        {% else %}
-            <td>{{ hi.itinerario.partida.nome }} x {{ hi.itinerario.destino.nome }}</td>
-            <td>{{ hi.horario.nome|date('H:i') }}</td>
-        {% endif %}
-        </tr>
-        {% else %}
-            <p class="text-center">Nenhuma sa&iacute;da encontrada</p>
-        
-    {% endfor %}
-    </table>
+        {% endfor %}
+        </table>
+    </div>
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $('#container-tabela-itinerarios').mCustomScrollbar();
+            });
+        </script>
     
 {#{% endblock conteudo %}#}

@@ -1,6 +1,6 @@
 /* Google Maps ------------------------- */
 function init() {
-    var latlng = new google.maps.LatLng(-22.42051,-43.7527575);
+    var latlng = new google.maps.LatLng(-22.470904, -43.824914);
     var opcoes = {
         zoom: 16,
         center: latlng,
