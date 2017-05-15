@@ -13,6 +13,7 @@ and open the template in the editor.
 @branco: #FFFFFF;
 @vermelho: #DD0000;
 @preto: #333333;
+@amarelo: #FFFF00;
 
 @font-face {
     font-family: 'La-chata';
@@ -97,7 +98,7 @@ body{
 }
 
 .dado-destaque{
-    font-size: 1500%;
+    font-size: 1300%;
     margin-bottom: 0;
 }
 
@@ -182,12 +183,17 @@ input[type="submit"]{
     background-color: @cinza;
 }
 
-#modal-parada .modal-content{
+#modal-parada{
+    overflow: hidden;
+}
+
+#modal-parada .modal-content, #modal-horarios .modal-content{
     background-color: @cinza;
     color: @branco;
 }
 
-#modal-parada .modal-header, #modal-parada .modal-footer{
+#modal-parada .modal-header, #modal-parada .modal-footer, 
+#modal-horarios .modal-header, #modal-horarios .modal-footer{
     border-color: darken(@cinza, 10%);
 }
 
@@ -199,6 +205,11 @@ input[type="submit"]{
     margin-bottom: 0;
 }
 
+#tabela-horarios{
+    width: 70%;
+    margin-left: 15%;
+}
+
 #tabela-itinerarios tr{
     padding: 5px;
     border: 1px solid @cinza-escuro;
@@ -206,7 +217,11 @@ input[type="submit"]{
     border-right: 0;
 }
 
-#tabela-itinerarios td{
+#tabela-horarios td{
+    padding: 5px;
+}
+
+#tabela-itinerarios td, #tabela-horarios td{
     vertical-align: middle;
     border: 0;
 }
@@ -229,8 +244,8 @@ input[type="submit"]{
     position: absolute;
     margin: 0 auto;
     margin-top: 30px;
-    z-index: 3000;
-    left: 500px;
+    z-index: 1000;
+    left: 450px;
     border-radius: 5px !important;
     border: 2px solid @cinza;
     padding: 10px;
@@ -246,6 +261,15 @@ input[type="submit"]{
 .clearable.x  { background-position: right 5px center; } /* (jQ) Show icon */
 .clearable.onX{ cursor: pointer; }              /* (jQ) hover cursor style */
 .clearable::-ms-clear {display: none; width:0; height:0;} /* Remove IE default X */
+
+.obs-horario{
+    color: @amarelo;
+}
+
+#rodape img{
+    width: 10% !important;
+    height: auto;
+}
 
 // mobile
 
@@ -267,6 +291,20 @@ input[type="submit"]{
 
     #funcionalidades{
         font-size: 80%;
+    }
+    
+    #logo{
+        height: 70%;
+        margin-left: 1%;
+    }
+    
+    #pac-input{
+        left: 25%;
+        width: 70%;
+    }
+    
+    #rodape img{
+        width: 20% !important;
     }
 
 }

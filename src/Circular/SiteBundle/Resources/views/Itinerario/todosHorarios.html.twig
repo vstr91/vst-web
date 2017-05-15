@@ -1,13 +1,54 @@
 {# empty Twig template #}
+<table id="tabela-horarios">
 {% for horario in horarios %}
-{% if horario.horario|date('H:i') == hora %}
-<span class="destaque">{{ horario.horario|date('H:i') }}</span>
-{% else %}
-<span>{{ horario.horario|date('H:i') }}</span>
-{% endif %}
-{% if loop.last == false and loop.index is not divisibleby(5) %}
- - 
-{% else %}
- <br />
-{% endif %}
+    <tr>
+        {% if horario.horario|date('H:i') == hora %}
+            <td><span class="destaque">{{ horario.horario|date('H:i') }}</span></td>
+        {% else %}
+            <td><span>{{ horario.horario|date('H:i') }}</span></td>
+        {% endif %}
+        <td>{% if horario.domingo == -1 %} 
+                <img src="{{ asset('imagens/circular/dias/domingo.png') }}" /> 
+            {% else %}
+                <img src="{{ asset('imagens/circular/dias/domingo-gc.png') }}" />
+            {% endif %}
+        </td>
+        <td>{% if horario.segunda == -1 %} 
+                <img src="{{ asset('imagens/circular/dias/segunda.png') }}" /> 
+            {% else %}
+                <img src="{{ asset('imagens/circular/dias/segunda-gc.png') }}" />
+            {% endif %}
+        </td>
+        <td>{% if horario.terca == -1 %} 
+                <img src="{{ asset('imagens/circular/dias/terca.png') }}" /> 
+            {% else %}
+                <img src="{{ asset('imagens/circular/dias/terca-gc.png') }}" />
+            {% endif %}
+        </td>
+        <td>{% if horario.quarta == -1 %} 
+                <img src="{{ asset('imagens/circular/dias/quarta.png') }}" /> 
+            {% else %}
+                <img src="{{ asset('imagens/circular/dias/quarta-gc.png') }}" />
+            {% endif %}
+        </td>
+        <td>{% if horario.quinta == -1 %} 
+                <img src="{{ asset('imagens/circular/dias/quinta.png') }}" /> 
+            {% else %}
+                <img src="{{ asset('imagens/circular/dias/quinta-gc.png') }}" />
+            {% endif %}
+        </td>
+        <td>{% if horario.sexta == -1 %} 
+                <img src="{{ asset('imagens/circular/dias/sexta.png') }}" /> 
+            {% else %}
+                <img src="{{ asset('imagens/circular/dias/sexta-gc.png') }}" />
+            {% endif %}
+        </td>
+        <td>{% if horario.sabado == -1 %} 
+                <img src="{{ asset('imagens/circular/dias/sabado.png') }}" /> 
+            {% else %}
+                <img src="{{ asset('imagens/circular/dias/sabado-gc.png') }}" />
+            {% endif %}
+        </td>
+    </tr>
 {% endfor %}
+</table>

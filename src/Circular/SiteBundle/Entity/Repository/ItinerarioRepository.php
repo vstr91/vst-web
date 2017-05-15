@@ -57,7 +57,8 @@ class ItinerarioRepository extends EntityRepository
     
     public function listarTodosHorarios($itinerario, $limite = null){
         $qb = $this->createQueryBuilder('i')
-                ->select('h.id', 'h.nome AS horario')
+                ->select('h.id', 'h.nome AS horario', 'hi.domingo', 'hi.segunda', 'hi.terca', 
+                        'hi.quarta', 'hi.quinta', 'hi.sexta', 'hi.sabado')
                 //->select('p')
                 ->distinct()
                 ->leftJoin("CircularSiteBundle:HorarioItinerario", "hi", "WITH", "hi.itinerario = i.id")

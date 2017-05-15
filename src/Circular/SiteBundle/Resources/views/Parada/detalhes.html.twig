@@ -22,10 +22,12 @@
                         x {{ hi.itinerario.destino.local.nome }}
                         <br /><small>{{ hi.itinerario.observacao }}</small>
                 </td>
-                <td>{{ hi.horario.nome|date('H:i') }}</td>
+                <td>{{ hi.horario.nome|date('H:i') }}<br /><span class="obs-horario">{{ hi.obs }}</span></td>
+                <td><a href="#{{ hi.itinerario.id }}" data-hora="{{ hi.horario.nome|date('H:i') }}" class="link-horarios">Ver Hor&aacute;rios</a></td>
             {% else %}
                 <td>{{ hi.itinerario.partida.nome }} x {{ hi.itinerario.destino.nome }}</td>
-                <td>{{ hi.horario.nome|date('H:i') }}</td>
+                <td>{{ hi.horario.nome|date('H:i') }}<br /><span class="obs-horario">{{ hi.obs }}</span></td>
+                <td><a href="#{{ hi.itinerario.id }}" data-hora="{{ hi.horario.nome|date('H:i') }}" class="link-horarios">Ver Hor&aacute;rios</a></td>
             {% endif %}
             </tr>
             {% else %}
@@ -37,6 +39,25 @@
         <script type="text/javascript">
             $(document).ready(function(){
                 $('#container-tabela-itinerarios').mCustomScrollbar();
+                $('.link-horarios').click(function(){
+                    
+                    $id = $(this).attr('href').replace('#', '');
+                    $hora = $(this).data('hora');
+                    
+                    $url = '{{ path('circular_site_itinerario_todos_horarios', {'id_itinerario': -1, 'hora': -2}) }}';
+                    $url = $url.replace('-1', $id).replace('-2', $hora);
+                    
+                    $.ajax({
+                    type: 'GET',
+                            url: $url,
+                            success: function(response) {
+                                $('#body-horarios').html(response);
+                                $('#modal-horarios').modal('show');
+                            }
+                    });
+                    
+                    return false;
+                });
             });
         </script>
     

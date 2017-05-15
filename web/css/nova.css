@@ -72,7 +72,7 @@ and open the template in the editor.
   color: #DD0000;
 }
 .dado-destaque {
-  font-size: 1500%;
+  font-size: 1300%;
   margin-bottom: 0;
 }
 .texto-destaque {
@@ -144,12 +144,18 @@ input[type="submit"] {
   color: #DD0000;
   background-color: #333333;
 }
-#modal-parada .modal-content {
+#modal-parada {
+  overflow: hidden;
+}
+#modal-parada .modal-content,
+#modal-horarios .modal-content {
   background-color: #333333;
   color: #FFFFFF;
 }
 #modal-parada .modal-header,
-#modal-parada .modal-footer {
+#modal-parada .modal-footer,
+#modal-horarios .modal-header,
+#modal-horarios .modal-footer {
   border-color: #1a1a1a;
 }
 #tabela-itinerarios {
@@ -159,13 +165,21 @@ input[type="submit"] {
   border: 0;
   margin-bottom: 0;
 }
+#tabela-horarios {
+  width: 70%;
+  margin-left: 15%;
+}
 #tabela-itinerarios tr {
   padding: 5px;
   border: 1px solid #232323;
   border-left: 0;
   border-right: 0;
 }
-#tabela-itinerarios td {
+#tabela-horarios td {
+  padding: 5px;
+}
+#tabela-itinerarios td,
+#tabela-horarios td {
   vertical-align: middle;
   border: 0;
 }
@@ -185,8 +199,8 @@ input[type="submit"] {
   position: absolute;
   margin: 0 auto;
   margin-top: 30px;
-  z-index: 3000;
-  left: 500px;
+  z-index: 1000;
+  left: 450px;
   border-radius: 5px !important;
   border: 2px solid #333333;
   padding: 10px;
@@ -213,6 +227,13 @@ input[type="submit"] {
   height: 0;
 }
 /* Remove IE default X */
+.obs-horario {
+  color: #FFFF00;
+}
+#rodape img {
+  width: 10% !important;
+  height: auto;
+}
 @media (max-width: 768px) {
   #imagem-topo {
     width: 80%;
@@ -227,6 +248,17 @@ input[type="submit"] {
   }
   #funcionalidades {
     font-size: 80%;
+  }
+  #logo {
+    height: 70%;
+    margin-left: 1%;
+  }
+  #pac-input {
+    left: 25%;
+    width: 70%;
+  }
+  #rodape img {
+    width: 20% !important;
   }
 }
 /*# sourceMappingURL=nova.css.map */

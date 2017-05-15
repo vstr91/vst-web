@@ -35,10 +35,16 @@
 {#                    <a href="#" class="navbar-brand">Vostr&egrave;</a>#}
                     <a href="{{ path('circular_site_homepage') }}" class="navbar-brand">
                         <img src="{{ asset('imagens/circular/logo-branca.png') }}" id="logo" /></a>
+                    <a href="https://play.google.com/store/apps/details?id=br.com.vostre.circular" 
+                       target="_blank" class="navbar-text navbar-right visible-xs" 
+                       id="banner-google">
+                                <img alt="Get it on Google Play"
+                                     src="https://developer.android.com/images/brand/pt-br_generic_rgb_wo_45.png" />
+                            </a>
                 </div>
                 <div class="collapse navbar-collapse">
                     <a href="https://play.google.com/store/apps/details?id=br.com.vostre.circular" 
-                       target="_blank" class="navbar-text navbar-right" 
+                       target="_blank" class="navbar-text navbar-right hidden-xs" 
                        id="banner-google">
                                 <img alt="Get it on Google Play"
                                      src="https://developer.android.com/images/brand/pt-br_generic_rgb_wo_45.png" />
@@ -125,10 +131,11 @@
                                 <li>Quadro de Hor&aacute;rios</li>
                                 <li>Pr&oacute;ximo Hor&aacute;rio Dispon&iacute;vel</li>
                                 <li>Tarifas</li>
-                                <li>Dados Dispon&iacute;veis Offline</li>
-                                <li>Realidade Aumentada</li>
-                                <li>Se&ccedil;&otilde;es <span class="badge badge-vermelha">Novo!</span></li>
-                                <li>Itiner&aacute;rios e Paradas Favoritas <span class="badge badge-vermelha">Novo!</span></li>
+                                {#<li>Dados Dispon&iacute;veis Offline</li>#}
+                                <li>Se&ccedil;&otilde;es</li>
+                                <li>Itiner&aacute;rios e Paradas Favoritas</li>
+                                <li>Mensagens</li>
+                                <li>Modo Mapa <span class="badge badge-vermelha">Novo!</span></li>
                             </ul>
                             <br />
                         </div>
@@ -137,11 +144,13 @@
                         <div class="col-md-12">
                             <p>Todos os dados s&atilde;o colhidos de fontes oficias, ou seja, 
                                 informa&ccedil;&otilde;es prestadas pela pr&oacute;pria empresa respons&aacute;vel pelo 
-                                itiner&aacute;rio. 
+                                itiner&aacute;rio, seja por ve&iacute;culos oficiais ou por cartazes e afins colados em 
+                                rodovi&aacute;rias e pontos de parada. 
                                 <span class="destaque">N&atilde;o h&aacute;, atualmente, qualquer v&iacute;nculo com qualquer 
-                                    empresa p&uacute;blica ou privada.</span></p>
+                                    empresa p&uacute;blica ou privada. Os dados s&atilde;o sempre colhidos e atualizados nas 
+                                    formas listadas acima.</span></p>
                             <p>Caso verifique alguma inconsist&ecirc;ncia nos dados apresentados, por favor 
-                                <a data-scroll href="#contato">nos informe</a> e 
+                                <a class="link-menu" href="#contato">nos informe</a> e 
                                 faremos a corre&ccedil;&atilde;o o mais breve poss&iacute;vel.</p>
                         </div>
                     </div>
@@ -208,9 +217,10 @@
                         <div class="col-md-12">
                             <br />
                             <br />
-                            <p class="text-center text">&COPY; Vostr&egrave; 2015-2017 - Desenvolvido por Almir Junior</p>
-                            <p class="text-center"><img style="width: 10%; height: auto;" 
-                                                        src="{{ asset('imagens/-logo-branca-20.png') }}"</p>
+                            <p class="text-center text">&COPY; Vostr&egrave; 2015-2017<br />Desenvolvido por Almir Junior</p>
+                            <p class="text-center">
+                                <a href="http://vostre.com.br" target="_blank">
+                                    <img src="{{ asset('imagens/-logo-branca-20.png') }}" /></a></p>
                             <p class="text-center">contato@vostre.com.br</p>
                         </div>
                     </div>
@@ -226,6 +236,23 @@
                         <h4 class="modal-title">Detalhes da Parada</h4>
                     </div>
                     <div class="modal-body" id="body-parada">
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+                            
+        <div class="modal fade" id="modal-horarios">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">Todos os Hor&aacute;rios</h4>
+                    </div>
+                    <div class="modal-body" id="body-horarios">
 
                     </div>
                     <div class="modal-footer">

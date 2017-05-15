@@ -158,6 +158,9 @@ class ParadaController extends Controller {
             $hi->setHorario($horario);
             $hi->setItinerario($itinerario);
             
+            $hi = $em->getRepository('CircularSiteBundle:HorarioItinerario')
+                    ->findOneBy(array('horario' => $horario, 'itinerario' => $itinerario));
+            
             $itinerarios[] = $hi;
         }
         
@@ -166,7 +169,8 @@ class ParadaController extends Controller {
         return $this->render('CircularSiteBundle:Parada:detalhes.html.twig', 
                 array(
                     'parada' => $parada,
-                    'itinerarios' => $itinerarios
+                    'itinerarios' => $itinerarios,
+                    'hora' => new \DateTime()
                 ));
     }
     
