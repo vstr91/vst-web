@@ -40,7 +40,7 @@
             $(document).ready(function(){
                 $('#container-tabela-itinerarios').mCustomScrollbar();
                 $('.link-horarios').click(function(){
-                    
+                    carregaModalLoad();
                     $id = $(this).attr('href').replace('#', '');
                     $hora = $(this).data('hora');
                     
@@ -52,6 +52,7 @@
                             url: $url,
                             success: function(response) {
                                 $('#body-horarios').html(response);
+                                fechaModalLoad();
                                 $('#modal-horarios').modal('show');
                             }
                     });

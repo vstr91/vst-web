@@ -58,12 +58,13 @@ class ItinerarioRepository extends EntityRepository
     public function listarTodosHorarios($itinerario, $limite = null){
         $qb = $this->createQueryBuilder('i')
                 ->select('h.id', 'h.nome AS horario', 'hi.domingo', 'hi.segunda', 'hi.terca', 
-                        'hi.quarta', 'hi.quinta', 'hi.sexta', 'hi.sabado')
+                        'hi.quarta', 'hi.quinta', 'hi.sexta', 'hi.sabado', 'hi.obs')
                 //->select('p')
                 ->distinct()
                 ->leftJoin("CircularSiteBundle:HorarioItinerario", "hi", "WITH", "hi.itinerario = i.id")
                 ->leftJoin("CircularSiteBundle:Horario", "h", "WITH", "h.id = hi.horario")
                 ->andWhere('i.id = :itinerario')
+                ->andWhere('hi.domingo = -1 OR hi.segunda = -1 OR hi.terca = -1 OR hi.quarta = -1 OR hi.quinta = -1 OR hi.sexta = -1 OR hi.sabado = -1')
                 ->setParameter('itinerario', $itinerario)
                 ->addOrderBy('h.nome');
         

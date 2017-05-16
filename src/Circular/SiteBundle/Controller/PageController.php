@@ -43,7 +43,7 @@ class PageController extends Controller {
         
         $qtdItinerarios = $em->getRepository('CircularSiteBundle:Itinerario')->listarRegistrosAtivosVinculados()['total'];
         $qtdParadas = $em->getRepository('CircularSiteBundle:Parada')->listarRegistrosAtivosVinculados()['total'];
-        $qtdLocais = $em->getRepository('VostreLocalBundle:Local')->listarRegistrosAtivosVinculados()['total'];
+        $qtdLocais = $em->getRepository('VostreLocalBundle:Bairro')->listarRegistrosAtivosVinculados()['total'];
         $qtdEstados = $em->getRepository('VostreLocalBundle:Estado')->listarRegistrosAtivosVinculados()['total'];
         $qtdEmpresas = $em->getRepository('CircularSiteBundle:Empresa')->listarRegistrosAtivosVinculados()['total'];
         

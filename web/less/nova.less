@@ -153,7 +153,7 @@ input[type="submit"]{
 }
 
 #mapa{
-    min-height: 300px;
+    min-height: 450px;
     width: 100%;
 }
 
@@ -237,15 +237,15 @@ input[type="submit"]{
     opacity: 0.6 !important;
 }
 
-#pac-input{
+#pac-input, #pac-input-mob{
     color: @cinza !important;
     border-radius: 5px;
-    width: 500px;
-    position: absolute;
-    margin: 0 auto;
-    margin-top: 30px;
+    width: 70%;
+    margin: 5px;
+    position: relative;
+    margin-top: 0;
     z-index: 1000;
-    left: 450px;
+    margin-left: 15%;
     border-radius: 5px !important;
     border: 2px solid @cinza;
     padding: 10px;
@@ -269,6 +269,20 @@ input[type="submit"]{
 #rodape img{
     width: 10% !important;
     height: auto;
+}
+
+#modal-load .modal-content{
+    background-color: @preto;
+    color: @branco;
+    -webkit-box-shadow: 0 5px 15px rgba(0,0,0,0);
+    -moz-box-shadow: 0 5px 15px rgba(0,0,0,0);
+    -o-box-shadow: 0 5px 15px rgba(0,0,0,0);
+    box-shadow: 0 5px 15px rgba(0,0,0,0);
+    border: 0;
+}
+
+.destaque-amarelo{
+    color: @amarelo;
 }
 
 // mobile
@@ -298,13 +312,39 @@ input[type="submit"]{
         margin-left: 1%;
     }
     
-    #pac-input{
-        left: 25%;
-        width: 70%;
+    #rodape img{
+        width: 40% !important;
     }
     
-    #rodape img{
-        width: 20% !important;
+    #mapa{
+        min-height: 200px;
+        height: 200px;
+    }
+    
+    .v-infowindow{
+        background-color: @cinza;
+        text-align: center;
+        border: 1px solid black;
+        font-weight: bold;
+        font-size: 10px;
+        min-width: 160px;
+        width: auto;
+        padding: 1%;
+        border-radius: 3px;
+    }
+    
+    .v-botao-collapse .icon-bar{
+        background-color: @branco;
+    }
+    
+    #banner-google{
+        text-align: center;
+        clear: both;
+    }
+    
+    #tabela-horarios{
+        margin-left: 0;
+        width: 100%;
     }
 
 }

@@ -49,6 +49,13 @@
                 <img src="{{ asset('imagens/circular/dias/sabado-gc.png') }}" />
             {% endif %}
         </td>
+        {% if horario.obs is defined %}
+            <td>
+                <tr>
+                    <td colspan="8" class="text-center destaque-amarelo">{{ horario.obs }}</td>
+                </tr>
+            </td>
+        {% endif %}
     </tr>
 {% endfor %}
 </table>

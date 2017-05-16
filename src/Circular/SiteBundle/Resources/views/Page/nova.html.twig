@@ -35,12 +35,15 @@
 {#                    <a href="#" class="navbar-brand">Vostr&egrave;</a>#}
                     <a href="{{ path('circular_site_homepage') }}" class="navbar-brand">
                         <img src="{{ asset('imagens/circular/logo-branca.png') }}" id="logo" /></a>
+                        <p class="visible-xs"></p>
                     <a href="https://play.google.com/store/apps/details?id=br.com.vostre.circular" 
                        target="_blank" class="navbar-text navbar-right visible-xs" 
                        id="banner-google">
                                 <img alt="Get it on Google Play"
                                      src="https://developer.android.com/images/brand/pt-br_generic_rgb_wo_45.png" />
                             </a>
+                    <input id="pac-input-mob" type="text" placeholder="Pesquisar Local..." style="color: #333; clear: both;" 
+                           class="clearable visible-xs">
                 </div>
                 <div class="collapse navbar-collapse">
                     <a href="https://play.google.com/store/apps/details?id=br.com.vostre.circular" 
@@ -54,14 +57,18 @@
                         <li><a href="#dados" class="link-menu">ALGUNS DADOS</a></li>
                         <li><a href="#contato" class="link-menu">ENTRE EM CONTATO</a></li>
                     </ul>
+                    <br />
+                    <input id="pac-input" type="text" placeholder="Pesquisar Local..." style="color: #333; clear: both" 
+                           class="clearable hidden-xs">
                 </div>
             </div>
         </div>
         {% endblock %}
         <div id="conteudo-scroll">
             <div class="section text-center" data-section-name="topo" id="topo">
-                <input id="pac-input" type="text" placeholder="Pesquisar Local..." style="color: #333" class="clearable">
-                <div id="mapa" style="min-height: 450px"></div>
+                {#<input id="pac-input" type="text" placeholder="Pesquisar Local..." style="color: #333" 
+                       class="clearable hidden-xs">#}
+                <div id="mapa" {#style="min-height: 450px"#}></div>
                 {#<p class="text-center"><img id="imagem-topo" 
                                             src="{{ asset('imagens/circular/banner-novo.png') }}"</p>
                 <p class="text-center texto-destaque 
@@ -117,7 +124,8 @@
                         <div class="col-md-12">
                             <p>Aplicativo de mobilidade urbana voltado inicialmente para o Sul do Estado do Rio de Janeiro e 
                                 regi&otilde;es pr&oacute;ximas. Traz de maneira simples e r&aacute;pida a informa&ccedil;&atilde;o 
-                                sempre que voc&ecirc; precisar.</p>
+                                sempre que voc&ecirc; precisar, mesmo que n&atilde;o haja conex&atilde;o com a internet 
+                                no momento.</p>
                             <br />
                             <p>Voc&ecirc; vai encontrar no Circular:</p>
                             <br />
@@ -134,15 +142,19 @@
                                 {#<li>Dados Dispon&iacute;veis Offline</li>#}
                                 <li>Se&ccedil;&otilde;es</li>
                                 <li>Itiner&aacute;rios e Paradas Favoritas</li>
-                                <li>Mensagens</li>
+                                <li>Quadro de Mensagens</li>
                                 <li>Modo Mapa <span class="badge badge-vermelha">Novo!</span></li>
+                                <li>Observa&ccedil;&otilde;es de Hor&aacute;rios 
+                                    <span class="badge badge-vermelha">Novo!</span></li>
+                                <li>Taxa de Embarque <span class="badge badge-vermelha">Novo!</span></li>
+                                
                             </ul>
                             <br />
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <p>Todos os dados s&atilde;o colhidos de fontes oficias, ou seja, 
+                            <p>Todos os dados s&atilde;o colhidos de fontes oficiais, ou seja, 
                                 informa&ccedil;&otilde;es prestadas pela pr&oacute;pria empresa respons&aacute;vel pelo 
                                 itiner&aacute;rio, seja por ve&iacute;culos oficiais ou por cartazes e afins colados em 
                                 rodovi&aacute;rias e pontos de parada. 
@@ -150,8 +162,8 @@
                                     empresa p&uacute;blica ou privada. Os dados s&atilde;o sempre colhidos e atualizados nas 
                                     formas listadas acima.</span></p>
                             <p>Caso verifique alguma inconsist&ecirc;ncia nos dados apresentados, por favor 
-                                <a class="link-menu" href="#contato">nos informe</a> e 
-                                faremos a corre&ccedil;&atilde;o o mais breve poss&iacute;vel.</p>
+                                <a class="link-menu" href="#contato">nos informe</a>! 
+                                Faremos a corre&ccedil;&atilde;o o mais breve poss&iacute;vel.</p>
                         </div>
                     </div>
                 </div>
@@ -175,9 +187,10 @@
                             <p><span class="dado-subdestaque counter">{{ qtdParadas }}</span> 
                                 <span class="texto-subdestaque">paradas</span></p>
                             <p><span class="dado-subdestaque counter">{{ locais }}</span> 
-                                <span class="texto-subdestaque">cidades / distritos</span></p>
+                                <span class="texto-subdestaque">bairros</span></p>
                             <p><span class="dado-subdestaque counter">{{ estados }}</span> <span class="texto-subdestaque">estados</span></p>
                             <p><span class="dado-subdestaque counter">{{ empresas }}</span> <span class="texto-subdestaque">empresas</span></p>
+                            <h4>e contando...</h4>
                         </div>
                     </div>
                 </div>
@@ -261,6 +274,19 @@
                 </div>
             </div>
         </div>
+        
+        <div class="modal fade" id="modal-load">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body" id="content-load">
+                    <div class="modal-inner text-center">
+                        <h3 class="text-center">Carregando dados... por favor aguarde.</h3>
+                        <img src="{{ asset('imagens/load.gif') }}" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
                             
     </body>
 
@@ -320,10 +346,19 @@
             type: 'GET',
                     url: $url,
                     success: function(response) {
-                    $('#body-parada').html(response);
-                            $('#modal-parada').modal('show');
+                        $('#body-parada').html(response);
+                        fechaModalLoad();
+                        $('#modal-parada').modal('show');
                     }
             });
+        }
+        
+        function carregaModalLoad(){
+            $('#modal-load').modal('show');
+        }
+        
+        function fechaModalLoad(){
+            $('#modal-load').modal('hide');
         }
         
         $(document).ready(function () {
@@ -474,6 +509,7 @@
                             $(".v-infowindow").fadeOut(500);
                         },
                         click: function(marker, event, context){
+                            carregaModalLoad();
                             $uf = context.data.uf;
                             $local = context.data.local;
                             $bairro = context.data.bairro;
@@ -498,6 +534,23 @@
                     map.panTo(place.geometry.location)
                 }
             });
+            
+            // MOB
+            
+            var autocompleteMob = new google.maps.places.Autocomplete(document.getElementById('pac-input-mob'));
+            
+            google.maps.event.addListener(autocompleteMob, 'place_changed', function () {
+                var place = autocompleteMob.getPlace();
+                if (typeof place == "undefined") {
+                    window.alert("Not found!");
+                }
+                else{
+                    globalPlace = place;
+                    map.panTo(place.geometry.location)
+                }
+            });
+            
+            // FIM MOB
             
             $('.link-menu').click(function(){
                 $id = $(this).attr('href');

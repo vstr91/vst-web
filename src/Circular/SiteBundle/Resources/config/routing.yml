@@ -1,5 +1,5 @@
 circular_site_homepage:
-    pattern:  /
+    pattern:  /circular
     defaults: { _controller: CircularSiteBundle:Page:nova }
     
 circular_site_lista_itinerarios_parada:

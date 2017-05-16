@@ -100,4 +100,17 @@ class BairroRepository extends EntityRepository
         
     }
     
+    public function listarRegistrosAtivosVinculados(){
+        $qb = $this->createQueryBuilder('b')
+                ->select('COUNT(DISTINCT b.id) AS total')
+                //->select('p')
+//                ->distinct()
+                ->innerJoin("CircularSiteBundle:Parada", "p", "WITH", "p.bairro = b.id")
+                ->innerJoin("CircularSiteBundle:ParadaItinerario", "pit", "WITH", "pit.parada = p.id")
+                ;
+        
+        return $qb->getQuery()->getOneOrNullResult();
+        
+    }
+    
 }

@@ -116,7 +116,7 @@ input[type="submit"] {
   margin-top: 5%;
 }
 #mapa {
-  min-height: 300px;
+  min-height: 450px;
   width: 100%;
 }
 .v-infowindow {
@@ -192,15 +192,16 @@ input[type="submit"] {
 .ps-scrollbar-y-rail {
   opacity: 0.6 !important;
 }
-#pac-input {
+#pac-input,
+#pac-input-mob {
   color: #333333 !important;
   border-radius: 5px;
-  width: 500px;
-  position: absolute;
-  margin: 0 auto;
-  margin-top: 30px;
+  width: 70%;
+  margin: 5px;
+  position: relative;
+  margin-top: 0;
   z-index: 1000;
-  left: 450px;
+  margin-left: 15%;
   border-radius: 5px !important;
   border: 2px solid #333333;
   padding: 10px;
@@ -234,6 +235,18 @@ input[type="submit"] {
   width: 10% !important;
   height: auto;
 }
+#modal-load .modal-content {
+  background-color: #333333;
+  color: #FFFFFF;
+  -webkit-box-shadow: 0 5px 15px rgba(0, 0, 0, 0);
+  -moz-box-shadow: 0 5px 15px rgba(0, 0, 0, 0);
+  -o-box-shadow: 0 5px 15px rgba(0, 0, 0, 0);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0);
+  border: 0;
+}
+.destaque-amarelo {
+  color: #FFFF00;
+}
 @media (max-width: 768px) {
   #imagem-topo {
     width: 80%;
@@ -253,12 +266,34 @@ input[type="submit"] {
     height: 70%;
     margin-left: 1%;
   }
-  #pac-input {
-    left: 25%;
-    width: 70%;
-  }
   #rodape img {
-    width: 20% !important;
+    width: 40% !important;
+  }
+  #mapa {
+    min-height: 200px;
+    height: 200px;
+  }
+  .v-infowindow {
+    background-color: #333333;
+    text-align: center;
+    border: 1px solid black;
+    font-weight: bold;
+    font-size: 10px;
+    min-width: 160px;
+    width: auto;
+    padding: 1%;
+    border-radius: 3px;
+  }
+  .v-botao-collapse .icon-bar {
+    background-color: #FFFFFF;
+  }
+  #banner-google {
+    text-align: center;
+    clear: both;
+  }
+  #tabela-horarios {
+    margin-left: 0;
+    width: 100%;
   }
 }
 /*# sourceMappingURL=nova.css.map */
