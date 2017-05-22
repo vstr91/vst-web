@@ -82,19 +82,22 @@ class BairroController extends Controller {
     }
     
     public function detalhesAction($sigla, $local, $slug) {
-        $em = $this->getDoctrine()->getManager();
         
-        $bairro = new Bairro();
+        return $this->redirect($this->generateUrl('circular_site_homepage'));
         
-        $bairro = $em->getRepository('VostreLocalBundle:Bairro')->carregar($sigla, $local, $slug);
-        
-        $paradas = $em->getRepository('CircularSiteBundle:Parada')->listarTodosVinculadosPorBairro($bairro->getId());
-        
-        return $this->render('VostreLocalBundle:Bairro:detalhes.html.twig', 
-                array(
-                    'bairro' => $bairro,
-                    'paradas' => $paradas
-                ));
+//        $em = $this->getDoctrine()->getManager();
+//        
+//        $bairro = new Bairro();
+//        
+//        $bairro = $em->getRepository('VostreLocalBundle:Bairro')->carregar($sigla, $local, $slug);
+//        
+//        $paradas = $em->getRepository('CircularSiteBundle:Parada')->listarTodosVinculadosPorBairro($bairro->getId());
+//        
+//        return $this->render('VostreLocalBundle:Bairro:detalhes.html.twig', 
+//                array(
+//                    'bairro' => $bairro,
+//                    'paradas' => $paradas
+//                ));
     }
     
 }

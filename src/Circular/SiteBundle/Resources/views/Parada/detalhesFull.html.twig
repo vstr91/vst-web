@@ -1,18 +1,17 @@
-{#{% extends "CircularSiteBundle:Page:interno.html.twig" %}
-{% block menu %}{% endblock menu %}#}
-{#{% block conteudo %}#}
+{% extends "CircularSiteBundle:Page:interno.html.twig" %}
+{#{% block menu %}{% endblock menu %}#}
+{% block conteudo %}
     <h3 class="text-center">{{ parada.referencia }}<br />
         {% if parada.bairro.local.tipo == 1 %}
             <small>{{ parada.bairro.nome }} ({{ parada.bairro.local.nome }}) - 
                 {{ parada.bairro.local.cidade.nome }}/{{ parada.bairro.local.estado.sigla }}</small>
             {% else %}
-            <small>{{ parada.bairro.nome }} - {{ parada.bairro.local.nome }}/
-                {#<a href="{{ path('circular_site_estado', {'sigla': parada.bairro.local.estado.sigla|lower}) }}">#}{{ parada.bairro.local.estado.sigla }}{#</a>#}</small>
+                <small>{{ parada.bairro.nome }} - {{ parada.bairro.local.nome }}</small>
         {% endif %}
     </h3>
     
     <h4 class="text-center">Pr&oacute;ximas Sa&iacute;das<br /><small>(Hor&aacute;rios de Sa&iacute;da da Origem)</small></h4>
-    <div id="container-tabela-itinerarios">
+    <div id="container-tabela-itinerarios-full">
         <table id="tabela-itinerarios" class="table">
         {% for hi in itinerarios %}
             <tr class="text-center">
@@ -36,9 +35,41 @@
         {% endfor %}
         </table>
     </div>
-        <script type="text/javascript">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <h4>Baixe agora mesmo o aplicativo e consulte onde estiver!</h4>
+                    <a href="https://play.google.com/store/apps/details?id=br.com.vostre.circular" 
+                       target="_blank">
+                                <img alt="Get it on Google Play"
+                                     src="https://developer.android.com/images/brand/pt-br_generic_rgb_wo_45.png" />
+                            </a>
+                    <br />
+                    <br />
+                    <p>
+                        <a href="{{ path('circular_site_homepage') }}" 
+                           id="link-voltar-pagina-inicial">Voltar para a p&aacute;gina inicial</a>
+                    </p>
+                    <br />
+                </div>
+            </div>
+        </div>
+{% endblock conteudo %}
+{% block js %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('js/jquery.mCustomScrollbar.concat.min.js') }}"></script>
+    <script type="text/javascript">
+            
+            function carregaModalLoad(){
+                $('#modal-load').modal('show');
+            }
+
+            function fechaModalLoad(){
+                $('#modal-load').modal('hide');
+            }
+            
             $(document).ready(function(){
-                $('#container-tabela-itinerarios').mCustomScrollbar();
+{#                $('#container-tabela-itinerarios').mCustomScrollbar();#}
                 $('.link-horarios').click(function(){
                     carregaModalLoad();
                     $id = $(this).attr('href').replace('#', '');
@@ -61,5 +92,4 @@
                 });
             });
         </script>
-    
-{#{% endblock conteudo %}#}
+{% endblock js %}

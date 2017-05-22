@@ -371,6 +371,7 @@ class ItinerarioController extends FOSRestController {
         $em = $this->getDoctrine()->getManager();
         
         $itinerario = new Itinerario();
+        $itinerario = $em->find('CircularSiteBundle:Itinerario', $id_itinerario);
         
         $horarios = $em->getRepository('CircularSiteBundle:Itinerario')
                 ->listarTodosHorarios($id_itinerario);
@@ -379,7 +380,8 @@ class ItinerarioController extends FOSRestController {
         return $this->render('CircularSiteBundle:Itinerario:todosHorarios.html.twig', 
                 array(
                     'horarios' => $horarios,
-                    'hora' => $hora
+                    'hora' => $hora,
+                    'itinerario' => $itinerario
                 ));
     }
     

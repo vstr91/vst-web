@@ -53,6 +53,8 @@ class EmpresaRepository extends EntityRepository
                 //->select('p')
 //                ->distinct()
                 ->innerJoin("CircularSiteBundle:Itinerario", "i", "WITH", "i.empresa = e.id")
+                ->innerJoin("CircularSiteBundle:HorarioItinerario", "hi", "WITH", "hi.itinerario = i.id")
+                ->andWhere('hi.status = 0')
                 ;
         
         return $qb->getQuery()->getOneOrNullResult();

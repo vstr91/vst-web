@@ -47,6 +47,8 @@ class EstadoRepository extends EntityRepository
                 ->innerJoin("VostreLocalBundle:Bairro", "b", "WITH", "b.local = l.id")
                 ->innerJoin("CircularSiteBundle:Parada", "p", "WITH", "p.bairro = b.id")
                 ->innerJoin("CircularSiteBundle:ParadaItinerario", "pit", "WITH", "pit.parada = p.id")
+                ->innerJoin("CircularSiteBundle:HorarioItinerario", "hi", "WITH", "hi.itinerario = pit.itinerario")
+                ->andWhere('hi.status = 0')
                 ;
         
         return $qb->getQuery()->getOneOrNullResult();

@@ -61,19 +61,22 @@ class EstadoController extends Controller {
     }
     
     public function detalhesAction($sigla) {
-        $em = $this->getDoctrine()->getManager();
         
-        $estado = new Estado();
+        return $this->redirect($this->generateUrl('circular_site_homepage'));
         
-        $estado = $em->getRepository('VostreLocalBundle:Estado')->findOneBy(array('sigla' => $sigla));
-        
-        $locais = $em->getRepository('VostreLocalBundle:Local')->listarTodosVinculadosPorEstado($estado);
-        
-        return $this->render('VostreLocalBundle:Estado:detalhes.html.twig', 
-                array(
-                    'estado' => $estado,
-                    'locais' => $locais
-                ));
+//        $em = $this->getDoctrine()->getManager();
+//        
+//        $estado = new Estado();
+//        
+//        $estado = $em->getRepository('VostreLocalBundle:Estado')->findOneBy(array('sigla' => $sigla));
+//        
+//        $locais = $em->getRepository('VostreLocalBundle:Local')->listarTodosVinculadosPorEstado($estado);
+//        
+//        return $this->render('VostreLocalBundle:Estado:detalhes.html.twig', 
+//                array(
+//                    'estado' => $estado,
+//                    'locais' => $locais
+//                ));
     }
     
 }

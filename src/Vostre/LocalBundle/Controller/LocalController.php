@@ -96,19 +96,22 @@ class LocalController extends Controller {
     }
     
     public function detalhesAction($sigla, $slug) {
-        $em = $this->getDoctrine()->getManager();
         
-        $local = new Local();
+        return $this->redirect($this->generateUrl('circular_site_homepage'));
         
-        $local = $em->getRepository('VostreLocalBundle:Local')->carregar($sigla, $slug);
-        
-        $bairros = $em->getRepository('VostreLocalBundle:Bairro')->listarTodosVinculadosPorLocal($local->getId());
-        
-        return $this->render('VostreLocalBundle:Local:detalhes.html.twig', 
-                array(
-                    'local' => $local,
-                    'bairros' => $bairros
-                ));
+//        $em = $this->getDoctrine()->getManager();
+//        
+//        $local = new Local();
+//        
+//        $local = $em->getRepository('VostreLocalBundle:Local')->carregar($sigla, $slug);
+//        
+//        $bairros = $em->getRepository('VostreLocalBundle:Bairro')->listarTodosVinculadosPorLocal($local->getId());
+//        
+//        return $this->render('VostreLocalBundle:Local:detalhes.html.twig', 
+//                array(
+//                    'local' => $local,
+//                    'bairros' => $bairros
+//                ));
     }
     
 }

@@ -1,4 +1,15 @@
 {# empty Twig template #}
+<h3 class="text-center">
+    {% if itinerario.partida.local != itinerario.destino.local %}
+                <td>
+                    {{ itinerario.partida.local.nome }} 
+                        x {{ itinerario.destino.local.nome }}
+                        <br /><small>{{ itinerario.observacao }}</small>
+                </td>
+            {% else %}
+                <td>{{ itinerario.partida.nome }} x {{ itinerario.destino.nome }}</td>
+            {% endif %}
+            </h3>
 <table id="tabela-horarios">
 {% for horario in horarios %}
     <tr>

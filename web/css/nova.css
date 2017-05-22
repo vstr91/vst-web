@@ -247,6 +247,23 @@ input[type="submit"] {
 .destaque-amarelo {
   color: #FFFF00;
 }
+.error {
+  color: #DD0000;
+}
+#logo-interno {
+  max-height: 100%;
+  width: 20%;
+}
+.text-branco {
+  color: #FFFFFF;
+}
+#link-voltar-pagina-inicial {
+  color: #FFFFFF;
+}
+#link-voltar-pagina-inicial:hover {
+  color: #DD0000;
+  text-decoration: underline;
+}
 @media (max-width: 768px) {
   #imagem-topo {
     width: 80%;
@@ -294,6 +311,9 @@ input[type="submit"] {
   #tabela-horarios {
     margin-left: 0;
     width: 100%;
+  }
+  #logo-interno {
+    width: 50%;
   }
 }
 /*# sourceMappingURL=nova.css.map */

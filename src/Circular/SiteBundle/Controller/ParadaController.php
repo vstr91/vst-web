@@ -138,6 +138,7 @@ class ParadaController extends Controller {
     
     public function detalhesAction($sigla, $local, $bairro, $slug) {
         $em = $this->getDoctrine()->getManager();
+        $request = $this->getRequest();
         
         $parada = new Parada();
         $itinerarios = array();
@@ -164,14 +165,25 @@ class ParadaController extends Controller {
             $itinerarios[] = $hi;
         }
         
-        //die(var_dump($itinerarios));
+        $ref = $request->headers->get('referer');
         
-        return $this->render('CircularSiteBundle:Parada:detalhes.html.twig', 
+        if(is_null($ref)){
+            return $this->render('CircularSiteBundle:Parada:detalhesFull.html.twig', 
                 array(
                     'parada' => $parada,
                     'itinerarios' => $itinerarios,
                     'hora' => new \DateTime()
                 ));
+        } else{
+            return $this->render('CircularSiteBundle:Parada:detalhes.html.twig', 
+                array(
+                    'parada' => $parada,
+                    'itinerarios' => $itinerarios,
+                    'hora' => new \DateTime()
+                ));
+        }
+        
+        
     }
     
 }

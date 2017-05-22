@@ -38,6 +38,8 @@ class ParadaRepository extends EntityRepository
                 ->distinct()
                 ->innerJoin("VostreLocalBundle:Bairro", "b", "WITH", "b.id = p.bairro")
                 ->innerJoin("CircularSiteBundle:ParadaItinerario", "pi", "WITH", "pi.parada = p.id")
+                ->innerJoin("CircularSiteBundle:HorarioItinerario", "hi", "WITH", "hi.itinerario = pi.itinerario")
+                ->andWhere('hi.status = 0')
                 ->addOrderBy('p.referencia');
         
         if(false == is_null($limite)){
@@ -283,6 +285,8 @@ ORDER BY h.id LIMIT 1
                 //->select('p')
 //                ->distinct()
                 ->innerJoin("CircularSiteBundle:ParadaItinerario", "pi", "WITH", "pi.parada = p.id")
+                ->innerJoin("CircularSiteBundle:HorarioItinerario", "hi", "WITH", "hi.itinerario = pi.itinerario")
+                ->andWhere('hi.status = 0')
                 ;
         
         return $qb->getQuery()->getOneOrNullResult();
